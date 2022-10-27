@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import Button from '../../components/Button'
 import Loading from '../../components/Loading'
 import { StrategicPlanService } from '../../services'
-import { getDate, getPath } from '../../utils'
+import { dateFormat, getPath } from '../../utils'
 import { search } from '../../icons'
 
 const StrategicPlans = () => {
@@ -37,14 +37,17 @@ const StrategicPlans = () => {
     )
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 gap-4">
       {strategicPlanList &&
         strategicPlanList.map((strategicPlan) => (
           <Fragment key={strategicPlan._id}>
             <div className="flex flex-col w-full aspect-video shadow hover:shadow-xl rounded-2xl p-2">
               <span className="text-xl text-center">{strategicPlan.title}</span>
+              <span className="text-center">
+                {strategicPlan.period.at(0).title} - {strategicPlan.period.at(-1).title}
+              </span>
               <div className="ml-auto mt-auto flex items-center gap-2">
-                {getDate(strategicPlan.createdAt)}
+                {dateFormat(strategicPlan.createdAt)}
                 <Button
                   as={Link}
                   to={getPath('strategicPlans.detail', { strategicPlanId: strategicPlan._id })}

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import Loading from '../../components/Loading'
 import { StrategicPlanService } from '../../services'
+import { dateFormat } from '../../utils'
 
 const StrategicPlanDetail = () => {
   const { strategicPlanId } = useParams()
@@ -36,10 +37,19 @@ const StrategicPlanDetail = () => {
     )
 
   return (
-    <div>
-      StrategicPlanDetail - {strategicPlanId}
-      <pre>{JSON.stringify(strategicPlan, null, 2)}</pre>
-    </div>
+    <>
+      {strategicPlan && (
+        <div className="flex flex-col">
+          {/* StrategicPlanDetail - {strategicPlanId} */}
+          {/* <pre>{JSON.stringify(strategicPlan, null, 2)}</pre> */}
+          <span className="text-xl">{strategicPlan.title}</span>
+          <span>
+            {strategicPlan.period.at(0).title} - {strategicPlan.period.at(-1).title}
+          </span>
+          <span>{dateFormat(strategicPlan.createdAt)}</span>
+        </div>
+      )}
+    </>
   )
 }
 export default StrategicPlanDetail
