@@ -4,6 +4,8 @@ import Loading from './components/Loading'
 const MainLayout = lazy(() => import('./layouts/MainLayout'))
 
 const HomePage = lazy(() => import('./pages/HomePage'))
+const StrategicPlans = lazy(() => import('./pages/StrategicPlans'))
+const StrategicPlanDetail = lazy(() => import('./pages/StrategicPlans/StrategicPlanDetail'))
 
 /** @type {import('react-router-dom').RouteObject[]} */
 const routes = [
@@ -16,6 +18,23 @@ const routes = [
         index: true,
         element: <HomePage />,
         lazy: true,
+      },
+      {
+        path: 'strategic-plans',
+        name: 'strategicPlans',
+        children: [
+          {
+            index: true,
+            element: <StrategicPlans />,
+            lazy: true,
+          },
+          {
+            path: ':strategicPlanId',
+            name: 'detail',
+            element: <StrategicPlanDetail />,
+            lazy: true,
+          },
+        ],
       },
     ],
   },

@@ -17,6 +17,14 @@ const MainLayout = () => {
           >
             Home
           </Button>
+          <Button
+            as={Link}
+            to={getPath('strategicPlans')}
+            className="flex-1"
+            variant="gray"
+          >
+            Stratejik Plan
+          </Button>
         </div>
         <div>
           <Outlet />
