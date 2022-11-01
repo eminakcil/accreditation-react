@@ -1,3 +1,4 @@
+import { getPath } from '@/utils'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
 
 const Navbar = () => {
@@ -45,14 +46,14 @@ const Navbar = () => {
           <NNavbar.Collapse>
             <div className="text-xl">
               <NNavbar.Link
-                href="/navbars"
+                href="/"
                 active={true}
               >
                 Ana Sayfa
               </NNavbar.Link>
             </div>
             <div className="text-xl">
-              <NNavbar.Link href="/navbars">Stratejik Plan</NNavbar.Link>
+              <NNavbar.Link href={getPath('strategicPlans')}>Stratejik Plan</NNavbar.Link>
             </div>
             <div className="text-xl">
               <NNavbar.Link href="/navbars">İş Planı</NNavbar.Link>
