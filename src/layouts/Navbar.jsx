@@ -1,15 +1,4 @@
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
-import {
-  FaHome,
-  FaRegChartBar,
-  FaPencilAlt,
-  FaExternalLinkAlt,
-  FaTasks,
-  FaPen,
-  FaCity,
-  FaEdit,
-  FaRegListAlt,
-} from 'react-icons/fa'
 
 const Navbar = () => {
   return (
@@ -18,11 +7,11 @@ const Navbar = () => {
         fluid={true}
         rounded={true}
       >
-        <NNavbar.Brand href="https://flowbite.com/">
+        <NNavbar.Brand>
           <img
-            src="src/public/indir.png"
+            src="/images/logo.png"
             className="mr-3 h-6 sm:h-9"
-            alt="Flowbite Logo"
+            alt="Logo"
           />
           <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
             Ereğli Ticaret ve Sanayi Odası
@@ -34,8 +23,8 @@ const Navbar = () => {
             inline={true}
             label={
               <Avatar
-                alt="User settings"
-                img="src/public/avatar.png"
+                alt="Kullanıcı"
+                img="/images/avatar.png"
                 rounded={true}
               />
             }
