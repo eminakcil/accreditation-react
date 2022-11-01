@@ -4,10 +4,12 @@ import Loading from './components/Loading'
 const MainLayout = lazy(() => import('./layouts/MainLayout'))
 
 const HomePage = lazy(() => import('./pages/HomePage'))
+
 const StrategicPlans = lazy(() => import('./pages/StrategicPlans'))
 const StrategicPlanDetail = lazy(() => import('./pages/StrategicPlans/StrategicPlanDetail'))
 
 /** @type {import('react-router-dom').RouteObject[]} */
+
 const routes = [
   {
     path: '/',
