@@ -1,36 +1,24 @@
-import { Link, Outlet } from 'react-router-dom'
-import Container from '../components/Container'
-import Button from '../components/Button'
-
-import { getPath } from '../utils'
+import { Outlet } from 'react-router-dom'
+import Footer from './Footer'
+import Navbar from './Navbar'
+import SideBar from './SideBar'
 
 const MainLayout = () => {
   return (
-    <Container>
-      <div className="flex flex-col gap-2">
-        <div className="flex justify-center gap-2 rounded border-solid border border-gray-400 p-6 w-full">
-          <Button
-            as={Link}
-            to={'/'}
-            className="flex-1"
-            variant="gray"
-          >
-            Home
-          </Button>
-          <Button
-            as={Link}
-            to={getPath('strategicPlans')}
-            className="flex-1"
-            variant="gray"
-          >
-            Stratejik Plan
-          </Button>
+    <>
+      <div>
+        <Navbar />
+        <div className="flex">
+          <div className="flex-shrink-0">
+            <SideBar />
+          </div>
+          <div className="flex-1 pr-8">
+            <Outlet />
+          </div>
         </div>
-        <div>
-          <Outlet />
-        </div>
+        <Footer />
       </div>
-    </Container>
+    </>
   )
 }
 export default MainLayout

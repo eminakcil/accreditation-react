@@ -44,7 +44,7 @@ const StrategicPlans = () => {
             <div className="flex flex-col w-full aspect-video shadow hover:shadow-xl rounded-2xl p-2">
               <span className="text-xl text-center">{strategicPlan.title}</span>
               <span className="text-center">
-                {strategicPlan.period.at(0).title} - {strategicPlan.period.at(-1).title}
+                {strategicPlan.period.at(0)?.title} - {strategicPlan.period.at(-1)?.title}
               </span>
               <div className="ml-auto mt-auto flex items-center gap-2">
                 {dateFormat(strategicPlan.createdAt)}
