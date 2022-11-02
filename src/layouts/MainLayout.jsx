@@ -12,7 +12,7 @@ const MainLayout = () => {
           <div className="flex-shrink-0">
             <SideBar />
           </div>
-          <div className="flex-1 pr-8">
+          <div className="flex-1 pr-8 pt-12">
             <Outlet />
           </div>
         </div>

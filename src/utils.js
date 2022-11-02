@@ -58,3 +58,11 @@ export const getDate = () => dayjs().format('DD.MM.YYYY')
 export const hourFormat = (hour) => (hour < 10 ? '0' : '') + hour
 
 export const getHour = (date) => dayjs(date).format('HH')
+
+export const getPeriodTitleByStrategicPlan = (strategicPlan, seperator = ' - ') => {
+  return ''.concat(
+    strategicPlan.period?.at(0)?.title,
+    seperator,
+    strategicPlan.period?.at(-1)?.title
+  )
+}

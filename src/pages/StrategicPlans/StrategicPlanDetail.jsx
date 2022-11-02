@@ -1,10 +1,14 @@
+import { getPeriodTitleByStrategicPlan } from '@/utils'
+import Divider from '@components/Divider'
+import { Card } from 'flowbite-react'
 import { useCallback } from 'react'
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import Loading from '../../components/Loading'
 import { StrategicPlanService } from '../../services'
+import Heading from './components/Heading'
 
 const StrategicPlanDetail = () => {
   const { strategicPlanId } = useParams()
@@ -12,6 +16,14 @@ const StrategicPlanDetail = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [strategicPlan, setStrategicPlan] = useState(false)
+
+  const [selectedStrategicGoalId, setSelectedStrategicGoalId] = useState(false)
+
+  const selectedStrategicGoal = useMemo(() => {
+    return strategicPlan.strategicGoals?.find(
+      (strategicGoal) => strategicGoal._id === selectedStrategicGoalId
+    )
+  }, [strategicPlan, selectedStrategicGoalId])
 
   const getPeriodGoal = useCallback(
     (strategicActivity, periodId) => {
@@ -49,7 +61,44 @@ const StrategicPlanDetail = () => {
     <>
       {strategicPlan && (
         <>
-          <table className="w-full">
+          <Card>
+            <div className="grid grid-cols-1 gap-6">
+              <div className="flex flex-col items-center">
+                <span className="text-xl">{strategicPlan.title}</span>
+                <span className="text-xl">{getPeriodTitleByStrategicPlan(strategicPlan)}</span>
+              </div>
+              <Divider />
+              <div className="flex gap-4">
+                <div className="w-[256px] flex-shrink-0 grid grid-cols-1 gap-4">
+                  <Heading>Hedef</Heading>
+                  {strategicPlan.strategicGoals.map((strategicGoal) => (
+                    <div
+                      className="h-min shadow hover:shadow-xl rounded-2xl px-2 py-6 select-none cursor-pointer"
+                      key={strategicGoal._id}
+                      onClick={() => setSelectedStrategicGoalId(strategicGoal._id)}
+                    >
+                      {strategicGoal.title}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex-1">
+                  <div className="grid grid-cols-1 gap-4">
+                    <Heading>Faaliyetler</Heading>
+                    {selectedStrategicGoal &&
+                      selectedStrategicGoal.strategicActivities.map((strategicActivity) => (
+                        <div
+                          className="shadow hover:shadow-xl rounded-2xl px-2 py-6 select-none cursor-pointer"
+                          key={strategicActivity._id}
+                        >
+                          {strategicActivity.title}
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+          {/* <table className="w-full">
             <thead>
               <tr>
                 <td>{strategicPlan.title}</td>
@@ -86,7 +135,7 @@ const StrategicPlanDetail = () => {
                 </Fragment>
               ))}
             </thead>
-          </table>
+          </table> */}
 
           {/* <pre>{JSON.stringify(strategicPlan, null, 2)}</pre> */}
         </>
