@@ -1,5 +1,6 @@
 import { getPeriodTitleByStrategicPlan } from '@/utils'
 import Divider from '@components/Divider'
+import classNames from 'classnames'
 import { Card } from 'flowbite-react'
 import { useCallback } from 'react'
 import { Fragment, useEffect, useMemo } from 'react'
@@ -48,6 +49,10 @@ const StrategicPlanDetail = () => {
       .finally(() => setLoading(false))
   }
 
+  const toggleSelectedStrategicGoalId = (strategicGoalId) => {
+    setSelectedStrategicGoalId((curr) => (curr !== strategicGoalId ? strategicGoalId : false))
+  }
+
   if (loading) return <Loading />
 
   if (error)
@@ -73,9 +78,14 @@ const StrategicPlanDetail = () => {
                   <Heading>Hedef</Heading>
                   {strategicPlan.strategicGoals.map((strategicGoal) => (
                     <div
-                      className="h-min shadow hover:shadow-xl rounded-2xl px-2 py-6 select-none cursor-pointer"
+                      className={classNames(
+                        'h-min shadow hover:shadow-xl rounded-2xl px-2 py-6 select-none cursor-pointer',
+                        {
+                          'bg-gray-100': selectedStrategicGoalId === strategicGoal._id,
+                        }
+                      )}
                       key={strategicGoal._id}
-                      onClick={() => setSelectedStrategicGoalId(strategicGoal._id)}
+                      onClick={() => toggleSelectedStrategicGoalId(strategicGoal._id)}
                     >
                       {strategicGoal.title}
                     </div>
