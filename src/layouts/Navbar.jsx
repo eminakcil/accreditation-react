@@ -46,14 +46,19 @@ const Navbar = () => {
           <NNavbar.Collapse>
             <div className="text-xl">
               <NNavbar.Link
+                active={window.location.pathname === getPath('/')}
                 href="/"
-                active={true}
               >
                 Ana Sayfa
               </NNavbar.Link>
             </div>
             <div className="text-xl">
-              <NNavbar.Link href={getPath('strategicPlans')}>Stratejik Plan</NNavbar.Link>
+              <NNavbar.Link
+                active={window.location.pathname === getPath('strategicPlans')}
+                href={getPath('strategicPlans')}
+              >
+                Stratejik Plan
+              </NNavbar.Link>
             </div>
             <div className="text-xl">
               <NNavbar.Link href="/navbars">İş Planı</NNavbar.Link>

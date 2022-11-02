@@ -1,3 +1,4 @@
+import { getPath } from '@/utils'
 import { Sidebar } from 'flowbite-react'
 import React from 'react'
 import {
@@ -23,13 +24,13 @@ const SideBar = () => {
           <Sidebar.Items>
             <Sidebar.ItemGroup>
               <Sidebar.Item
-                href="#"
+                href="/"
                 icon={FaHome}
               >
                 Ana Sayfa
               </Sidebar.Item>
               <Sidebar.Item
-                href="#"
+                href="/"
                 icon={FaCity}
               >
                 Oda Bilgileri
@@ -41,7 +42,7 @@ const SideBar = () => {
                 Yeni Stratejik Plan Oluştur
               </Sidebar.Item>
               <Sidebar.Item
-                href="#"
+                href={getPath('strategicPlans')}
                 icon={FaRegChartBar}
               >
                 Stratejik Planları Görüntüle
