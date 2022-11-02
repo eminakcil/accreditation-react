@@ -173,7 +173,7 @@ const HomePage = () => {
                           Yarınların Önemi Eğitimi
                         </p>
                         <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-                          Bülent ÖZEL
+                          Sorumlu : Bülent ÖZEL
                         </p>
                       </div>
                       <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
@@ -195,7 +195,7 @@ const HomePage = () => {
                           Wordpress Eğitimi
                         </p>
                         <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-                          Can SARIHAN
+                          Sorumlu : Can SARIHAN
                         </p>
                       </div>
                       <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
@@ -217,7 +217,7 @@ const HomePage = () => {
                           Üyelere Yönelik Yerinde Kobi Danışmanlığı
                         </p>
                         <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-                          Esra YILDIRIM
+                          Sorumlu : Esra YILDIRIM
                         </p>
                       </div>
                       <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
@@ -239,7 +239,7 @@ const HomePage = () => {
                           Sanal Kütüphane Oluşturmak
                         </p>
                         <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-                          Damla AKCİN
+                          Sorumlu : Damla AKCİN
                         </p>
                       </div>
                       <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
