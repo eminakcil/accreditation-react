@@ -1,4 +1,5 @@
 import { getPath } from '@/utils'
+import NavbarLink from '@components/NavbarLink'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
 import { FaSearch } from 'react-icons/fa'
 
@@ -89,29 +90,19 @@ const Navbar = () => {
           <div>
             <NNavbar.Collapse>
               <div className="text-xl">
-                <NNavbar.Link
-                  active={window.location.pathname === getPath('/')}
-                  href="/"
-                >
-                  Ana Sayfa
-                </NNavbar.Link>
+                <NavbarLink to="/">Ana Sayfa</NavbarLink>
               </div>
               <div className="text-xl">
-                <NNavbar.Link
-                  active={window.location.pathname === getPath('strategicPlans')}
-                  href={getPath('strategicPlans')}
-                >
-                  Stratejik Plan
-                </NNavbar.Link>
+                <NavbarLink to={getPath('strategicPlans')}>Stratejik Plan</NavbarLink>
               </div>
               <div className="text-xl">
-                <NNavbar.Link href="/navbars">İş Planı</NNavbar.Link>
+                <NavbarLink to="#">İş Planı</NavbarLink>
               </div>
               <div className="text-xl">
-                <NNavbar.Link href="/navbars">Akreditasyon</NNavbar.Link>
+                <NavbarLink to="#">Akreditasyon</NavbarLink>
               </div>
               <div className="text-xl">
-                <NNavbar.Link href="/navbars">Anketler</NNavbar.Link>
+                <NavbarLink to="#">Anketler</NavbarLink>
               </div>
             </NNavbar.Collapse>
           </div>
