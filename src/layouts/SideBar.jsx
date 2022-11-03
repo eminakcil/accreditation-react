@@ -1,4 +1,5 @@
 import { getPath } from '@/utils'
+import SidebarItem from '@components/SidebarItem'
 import { Sidebar } from 'flowbite-react'
 import React from 'react'
 import {
@@ -33,60 +34,60 @@ const SideBar = () => {
         <Sidebar aria-label="Sidebar with logo branding example">
           <Sidebar.Items>
             <Sidebar.ItemGroup>
-              <Sidebar.Item
-                href="/"
+              <SidebarItem
+                to="/"
                 icon={FaHome}
               >
                 Ana Sayfa
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="/"
+              </SidebarItem>
+              <SidebarItem
+                to="#"
                 icon={FaCity}
               >
                 Oda Bilgileri
-              </Sidebar.Item>
-              <Sidebar.Item
-                href={getPath('strategicPlans.create')}
+              </SidebarItem>
+              <SidebarItem
+                to={getPath('strategicPlans.create')}
                 icon={FaEdit}
               >
                 Yeni Stratejik Plan Oluştur
-              </Sidebar.Item>
-              <Sidebar.Item
-                href={getPath('strategicPlans')}
+              </SidebarItem>
+              <SidebarItem
+                to={getPath('strategicPlans')}
                 icon={FaRegChartBar}
               >
                 Stratejik Planları Görüntüle
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
+              </SidebarItem>
+              <SidebarItem
+                to="#"
                 icon={FaTasks}
               >
                 İş Planlarını Listele
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
+              </SidebarItem>
+              <SidebarItem
+                to="#"
                 icon={FaPencilAlt}
               >
                 Yeni İş Planı Oluştur
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
+              </SidebarItem>
+              <SidebarItem
+                to="#"
                 icon={FaPen}
               >
                 Anket Oluştur
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
+              </SidebarItem>
+              <SidebarItem
+                to="#"
                 icon={FaRegListAlt}
               >
                 Anketleri Görüntüle
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
+              </SidebarItem>
+              <SidebarItem
+                to="#"
                 icon={FaExternalLinkAlt}
               >
                 Çıkış Yap
-              </Sidebar.Item>
+              </SidebarItem>
             </Sidebar.ItemGroup>
           </Sidebar.Items>
         </Sidebar>
