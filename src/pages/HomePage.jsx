@@ -1,4 +1,5 @@
-import { Button, Card } from 'flowbite-react'
+import { Button, Card, Progress, Timeline } from 'flowbite-react'
+import { FaRegCalendarAlt, FaRegClock } from 'react-icons/fa'
 
 const HomePage = () => {
   return (
@@ -7,7 +8,7 @@ const HomePage = () => {
       <div className="w-full mt-12">
         <Card>
           <div className="grid grid-cols-3 gap-6">
-            <Card>
+            <Card style={{ backgroundColor: '#F9FCFF' }}>
               <a href="#">
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   2020- 2023 Stratejik Planı
@@ -15,6 +16,12 @@ const HomePage = () => {
                 <hr />
               </a>
               <h6>Tamamlanma Oranı</h6>
+              <Progress
+                progress={45}
+                label="Flowbite"
+                labelPosition="outside"
+                labelProgress={true}
+              />
               <div className="mt-2.5 mb-5 flex items-center">
                 <svg
                   className="h-5 w-5 text-yellow-300"
@@ -58,7 +65,7 @@ const HomePage = () => {
                 </a>
               </div>
             </Card>
-            <Card>
+            <Card style={{ backgroundColor: '#F9FCFF' }}>
               <a href="#">
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   2022- 2025 Stratejik Planı
@@ -66,6 +73,12 @@ const HomePage = () => {
                 <hr />
               </a>
               <h6>Tamamlanma Oranı</h6>
+              <Progress
+                progress={67}
+                label="Flowbite"
+                labelPosition="outside"
+                labelProgress={true}
+              />
               <div className="mt-2.5 mb-5 flex items-center">
                 <svg
                   className="h-5 w-5 text-yellow-300"
@@ -94,7 +107,7 @@ const HomePage = () => {
                 </a>
               </div>
             </Card>
-            <Card>
+            <Card style={{ backgroundColor: '#F9FCFF' }}>
               <a href="#">
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   2023- 2026 Stratejik Planı
@@ -102,6 +115,12 @@ const HomePage = () => {
                 <hr />
               </a>
               <h6>Tamamlanma Oranı</h6>
+              <Progress
+                progress={87}
+                label="Flowbite"
+                labelPosition="outside"
+                labelProgress={true}
+              />
               <div className="mt-2.5 mb-5 flex items-center">
                 <svg
                   className="h-5 w-5 text-yellow-300"
@@ -123,7 +142,46 @@ const HomePage = () => {
             </Card>
           </div>
           <div className="w-full">
-            <Card>
+            <Card style={{ backgroundColor: '#F9FCFF' }}>
+              <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
+                Yaklaşan Etkinlikler
+              </h5>
+              <Timeline>
+                <Timeline.Item>
+                  <Timeline.Point icon={FaRegCalendarAlt} />
+                  <Timeline.Content>
+                    <Timeline.Time>21 Kasım 2022</Timeline.Time>
+                    <Timeline.Title>Üyelere Yönelik Yerinde Kobi Danışmanlığı</Timeline.Title>
+                    <Timeline.Body>Sorumlu : Emin AKÇİL </Timeline.Body>
+                  </Timeline.Content>
+                </Timeline.Item>
+                <Timeline.Item>
+                  <Timeline.Point icon={FaRegCalendarAlt} />
+                  <Timeline.Content>
+                    <Timeline.Time>18 Aralık 2022</Timeline.Time>
+                    <Timeline.Title>Sanal Kütüphane Oluşturmak</Timeline.Title>
+                    <Timeline.Body>Sorumlu : Can SARIHAN </Timeline.Body>
+                  </Timeline.Content>
+                </Timeline.Item>
+                <Timeline.Item>
+                  <Timeline.Point icon={FaRegCalendarAlt} />
+                  <Timeline.Content>
+                    <Timeline.Time>22 Aralık 2022</Timeline.Time>
+                    <Timeline.Title>Yarınların Önemi Eğitimi</Timeline.Title>
+                    <Timeline.Body>Sorumlu : Damla AKCİN</Timeline.Body>
+                  </Timeline.Content>
+                </Timeline.Item>
+              </Timeline>
+              <a
+                href="#"
+                className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+              >
+                Tümünü Görüntüle
+              </a>
+            </Card>
+          </div>
+          {/* <div className="w-full">
+            <Card style={{ backgroundColor: '#F9FCFF' }}>
               <div className="mb-4 flex items-center justify-between">
                 <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
                   Yaklaşan Etkinlikler
@@ -250,9 +308,9 @@ const HomePage = () => {
                 </ul>
               </div>
             </Card>
-          </div>
+          </div> */}
           <div className="flex-1 mt-12">
-            <Card>
+            <Card style={{ backgroundColor: '#F9FCFF' }}>
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 2021 İş Planları İçin
               </h5>
