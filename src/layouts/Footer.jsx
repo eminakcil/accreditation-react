@@ -21,11 +21,13 @@ const Footer = () => {
             </FFooter.LinkGroup>
           </div>
           <FFooter.Divider />
-          <FFooter.Copyright
-            href="#"
-            by="Kobizon PDM™"
-            year={2022}
-          />
+          <div>
+            <FFooter.Copyright
+              href="#"
+              by="Kobizon PDM™"
+              year={2022}
+            />
+          </div>
         </div>
       </FFooter>
     </>

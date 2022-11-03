@@ -7,6 +7,7 @@ const HomePage = lazy(() => import('./pages/HomePage'))
 
 const StrategicPlans = lazy(() => import('./pages/StrategicPlans'))
 const StrategicPlanDetail = lazy(() => import('./pages/StrategicPlans/StrategicPlanDetail'))
+const StrategicPlanCreate = lazy(() => import('./pages/StrategicPlans/StrategicPlanCreate'))
 
 /** @type {import('react-router-dom').RouteObject[]} */
 
@@ -34,6 +35,12 @@ const routes = [
             path: ':strategicPlanId',
             name: 'detail',
             element: <StrategicPlanDetail />,
+            lazy: true,
+          },
+          {
+            path: 'create',
+            name: 'create',
+            element: <StrategicPlanCreate />,
             lazy: true,
           },
         ],

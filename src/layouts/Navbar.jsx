@@ -1,77 +1,122 @@
 import { getPath } from '@/utils'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
+import { FaSearch } from 'react-icons/fa'
 
 const Navbar = () => {
   return (
     <>
-      <NNavbar
-        fluid={true}
-        rounded={true}
-      >
-        <NNavbar.Brand>
-          <img
-            src="/images/logo.png"
-            className="mr-3 h-6 sm:h-9"
-            alt="Logo"
-          />
-          <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-            Ereğli Ticaret ve Sanayi Odası
-          </span>
-        </NNavbar.Brand>
-        <div className="flex md:order-2">
-          <Dropdown
-            arrowIcon={false}
-            inline={true}
-            label={
-              <Avatar
-                alt="Kullanıcı"
-                img="/images/avatar.png"
-                rounded={true}
-              />
-            }
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">Damla Akcin</span>
-              <span className="block truncate text-sm font-medium">damla@gmail.com</span>
-            </Dropdown.Header>
-            <Dropdown.Item>Ana Sayfa</Dropdown.Item>
-            <Dropdown.Item>Ayarlar</Dropdown.Item>
-            <Dropdown.Item>Şifremi Değiştir </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>Çıkış Yap</Dropdown.Item>
-          </Dropdown>
+      <div>
+        <NNavbar
+          fluid={true}
+          rounded={true}
+          style={{ backgroundColor: '#F9FCFF' }}
+        >
+          <NNavbar.Brand href="https://flowbite.com/">
+            <img
+              src="/images/logo.svg"
+              className="mr-3 h-6 sm:h-9"
+              alt="Flowbite Logo"
+            />
+          </NNavbar.Brand>
           <NNavbar.Toggle />
-        </div>
-        <div>
           <NNavbar.Collapse>
-            <div className="text-xl">
-              <NNavbar.Link
-                active={window.location.pathname === getPath('/')}
-                href="/"
-              >
-                Ana Sayfa
-              </NNavbar.Link>
-            </div>
-            <div className="text-xl">
-              <NNavbar.Link
-                active={window.location.pathname === getPath('strategicPlans')}
-                href={getPath('strategicPlans')}
-              >
-                Stratejik Plan
-              </NNavbar.Link>
-            </div>
-            <div className="text-xl">
-              <NNavbar.Link href="/navbars">İş Planı</NNavbar.Link>
-            </div>
-            <div className="text-xl">
-              <NNavbar.Link href="/navbars">Akreditasyon</NNavbar.Link>
-            </div>
-            <div className="text-xl">
-              <NNavbar.Link href="/navbars">Anketler</NNavbar.Link>
-            </div>
+            <form className="flex items-center">
+              <label className="sr-only">Search</label>
+              <div className="relative w-full">
+                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  ></svg>
+                </div>
+                <input
+                  type="text"
+                  id="simple-search"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Search"
+                  icon={FaSearch}
+                  required
+                />
+              </div>
+
+              <span className="sr-only">Search</span>
+            </form>
           </NNavbar.Collapse>
-        </div>
-      </NNavbar>
+        </NNavbar>
+      </div>
+      <div>
+        <NNavbar
+          fluid={true}
+          rounded={true}
+        >
+          <NNavbar.Brand>
+            <img
+              src="/images/logo.png"
+              className="mr-3 h-6 sm:h-9"
+              alt="Logo"
+            />
+            <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
+              Ereğli Ticaret ve Sanayi Odası
+            </span>
+          </NNavbar.Brand>
+          <div className="flex md:order-2">
+            <Dropdown
+              arrowIcon={false}
+              inline={true}
+              label={
+                <Avatar
+                  alt="Kullanıcı"
+                  img="/images/avatar.png"
+                  rounded={true}
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">Damla Akcin</span>
+                <span className="block truncate text-sm font-medium">damla@gmail.com</span>
+              </Dropdown.Header>
+              <Dropdown.Item>Ana Sayfa</Dropdown.Item>
+              <Dropdown.Item>Ayarlar</Dropdown.Item>
+              <Dropdown.Item>Şifremi Değiştir </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item>Çıkış Yap</Dropdown.Item>
+            </Dropdown>
+            <NNavbar.Toggle />
+          </div>
+          <div>
+            <NNavbar.Collapse>
+              <div className="text-xl">
+                <NNavbar.Link
+                  active={window.location.pathname === getPath('/')}
+                  href="/"
+                >
+                  Ana Sayfa
+                </NNavbar.Link>
+              </div>
+              <div className="text-xl">
+                <NNavbar.Link
+                  active={window.location.pathname === getPath('strategicPlans')}
+                  href={getPath('strategicPlans')}
+                >
+                  Stratejik Plan
+                </NNavbar.Link>
+              </div>
+              <div className="text-xl">
+                <NNavbar.Link href="/navbars">İş Planı</NNavbar.Link>
+              </div>
+              <div className="text-xl">
+                <NNavbar.Link href="/navbars">Akreditasyon</NNavbar.Link>
+              </div>
+              <div className="text-xl">
+                <NNavbar.Link href="/navbars">Anketler</NNavbar.Link>
+              </div>
+            </NNavbar.Collapse>
+          </div>
+        </NNavbar>
+      </div>
     </>
   )
 }
