@@ -1,5 +1,6 @@
 import { getPath } from '@/utils'
 import classNames from 'classnames'
+import { Fragment, useCallback } from 'react'
 import { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -36,6 +37,13 @@ const StrategicActivityList = ({ strategicActivities }) => {
     navigate(path)
   }
 
+  const strategicActivityIsActive = useCallback(
+    (strategicActivityId) => {
+      return selectedStrategicActivity && selectedStrategicActivity._id === strategicActivityId
+    },
+    [selectedStrategicActivity]
+  )
+
   return strategicActivities.map((strategicActivity) => (
     <div
       key={strategicActivity._id}
@@ -43,12 +51,26 @@ const StrategicActivityList = ({ strategicActivities }) => {
       className={classNames(
         'h-min shadow hover:shadow-xl rounded-2xl px-2 py-6 select-none cursor-pointer',
         {
-          'bg-gray-200':
-            selectedStrategicActivity && selectedStrategicActivity._id === strategicActivity._id,
+          'bg-gray-200': strategicActivityIsActive(strategicActivity._id),
         }
       )}
     >
       {strategicActivity.title}
+      {strategicActivityIsActive(strategicActivity._id) && (
+        <div>
+          <div className="inline-flex divide-x divide-solid divide-gray-800">
+            {strategicActivity.periodGoal.map((periodGoal) => (
+              <Fragment key={periodGoal._id}>
+                <div className="inline-flex flex-col items-center px-3">
+                  <span>{periodGoal.strategicPeriod.title}</span>
+                  <span>{periodGoal.goal}</span>
+                  <span>{periodGoal.price}</span>
+                </div>
+              </Fragment>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   ))
 }
