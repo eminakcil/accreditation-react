@@ -33,8 +33,18 @@ const routes = [
           {
             path: ':strategicPlanId',
             name: 'detail',
-            element: <StrategicPlanDetail />,
-            lazy: true,
+            children: [
+              {
+                index: true,
+                element: <StrategicPlanDetail />,
+                lazy: true,
+              },
+              {
+                path: 'goals/:strategicGoalId',
+                name: 'goals',
+                element: <StrategicPlanDetail />,
+              },
+            ],
           },
         ],
       },

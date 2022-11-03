@@ -1,30 +1,33 @@
-import { getPeriodTitleByStrategicPlan } from '@/utils'
+import { getPath, getPeriodTitleByStrategicPlan } from '@/utils'
 import Divider from '@components/Divider'
 import classNames from 'classnames'
 import { Card } from 'flowbite-react'
-import { useCallback } from 'react'
-import { Fragment, useEffect, useMemo } from 'react'
+import { lazy, Suspense, useCallback } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import Loading from '../../components/Loading'
 import { StrategicPlanService } from '../../services'
 import Heading from './components/Heading'
+const StrategicActivityList = lazy(() => import('./components/StrategicActivityList'))
 
 const StrategicPlanDetail = () => {
-  const { strategicPlanId } = useParams()
+  const params = useParams()
+
+  const navigate = useNavigate()
 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [strategicPlan, setStrategicPlan] = useState(false)
 
-  const [selectedStrategicGoalId, setSelectedStrategicGoalId] = useState(false)
-
   const selectedStrategicGoal = useMemo(() => {
-    return strategicPlan.strategicGoals?.find(
-      (strategicGoal) => strategicGoal._id === selectedStrategicGoalId
+    return (
+      strategicPlan.strategicGoals?.find(
+        (strategicGoal) => strategicGoal._id === params.strategicGoalId
+      ) || false
     )
-  }, [strategicPlan, selectedStrategicGoalId])
+  }, [strategicPlan, params])
 
   const getPeriodGoal = useCallback(
     (strategicActivity, periodId) => {
@@ -43,14 +46,23 @@ const StrategicPlanDetail = () => {
     setLoading(true)
     setError(false)
 
-    StrategicPlanService.getById(strategicPlanId)
+    StrategicPlanService.getById(params.strategicPlanId)
       .then((response) => setStrategicPlan(response))
       .catch(() => setError(true))
       .finally(() => setLoading(false))
   }
 
   const toggleSelectedStrategicGoalId = (strategicGoalId) => {
-    setSelectedStrategicGoalId((curr) => (curr !== strategicGoalId ? strategicGoalId : false))
+    if (strategicGoalId === params.strategicGoalId) {
+      navigate(getPath('strategicPlans.detail', { strategicPlanId: params.strategicPlanId }))
+    } else {
+      navigate(
+        getPath('strategicPlans.detail.goals', {
+          strategicGoalId,
+          strategicPlanId: params.strategicPlanId,
+        })
+      )
+    }
   }
 
   if (loading) return <Loading />
@@ -74,14 +86,14 @@ const StrategicPlanDetail = () => {
               </div>
               <Divider />
               <div className="flex gap-4">
-                <div className="w-[256px] flex-shrink-0 grid grid-cols-1 gap-4">
+                <div className="w-[256px] h-min flex-shrink-0 grid grid-cols-1 items-start gap-4">
                   <Heading>Hedef</Heading>
                   {strategicPlan.strategicGoals.map((strategicGoal) => (
                     <div
                       className={classNames(
                         'h-min shadow hover:shadow-xl rounded-2xl px-2 py-6 select-none cursor-pointer',
                         {
-                          'bg-gray-100': selectedStrategicGoalId === strategicGoal._id,
+                          'bg-gray-100': params.strategicGoalId === strategicGoal._id,
                         }
                       )}
                       key={strategicGoal._id}
@@ -91,18 +103,16 @@ const StrategicPlanDetail = () => {
                     </div>
                   ))}
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 h-min">
                   <div className="grid grid-cols-1 gap-4">
                     <Heading>Faaliyetler</Heading>
-                    {selectedStrategicGoal &&
-                      selectedStrategicGoal.strategicActivities.map((strategicActivity) => (
-                        <div
-                          className="shadow hover:shadow-xl rounded-2xl px-2 py-6 select-none cursor-pointer"
-                          key={strategicActivity._id}
-                        >
-                          {strategicActivity.title}
-                        </div>
-                      ))}
+                    {selectedStrategicGoal && (
+                      <Suspense fallback={<Loading />}>
+                        <StrategicActivityList
+                          strategicActivities={selectedStrategicGoal.strategicActivities}
+                        />
+                      </Suspense>
+                    )}
                   </div>
                 </div>
               </div>
