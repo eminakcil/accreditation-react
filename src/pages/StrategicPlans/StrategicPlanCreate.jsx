@@ -1,11 +1,15 @@
 import { StrategicPlanService } from '@services/index'
-import { Button, Card, Label, TextInput } from 'flowbite-react'
+import { Button, Card, Label, Spinner, TextInput } from 'flowbite-react'
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import { StrategicPlanSchema } from '@/validations/StrategicPlanSchema'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import { getPath } from '@/utils'
 
 const StrategicPlanCreate = () => {
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -14,18 +18,25 @@ const StrategicPlanCreate = () => {
     },
     validationSchema: StrategicPlanSchema,
     onSubmit: (values) => {
-      // setLoading(true)
-      // StrategicPlanService.create({
-      //   title: values.title,
-      //   periodStartYear: values.periodStartYear,
-      // })
-      //   .then((response) => {
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log('aaa oouu bir hata aldım', error)
-      //   })
-      //   .finally(() => setLoading(false))
+      setLoading(true)
+      StrategicPlanService.create({
+        title: values.title,
+        periodStartYear: values.periodStartYear,
+      })
+        .then((response) => {
+          toast.success('Eklendi!')
+          navigate(
+            getPath('strategicPlans.detail', {
+              strategicPlanId: response._id,
+            })
+          )
+          console.log(response)
+        })
+        .catch((error) => {
+          toast.error('Eklenemedi! :(((')
+          console.log('aaa oouu bir hata aldım', error)
+        })
+        .finally(() => setLoading(false))
     },
   })
 
@@ -96,7 +107,14 @@ const StrategicPlanCreate = () => {
                 <Button
                   gradientDuoTone="cyanToBlue"
                   type="submit"
+                  disabled={loading}
                 >
+                  {loading && (
+                    <>
+                      <Spinner />
+                      <span className="pl-3"></span>
+                    </>
+                  )}
                   Stratejik Planı Oluştur
                 </Button>
               </div>
