@@ -93,7 +93,12 @@ const StrategicPlanDetail = () => {
                 </Button>
               </div>
 
-              <Table striped={true}>
+              <Table
+                className={classNames({
+                  hidden: !show,
+                })}
+                striped={true}
+              >
                 <Table.Head>
                   <Table.HeadCell>{strategicPlan.title}</Table.HeadCell>
                 </Table.Head>

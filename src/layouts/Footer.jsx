@@ -1,4 +1,5 @@
 import { getPath } from '@/utils'
+import FooterLink from '@components/FooterLink'
 import { Footer as FFooter } from 'flowbite-react'
 
 const Footer = () => {
@@ -14,10 +15,10 @@ const Footer = () => {
               name="Ereğli Ticaret ve Sanayi Odası"
             />
             <FFooter.LinkGroup>
-              <FFooter.Link href={getPath('strategicPlans')}>Stratejik Plan</FFooter.Link>
-              <FFooter.Link href="#">İş Planı</FFooter.Link>
-              <FFooter.Link href="#">Akreditasyon</FFooter.Link>
-              <FFooter.Link href="#">Anketler</FFooter.Link>
+              <FooterLink to={getPath('strategicPlans')}>Stratejik Plan</FooterLink>
+              <FooterLink to="#">İş Planı</FooterLink>
+              <FooterLink to="#">Akreditasyon</FooterLink>
+              <FooterLink to="#">Anketler</FooterLink>
             </FFooter.LinkGroup>
           </div>
           <FFooter.Divider />
