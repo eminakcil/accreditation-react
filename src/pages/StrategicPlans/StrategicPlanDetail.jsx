@@ -1,8 +1,8 @@
 import { getPath, getPeriodTitleByStrategicPlan } from '@/utils'
 import Divider from '@components/Divider'
 import classNames from 'classnames'
-import { Card } from 'flowbite-react'
-import { lazy, Suspense, useCallback } from 'react'
+import { Card, Table } from 'flowbite-react'
+import { Fragment, lazy, Suspense, useCallback } from 'react'
 import { useEffect, useMemo } from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -37,6 +37,8 @@ const StrategicPlanDetail = () => {
     },
     [strategicPlan]
   )
+
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     fetchData()
@@ -85,6 +87,53 @@ const StrategicPlanDetail = () => {
                 <span className="text-xl">{getPeriodTitleByStrategicPlan(strategicPlan)}</span>
               </div>
               <Divider />
+              <div>
+                <Button onClick={() => setShow((show) => !show)}>
+                  {show ? 'Tabloyu Gizle' : 'Tabloyu Görüntüle'}
+                </Button>
+              </div>
+
+              <Table striped={true}>
+                <Table.Head>
+                  <Table.HeadCell>{strategicPlan.title}</Table.HeadCell>
+                </Table.Head>
+                <Table.Head>
+                  {strategicPlan.strategicGoals.map((strategicGoal) => (
+                    <Fragment key={strategicGoal._id}>
+                      <Table.Head>
+                        <Table.HeadCell>Stratejik Hedef</Table.HeadCell>
+                        <Table.HeadCell>{strategicGoal.title}</Table.HeadCell>
+                        <Table.HeadCell>Performans Göstergesi</Table.HeadCell>
+                        <Table.HeadCell>Performans Hedefi</Table.HeadCell>
+                        {strategicPlan.period.map((period) => (
+                          <Table.HeadCell key={period._id}>{period.title}</Table.HeadCell>
+                        ))}
+                        <Table.HeadCell>Sorumlu </Table.HeadCell>
+                      </Table.Head>
+                      <Table.Body className="divide-y">
+                        {strategicGoal.strategicActivities.map((strategicActivity) => (
+                          <Table.Row key={strategicActivity._id}>
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white"></Table.Cell>
+                            <Table.Cell>{strategicActivity.title}</Table.Cell>
+                            <Table.Cell>{strategicActivity.performanceIndicator}</Table.Cell>
+                            <Table.Cell>{strategicActivity.performanceGoalCount}</Table.Cell>
+                            {strategicPlan.period.map((period) => (
+                              <Table.Cell key={period._id}>
+                                <span className="flex flex-col">
+                                  <span>{getPeriodGoal(strategicActivity, period._id).goal}</span>
+                                  <span>{getPeriodGoal(strategicActivity, period._id).price}</span>
+                                </span>
+                              </Table.Cell>
+                            ))}
+                            <Table.Cell>{strategicActivity.responsible}</Table.Cell>
+                          </Table.Row>
+                        ))}
+                      </Table.Body>
+                    </Fragment>
+                  ))}
+                </Table.Head>
+              </Table>
+
               <div className="flex gap-4">
                 <div className="w-[256px] h-min flex-shrink-0 grid grid-cols-1 items-start gap-4">
                   <Heading>Hedef</Heading>

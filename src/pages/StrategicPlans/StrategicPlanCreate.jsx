@@ -1,6 +1,6 @@
 import { Button, Card, Label, TextInput } from 'flowbite-react'
 import React from 'react'
-import { FaCheck } from 'react-icons/fa'
+import { FaCheck, FaPlusCircle } from 'react-icons/fa'
 
 const StrategicPlanCreate = () => {
   return (
@@ -53,21 +53,27 @@ const StrategicPlanCreate = () => {
           </div>
         </Card>
         <Card style={{ backgroundColor: '#F9FCFF' }}>
-          <div>
+          <div className="flex flex-col">
             <div className="mb-2 block">
               <Label value="Stratejik Hedef" />
             </div>
-            <TextInput
-              id="strategicplan"
-              placeholder="Stratejik Plan Hedefi"
-              required={true}
-            />
-            <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
-              <FaCheck></FaCheck>
+            <div className="inline-flex">
+              <TextInput
+                id="strategicplan"
+                placeholder="Stratejik Plan Hedefi"
+                required={true}
+              />
+              <div style={{ padding: '0.4%' }}>
+                <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
+                  <FaCheck />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
-            <FaCheck></FaCheck>
+          <div style={{ padding: '1%', display: 'flex', justifyContent: 'center' }}>
+            <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-500 dark:bg-blue-800 dark:text-blue-200">
+              <FaPlusCircle className="h-5 w-5" />
+            </div>
           </div>
         </Card>
       </Card>

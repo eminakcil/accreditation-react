@@ -8,6 +8,7 @@ import { StrategicPlanService } from '../../services'
 import { dateFormat, getPath } from '../../utils'
 import { search } from '../../icons'
 import { Card } from 'flowbite-react'
+import Divider from '@components/Divider'
 
 const StrategicPlans = () => {
   const [loading, setLoading] = useState(true)
@@ -67,6 +68,12 @@ const StrategicPlans = () => {
     <>
       <hr />
       <div className="w-full">
+        <div className="grid grid-cols-1 gap-6">
+          <div className="flex flex-col items-center">
+            <span className="text-xl">Stratejik Plan</span>
+          </div>
+          <Divider />
+        </div>
         <Card>
           <div className="grid grid-cols-3 gap-6">
             {strategicPlanList &&
