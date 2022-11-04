@@ -1,5 +1,5 @@
 import { Button, Card, Progress, Timeline } from 'flowbite-react'
-import { FaRegCalendarAlt, FaRegClock } from 'react-icons/fa'
+import { FaRegCalendarAlt } from 'react-icons/fa'
 
 const HomePage = () => {
   return (
@@ -18,7 +18,7 @@ const HomePage = () => {
               <h6>Tamamlanma Oranı</h6>
               <Progress
                 progress={45}
-                label="Flowbite"
+                label="İstatistik"
                 labelPosition="outside"
                 labelProgress={true}
               />
@@ -74,8 +74,8 @@ const HomePage = () => {
               </a>
               <h6>Tamamlanma Oranı</h6>
               <Progress
-                progress={67}
-                label="Flowbite"
+                progress={24}
+                label="İstatistik"
                 labelPosition="outside"
                 labelProgress={true}
               />
@@ -107,7 +107,7 @@ const HomePage = () => {
                 </a>
               </div>
             </Card>
-            <Card style={{ backgroundColor: '#F9FCFF' }}>
+            <Card style={{ roundColor: '#F9FCFF' }}>
               <a href="#">
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   2023- 2026 Stratejik Planı
@@ -116,8 +116,8 @@ const HomePage = () => {
               </a>
               <h6>Tamamlanma Oranı</h6>
               <Progress
-                progress={87}
-                label="Flowbite"
+                progress={0}
+                label="İstatistik"
                 labelPosition="outside"
                 labelProgress={true}
               />

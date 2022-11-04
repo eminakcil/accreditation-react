@@ -59,16 +59,17 @@ const SideBar = () => {
               </Sidebar.Item>
               <Sidebar.Item
                 href="#"
-                icon={FaTasks}
-              >
-                İş Planlarını Listele
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
                 icon={FaPencilAlt}
               >
                 Yeni İş Planı Oluştur
               </Sidebar.Item>
+              <Sidebar.Item
+                href="#"
+                icon={FaTasks}
+              >
+                İş Planlarını Listele
+              </Sidebar.Item>
+
               <Sidebar.Item
                 href="#"
                 icon={FaPen}
