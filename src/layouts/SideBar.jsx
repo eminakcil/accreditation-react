@@ -71,13 +71,6 @@ const SideBar = () => {
               >
                 İş Planlarını Listele
               </SidebarItem>
-
-              <SidebarItem
-                to="#"
-                icon={FaPencilAlt}
-              >
-                Yeni İş Planı Oluştur
-              </SidebarItem>
               <SidebarItem
                 to="#"
                 icon={FaPen}
