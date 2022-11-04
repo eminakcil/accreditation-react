@@ -58,12 +58,7 @@ const SideBar = () => {
               >
                 Stratejik Planları Görüntüle
               </SidebarItem>
-              <SidebarItem
-                to="#"
-                icon={FaTasks}
-              >
-                İş Planlarını Listele
-              </SidebarItem>
+
               <SidebarItem
                 to="#"
                 icon={FaPencilAlt}
@@ -71,9 +66,16 @@ const SideBar = () => {
                 Yeni İş Planı Oluştur
               </SidebarItem>
               <SidebarItem
+                href="#"
+                icon={FaTasks}
+              >
+                İş Planlarını Listele
+              </SidebarItem>
+              <SidebarItem
                 to="#"
                 icon={FaPen}
               >
+                {' '}
                 Anket Oluştur
               </SidebarItem>
               <SidebarItem

@@ -1,58 +1,127 @@
-import { Button, Card, Label, TextInput } from 'flowbite-react'
-import React from 'react'
-import { FaCheck, FaPlusCircle } from 'react-icons/fa'
+import { StrategicPlanService } from '@services/index'
+import { Button, Card, Label, Spinner, TextInput } from 'flowbite-react'
+import React, { useState } from 'react'
+import { useFormik } from 'formik'
+import { StrategicPlanSchema } from '@/validations/StrategicPlanSchema'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import { getPath } from '@/utils'
 
 const StrategicPlanCreate = () => {
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      periodStartYear: '',
+    },
+    validationSchema: StrategicPlanSchema,
+    onSubmit: (values) => {
+      setLoading(true)
+      StrategicPlanService.create({
+        title: values.title,
+        periodStartYear: values.periodStartYear,
+      })
+        .then((response) => {
+          toast.success('Eklendi!')
+          navigate(
+            getPath('strategicPlans.detail', {
+              strategicPlanId: response._id,
+            })
+          )
+          console.log(response)
+        })
+        .catch((error) => {
+          toast.error('Eklenemedi! :(((')
+          console.log('aaa oouu bir hata aldım', error)
+        })
+        .finally(() => setLoading(false))
+    },
+  })
+
   return (
     <>
       <Card>
         <Card style={{ backgroundColor: '#F9FCFF' }}>
-          <div className="grid grid-cols-1 gap-6">
-            <div className="flex flex-col gap-4">
-              <div>
-                <div className="mb-2 block">
-                  <Label value="Stratejik Plan Amacı" />
+          <form onSubmit={formik.handleSubmit}>
+            <div className="grid grid-cols-1 gap-6">
+              <div className="flex flex-col gap-8">
+                <div>
+                  <div className="mb-2 block">
+                    <Label value="Stratejik Plan Amacı" />
+                  </div>
+                  <TextInput
+                    value={formik.values.title}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name="title"
+                    id="strategicplan"
+                    placeholder="Stratejik Plan Amacı"
+                    helperText={
+                      <>
+                        {formik.errors.title && formik.touched.title && <>{formik.errors.title}</>}
+                      </>
+                    }
+                  />
                 </div>
-                <TextInput
-                  id="strategicplan"
-                  placeholder="Stratejik Plan Amacı"
-                  required={true}
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label value="Başlangıç Yılı" />
+                <div>
+                  <div className="mb-2 block">
+                    <Label value="Başlangıç Yılı" />
+                  </div>
+                  <TextInput
+                    type="number"
+                    max="9999"
+                    value={formik.values.periodStartYear}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name="periodStartYear"
+                    id="period"
+                    placeholder="Stratejik Plan Başlangıç Yılı"
+                    color="red"
+                    helperText={
+                      <React.Fragment>
+                        <span className="block">
+                          {formik.errors.periodStartYear && formik.touched.periodStartYear && (
+                            <>{formik.errors.periodStartYear}</>
+                          )}
+                        </span>
+                        <span
+                          className="font-medium"
+                          style={{ color: 'red' }}
+                        >
+                          Dikkat!
+                        </span>{' '}
+                        <span style={{ color: 'grey' }}>
+                          Stratejik Plan Başlangıç Yılından İtibaren 4 Yıllık Periyot Halinde
+                          Düzenlenecektir!
+                        </span>
+                      </React.Fragment>
+                    }
+                  />
                 </div>
-                <TextInput
-                  id="period"
-                  placeholder="Stratejik Plan Başlangıç Yılı"
-                  required={true}
-                  color="red"
-                  helperText={
-                    <React.Fragment>
-                      <span
-                        className="font-medium"
-                        style={{ color: 'red' }}
-                      >
-                        Dikkat!
-                      </span>{' '}
-                      <span style={{ color: 'grey' }}>
-                        Stratejik Plan Başlangıç Yılından İtibaren 4 Yıllık Periyot Halinde
-                        Düzenlenecektir!
-                      </span>
-                    </React.Fragment>
-                  }
-                />
               </div>
             </div>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <div>
-              <Button gradientDuoTone="cyanToBlue">Stratejik Planı Oluştur</Button>
+            <div className="flex flex-wrap items-center gap-2">
+              <div>
+                <Button
+                  gradientDuoTone="cyanToBlue"
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading && (
+                    <>
+                      <Spinner />
+                      <span className="pl-3"></span>
+                    </>
+                  )}
+                  Stratejik Planı Oluştur
+                </Button>
+              </div>
             </div>
-          </div>
+          </form>
         </Card>
-        <Card style={{ backgroundColor: '#F9FCFF' }}>
+        {/* <Card style={{ backgroundColor: '#F9FCFF' }}>
           <div className="flex flex-col">
             <div className="mb-2 block">
               <Label value="Stratejik Hedef" />
@@ -75,7 +144,8 @@ const StrategicPlanCreate = () => {
               <FaPlusCircle className="h-5 w-5" />
             </div>
           </div>
-        </Card>
+        </Card> */}
+        <div className="flex flex-col gap-4"></div>
       </Card>
     </>
   )
