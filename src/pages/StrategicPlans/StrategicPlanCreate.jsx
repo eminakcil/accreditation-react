@@ -1,6 +1,7 @@
-import { Button, Card, Label, TextInput } from 'flowbite-react'
+import { Button, Card, Label, TextInput, Toast } from 'flowbite-react'
 import React from 'react'
-import { FaCheck, FaPlusCircle } from 'react-icons/fa'
+import { FaCheck } from 'react-icons/fa'
+// import { FaCheck, FaPlusCircle } from 'react-icons/fa'
 
 const StrategicPlanCreate = () => {
   return (
@@ -8,7 +9,7 @@ const StrategicPlanCreate = () => {
       <Card>
         <Card style={{ backgroundColor: '#F9FCFF' }}>
           <div className="grid grid-cols-1 gap-6">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8">
               <div>
                 <div className="mb-2 block">
                   <Label value="Stratejik Plan Amacı" />
@@ -52,7 +53,7 @@ const StrategicPlanCreate = () => {
             </div>
           </div>
         </Card>
-        <Card style={{ backgroundColor: '#F9FCFF' }}>
+        {/* <Card style={{ backgroundColor: '#F9FCFF' }}>
           <div className="flex flex-col">
             <div className="mb-2 block">
               <Label value="Stratejik Hedef" />
@@ -75,7 +76,16 @@ const StrategicPlanCreate = () => {
               <FaPlusCircle className="h-5 w-5" />
             </div>
           </div>
-        </Card>
+        </Card> */}
+        <div className="flex flex-col gap-4">
+          <Toast>
+            <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
+              <FaCheck className="h-5 w-5" />
+            </div>
+            <div className="ml-3 text-sm font-normal">Stratejik Plan Oluşturulmuştur!</div>
+            <Toast.Toggle />
+          </Toast>
+        </div>
       </Card>
     </>
   )

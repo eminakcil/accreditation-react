@@ -57,31 +57,8 @@ const SideBar = () => {
                 icon={FaRegChartBar}
               >
                 Stratejik Planları Görüntüle
-<<<<<<< HEAD
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
-                icon={FaPencilAlt}
-              >
-                Yeni İş Planı Oluştur
-              </Sidebar.Item>
-              <Sidebar.Item
-                href="#"
-                icon={FaTasks}
-              >
-                İş Planlarını Listele
-              </Sidebar.Item>
+              </SidebarItem>
 
-              <Sidebar.Item
-                href="#"
-=======
-              </SidebarItem>
-              <SidebarItem
-                to="#"
-                icon={FaTasks}
-              >
-                İş Planlarını Listele
-              </SidebarItem>
               <SidebarItem
                 to="#"
                 icon={FaPencilAlt}
@@ -89,8 +66,14 @@ const SideBar = () => {
                 Yeni İş Planı Oluştur
               </SidebarItem>
               <SidebarItem
+                href="#"
+                icon={FaTasks}
+              >
+                İş Planlarını Listele
+              </SidebarItem>
+
+              <SidebarItem
                 to="#"
->>>>>>> 0ce610996f9501ea68591a571cbc993350ecc446
                 icon={FaPen}
               >
                 Anket Oluştur
