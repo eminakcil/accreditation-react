@@ -56,9 +56,14 @@ const StrategicActivityList = ({ strategicActivities }) => {
       )}
     >
       {strategicActivity.title}
-      {strategicActivityIsActive(strategicActivity._id) && (
-        <div>
-          <div className="inline-flex divide-x divide-solid divide-gray-800">
+      <div className="overflow-hidden">
+        <div
+          className={classNames('relative transition-all duration-300', {
+            'h-0': !strategicActivityIsActive(strategicActivity._id),
+            'h-[72px]': strategicActivityIsActive(strategicActivity._id),
+          })}
+        >
+          <div className="absolute m inline-flex divide-x divide-solid divide-gray-800">
             {strategicActivity.periodGoal.map((periodGoal) => (
               <Fragment key={periodGoal._id}>
                 <div className="inline-flex flex-col items-center px-3">
@@ -70,7 +75,7 @@ const StrategicActivityList = ({ strategicActivities }) => {
             ))}
           </div>
         </div>
-      )}
+      </div>
     </div>
   ))
 }
