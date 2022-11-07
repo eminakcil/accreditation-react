@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { Card, Table } from 'flowbite-react'
 import { Fragment, lazy, Suspense, useCallback, useEffect, useMemo } from 'react'
 import { useState } from 'react'
+import { FaPen, FaPlus } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import Loading from '../../components/Loading'
@@ -22,6 +23,12 @@ const StrategicPlanDetail = () => {
   const [strategicPlan, setStrategicPlan] = useState(false)
 
   const [show, setShow] = useState(false)
+
+  const [canEdit, setCanEdit] = useState(false)
+
+  const toggleEditMode = () => {
+    setCanEdit((x) => !x)
+  }
 
   const selectedStrategicGoal = useMemo(() => {
     return (
@@ -87,10 +94,22 @@ const StrategicPlanDetail = () => {
                 <span className="text-xl">{getPeriodTitleByStrategicPlan(strategicPlan)}</span>
               </div>
               <Divider />
-              <div className="z-40">
+              <div className="flex gap-2 items-center">
                 <Button onClick={() => setShow((show) => !show)}>
                   {show ? 'Tabloyu Gizle' : 'Tabloyu Görüntüle'}
                 </Button>
+                <button
+                  className={classNames(
+                    'inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
+                    {
+                      'bg-blue-500 hover:bg-blue-400 text-white': canEdit,
+                      'bg-blue-100 hover:bg-blue-200 text-blue-500': !canEdit,
+                    }
+                  )}
+                  onClick={toggleEditMode}
+                >
+                  <FaPen />
+                </button>
               </div>
               <Hideable show={show}>
                 <Table striped={true}>
@@ -150,6 +169,11 @@ const StrategicPlanDetail = () => {
                       {strategicGoal.title}
                     </div>
                   ))}
+                  {canEdit && (
+                    <button className="m-auto inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 hover:bg-blue-200 text-green-500 dark:bg-blue-800 dark:text-blue-200">
+                      <FaPlus />
+                    </button>
+                  )}
                 </div>
                 <div className="flex-1 h-min">
                   <div className="grid grid-cols-1 gap-4">
