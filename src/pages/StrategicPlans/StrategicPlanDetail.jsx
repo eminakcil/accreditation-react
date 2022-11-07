@@ -2,14 +2,14 @@ import { getPath, getPeriodTitleByStrategicPlan } from '@/utils'
 import Divider from '@components/Divider'
 import classNames from 'classnames'
 import { Card, Table } from 'flowbite-react'
-import { Fragment, lazy, Suspense, useCallback } from 'react'
-import { useEffect, useMemo } from 'react'
+import { Fragment, lazy, Suspense, useCallback, useEffect, useMemo } from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import Loading from '../../components/Loading'
 import { StrategicPlanService } from '../../services'
 import Heading from './components/Heading'
+import Hideable from './components/Hideable'
 const StrategicActivityList = lazy(() => import('./components/StrategicActivityList'))
 
 const StrategicPlanDetail = () => {
@@ -20,6 +20,8 @@ const StrategicPlanDetail = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [strategicPlan, setStrategicPlan] = useState(false)
+
+  const [show, setShow] = useState(false)
 
   const selectedStrategicGoal = useMemo(() => {
     return (
@@ -37,8 +39,6 @@ const StrategicPlanDetail = () => {
     },
     [strategicPlan]
   )
-
-  const [show, setShow] = useState(false)
 
   useEffect(() => {
     fetchData()
@@ -87,22 +87,16 @@ const StrategicPlanDetail = () => {
                 <span className="text-xl">{getPeriodTitleByStrategicPlan(strategicPlan)}</span>
               </div>
               <Divider />
-              <div>
+              <div className="z-40">
                 <Button onClick={() => setShow((show) => !show)}>
                   {show ? 'Tabloyu Gizle' : 'Tabloyu Görüntüle'}
                 </Button>
               </div>
-
-              <Table
-                className={classNames({
-                  hidden: !show,
-                })}
-                striped={true}
-              >
-                <Table.Head>
-                  <Table.HeadCell>{strategicPlan.title}</Table.HeadCell>
-                </Table.Head>
-                <Table.Head>
+              <Hideable show={show}>
+                <Table striped={true}>
+                  <Table.Head>
+                    <Table.HeadCell colSpan={9}>{strategicPlan.title}</Table.HeadCell>
+                  </Table.Head>
                   {strategicPlan.strategicGoals.map((strategicGoal) => (
                     <Fragment key={strategicGoal._id}>
                       <Table.Head>
@@ -136,8 +130,8 @@ const StrategicPlanDetail = () => {
                       </Table.Body>
                     </Fragment>
                   ))}
-                </Table.Head>
-              </Table>
+                </Table>
+              </Hideable>
 
               <div className="flex gap-4">
                 <div className="w-[256px] h-min flex-shrink-0 grid grid-cols-1 items-start gap-4">
