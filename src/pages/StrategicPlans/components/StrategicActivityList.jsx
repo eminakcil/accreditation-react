@@ -51,16 +51,29 @@ const StrategicActivityList = ({ strategicActivities }) => {
       className={classNames(
         'h-min shadow hover:shadow-xl rounded-2xl px-2 py-6 select-none cursor-pointer',
         {
-          'bg-gray-200': strategicActivityIsActive(strategicActivity._id),
+          'outline outline-blue-600': strategicActivityIsActive(strategicActivity._id),
         }
       )}
     >
       {strategicActivity.title}
-      {strategicActivityIsActive(strategicActivity._id) && (
-        <div>
-          <div className="inline-flex divide-x divide-solid divide-gray-800">
-            {strategicActivity.periodGoal.map((periodGoal) => (
+      <div className="overflow-hidden">
+        <div
+          className={classNames('relative transition-all duration-300', {
+            'h-0': !strategicActivityIsActive(strategicActivity._id),
+            'h-[72px]': strategicActivityIsActive(strategicActivity._id),
+          })}
+        >
+          <div className="absolute bottom-0 w-full flex justify-center">
+            <div className="inline-flex flex-col items-end px-3">
+              <span>Yıl</span>
+              <span>Hedef</span>
+              <span>Maliyet</span>
+            </div>
+            {strategicActivity.periodGoal.map((periodGoal, index) => (
               <Fragment key={periodGoal._id}>
+                {index > 0 && (
+                  <div className="border-r h-[48px] self-center border-solid border-gray-500"></div>
+                )}
                 <div className="inline-flex flex-col items-center px-3">
                   <span>{periodGoal.strategicPeriod.title}</span>
                   <span>{periodGoal.goal}</span>
@@ -68,9 +81,14 @@ const StrategicActivityList = ({ strategicActivities }) => {
                 </div>
               </Fragment>
             ))}
+            <div className="inline-flex flex-col items-start px-3">
+              <span>Yıl</span>
+              <span>Hedef</span>
+              <span>Maliyet</span>
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   ))
 }
