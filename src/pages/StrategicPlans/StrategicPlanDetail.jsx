@@ -15,6 +15,8 @@ import Loading from '../../components/Loading'
 import { StrategicGoalService, StrategicPlanService } from '@services/index'
 import Heading from './components/Heading'
 import Hideable from './components/Hideable'
+import AddButton from './components/AddButton'
+import SubmitButton from './components/SubmitButton'
 const StrategicActivityList = lazy(() => import('./components/StrategicActivityList'))
 
 const StrategicPlanDetail = () => {
@@ -220,19 +222,9 @@ const StrategicPlanDetail = () => {
                     )}
                     {canEdit ? (
                       goalAddMode ? (
-                        <button
-                          onClick={goalFormik.submitForm}
-                          className="m-auto inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 hover:bg-orange-200 text-orange-500"
-                        >
-                          <FaCheck />
-                        </button>
+                        <SubmitButton onClick={goalFormik.submitForm} />
                       ) : (
-                        <button
-                          onClick={() => setGoalAddMode(true)}
-                          className="m-auto inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 hover:bg-blue-200 text-green-500"
-                        >
-                          <FaPlus />
-                        </button>
+                        <AddButton onClick={() => setGoalAddMode(true)} />
                       )
                     ) : null}{' '}
                   </>
@@ -249,6 +241,7 @@ const StrategicPlanDetail = () => {
                     <Suspense fallback={<Loading />}>
                       <StrategicActivityList
                         strategicActivities={selectedStrategicGoal.strategicActivities}
+                        editMode={canEdit}
                       />
                     </Suspense>
                   )}
