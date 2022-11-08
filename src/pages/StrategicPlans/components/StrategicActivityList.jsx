@@ -1,5 +1,6 @@
 import { getPath } from '@/utils'
 import classNames from 'classnames'
+import { useState } from 'react'
 import { Fragment, useCallback } from 'react'
 import { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -10,6 +11,8 @@ const StrategicActivityList = ({ strategicActivities, editMode = false }) => {
   const params = useParams()
 
   const navigate = useNavigate()
+
+  const [activityAddMode, setActivityAddMode] = useState(false)
 
   const selectedStrategicActivity = useMemo(() => {
     return (
@@ -47,11 +50,6 @@ const StrategicActivityList = ({ strategicActivities, editMode = false }) => {
 
   return (
     <>
-      {editMode && (
-        <div className="m-auto">
-          <AddButton onClick={() => {}} />
-        </div>
-      )}
       {strategicActivities.map((strategicActivity) => (
         <div
           key={strategicActivity._id}
@@ -99,6 +97,11 @@ const StrategicActivityList = ({ strategicActivities, editMode = false }) => {
           </div>
         </div>
       ))}
+      {editMode && !activityAddMode && (
+        <div className="m-auto">
+          <AddButton onClick={() => setActivityAddMode(true)} />
+        </div>
+      )}
     </>
   )
 }

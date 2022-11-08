@@ -5,10 +5,8 @@ import Input from '@components/Input'
 import classNames from 'classnames'
 import { Card, Table } from 'flowbite-react'
 import { useFormik } from 'formik'
-import { Fragment, lazy, Suspense, useCallback, useEffect, useMemo } from 'react'
-import { useState } from 'react'
+import { Fragment, lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
-import { FaCheck, FaPen, FaPlus } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import Loading from '../../components/Loading'
@@ -17,6 +15,7 @@ import Heading from './components/Heading'
 import Hideable from './components/Hideable'
 import AddButton from './components/AddButton'
 import SubmitButton from './components/SubmitButton'
+import EditButton from './components/EditButton'
 const StrategicActivityList = lazy(() => import('./components/StrategicActivityList'))
 
 const StrategicPlanDetail = () => {
@@ -130,18 +129,10 @@ const StrategicPlanDetail = () => {
               <Button onClick={() => setShow((show) => !show)}>
                 {show ? 'Tabloyu Gizle' : 'Tabloyu Görüntüle'}
               </Button>
-              <button
-                className={classNames(
-                  'inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
-                  {
-                    'bg-blue-500 hover:bg-blue-400 text-white': canEdit,
-                    'bg-blue-100 hover:bg-blue-200 text-blue-500': !canEdit,
-                  }
-                )}
+              <EditButton
                 onClick={toggleEditMode}
-              >
-                <FaPen />
-              </button>
+                canEdit={canEdit}
+              />
             </div>
             <Hideable show={show}>
               <Table striped={true}>
