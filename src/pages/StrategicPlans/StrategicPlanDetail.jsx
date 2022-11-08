@@ -51,7 +51,7 @@ const StrategicPlanDetail = () => {
           goalFormik.resetForm()
           setCanEdit(false)
           setGoalAddMode(false)
-          toast.success('Eklendi!')
+          toast.success('Hedef eklenmiştir!')
           strategicPlan.strategicGoals
           setStrategicPlan((x) => ({ ...x, strategicGoals: x.strategicGoals.concat(response) }))
         })
@@ -200,8 +200,8 @@ const StrategicPlanDetail = () => {
                   </div>
                 ))}
                 {!goalLoading ? (
-                  [
-                    goalAddMode && canEdit && (
+                  <>
+                    {goalAddMode && canEdit && (
                       <div className="h-min">
                         <Input
                           label="Yeni Hedefi Ekleyiniz"
@@ -217,8 +217,8 @@ const StrategicPlanDetail = () => {
                           </div>
                         ) : null}
                       </div>
-                    ),
-                    canEdit ? (
+                    )}
+                    {canEdit ? (
                       goalAddMode ? (
                         <button
                           onClick={goalFormik.submitForm}
@@ -234,8 +234,8 @@ const StrategicPlanDetail = () => {
                           <FaPlus />
                         </button>
                       )
-                    ) : null,
-                  ]
+                    ) : null}{' '}
+                  </>
                 ) : (
                   <div className="m-auto">
                     <Loading />
