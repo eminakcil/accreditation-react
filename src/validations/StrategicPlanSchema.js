@@ -15,12 +15,12 @@ export const StrategicActivityShema = Yup.object().shape({
   title: Yup.string().required(),
   performanceIndicator: Yup.string().required(),
   responsible: Yup.string().required(),
-  performanceGoalCount: Yup.string().required(),
+  performanceGoalCount: Yup.number().required(),
   periodGoal: Yup.array().of(
     Yup.object().shape({
       strategicPeriod: Yup.string().required(),
-      goal: Yup.string().required(),
-      price: Yup.string().required(),
+      goal: Yup.number().required(),
+      price: Yup.number().required(),
     })
   ),
 })

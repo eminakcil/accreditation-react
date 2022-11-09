@@ -109,7 +109,6 @@ const StrategicPlanDetail = () => {
 
   const handleActivityCreate = (response) => {
     const { strategicGoalId, ...payload } = response
-    strategicPlan.strategicGoals[1].strategicActivities
     setStrategicPlan((plan) => ({
       ...plan,
       strategicGoals: plan.strategicGoals.map((goal) => {
