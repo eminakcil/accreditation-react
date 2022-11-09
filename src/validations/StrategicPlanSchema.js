@@ -10,3 +10,17 @@ export const StrategicPlanSchema = Yup.object()
 export const StrategicGoalShema = Yup.object().shape({
   title: Yup.string().required(),
 })
+
+export const StrategicActivityShema = Yup.object().shape({
+  title: Yup.string().required(),
+  performanceIndicator: Yup.string().required(),
+  responsible: Yup.string().required(),
+  performanceGoalCount: Yup.string().required(),
+  periodGoal: Yup.array().of(
+    Yup.object().shape({
+      strategicPeriod: Yup.string().required(),
+      goal: Yup.string().required(),
+      price: Yup.string().required(),
+    })
+  ),
+})

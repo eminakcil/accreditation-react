@@ -5,8 +5,14 @@ import { Fragment, useCallback } from 'react'
 import { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AddButton from './AddButton'
+import CreateActivityModal from './CreateActivityModal'
 
-const StrategicActivityList = ({ strategicActivities, editMode = false }) => {
+const StrategicActivityList = ({
+  strategicActivities,
+  editMode = false,
+  periodList,
+  onActivityCreate = () => {},
+}) => {
   /** @type {{strategicPlanId: string, strategicGoalId: string, strategicActivityId: ?string}} */
   const params = useParams()
 
@@ -66,7 +72,7 @@ const StrategicActivityList = ({ strategicActivities, editMode = false }) => {
             <div
               className={classNames('relative transition-all duration-300', {
                 'h-0': !strategicActivityIsActive(strategicActivity._id),
-                'h-[72px]': strategicActivityIsActive(strategicActivity._id),
+                'h-[90px]': strategicActivityIsActive(strategicActivity._id),
               })}
             >
               <div className="absolute bottom-0 w-full flex justify-center">
@@ -102,6 +108,14 @@ const StrategicActivityList = ({ strategicActivities, editMode = false }) => {
           <AddButton onClick={() => setActivityAddMode(true)} />
         </div>
       )}
+      <CreateActivityModal
+        periodList={periodList}
+        show={activityAddMode}
+        onClose={() => {
+          setActivityAddMode(false)
+        }}
+        onSubmit={onActivityCreate}
+      />
     </>
   )
 }

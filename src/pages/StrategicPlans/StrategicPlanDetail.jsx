@@ -16,6 +16,7 @@ import Hideable from './components/Hideable'
 import AddButton from './components/AddButton'
 import SubmitButton from './components/SubmitButton'
 import EditButton from './components/EditButton'
+import ErrorMessage from './components/ErrorMessage'
 const StrategicActivityList = lazy(() => import('./components/StrategicActivityList'))
 
 const StrategicPlanDetail = () => {
@@ -104,6 +105,20 @@ const StrategicPlanDetail = () => {
         })
       )
     }
+  }
+
+  const handleActivityCreate = (response) => {
+    const { strategicGoalId, ...payload } = response
+    strategicPlan.strategicGoals[1].strategicActivities
+    setStrategicPlan((plan) => ({
+      ...plan,
+      strategicGoals: plan.strategicGoals.map((goal) => {
+        if (goal._id === strategicGoalId) {
+          return { ...goal, strategicActivities: goal.strategicActivities.concat(payload) }
+        }
+        return goal
+      }),
+    }))
   }
 
   if (loading) return <Loading />
@@ -205,9 +220,7 @@ const StrategicPlanDetail = () => {
                           onBlur={goalFormik.handleBlur}
                         />
                         {goalFormik.errors.title && goalFormik.touched.title ? (
-                          <div className="text-orange-500 text-sm font-light mt-1">
-                            {goalFormik.errors.title}
-                          </div>
+                          <ErrorMessage>{goalFormik.errors.title}</ErrorMessage>
                         ) : null}
                       </div>
                     )}
@@ -233,6 +246,8 @@ const StrategicPlanDetail = () => {
                       <StrategicActivityList
                         strategicActivities={selectedStrategicGoal.strategicActivities}
                         editMode={canEdit}
+                        periodList={strategicPlan.period}
+                        onActivityCreate={handleActivityCreate}
                       />
                     </Suspense>
                   )}
