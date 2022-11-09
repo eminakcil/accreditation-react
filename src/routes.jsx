@@ -9,6 +9,8 @@ const StrategicPlans = lazy(() => import('./pages/StrategicPlans'))
 const StrategicPlanDetail = lazy(() => import('./pages/StrategicPlans/StrategicPlanDetail'))
 const StrategicPlanCreate = lazy(() => import('./pages/StrategicPlans/StrategicPlanCreate'))
 
+const RoomInformation = lazy(() => import('./pages/RoomInformation/RoomInformation'))
+
 /** @type {import('react-router-dom').RouteObject[]} */
 
 const routes = [
@@ -21,6 +23,17 @@ const routes = [
         index: true,
         element: <HomePage />,
         lazy: true,
+      },
+      {
+        path: 'room-informations',
+        name: 'roomInformation',
+        children: [
+          {
+            index: true,
+            element: <RoomInformation />,
+            lazy: true,
+          },
+        ],
       },
       {
         path: 'strategic-plans',

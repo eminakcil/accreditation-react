@@ -41,7 +41,7 @@ const SideBar = () => {
                 Ana Sayfa
               </SidebarItem>
               <SidebarItem
-                to="#"
+                to={getPath('roomInformation')}
                 icon={FaCity}
               >
                 Oda Bilgileri
