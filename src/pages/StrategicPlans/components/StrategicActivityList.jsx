@@ -6,6 +6,7 @@ import { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AddButton from './AddButton'
 import CreateActivityModal from './CreateActivityModal'
+import Hideable from './Hideable'
 
 const StrategicActivityList = ({
   strategicActivities,
@@ -68,39 +69,35 @@ const StrategicActivityList = ({
           )}
         >
           {strategicActivity.title}
-          <div className="overflow-hidden">
-            <div
-              className={classNames('relative transition-all duration-300', {
-                'h-0': !strategicActivityIsActive(strategicActivity._id),
-                'h-[90px]': strategicActivityIsActive(strategicActivity._id),
-              })}
-            >
-              <div className="absolute bottom-0 w-full flex justify-center">
-                <div className="inline-flex flex-col items-end px-3">
-                  <span>Yıl</span>
-                  <span>Hedef</span>
-                  <span>Maliyet</span>
-                </div>
-                {strategicActivity.periodGoal.map((periodGoal, index) => (
-                  <Fragment key={periodGoal._id}>
-                    {index > 0 && (
-                      <div className="border-r h-[48px] self-center border-solid border-gray-500"></div>
-                    )}
-                    <div className="inline-flex flex-col items-center px-3">
-                      <span>{periodGoal.strategicPeriod.title}</span>
-                      <span>{periodGoal.goal}</span>
-                      <span>{periodGoal.price}</span>
-                    </div>
-                  </Fragment>
-                ))}
-                <div className="inline-flex flex-col items-start px-3">
-                  <span>Yıl</span>
-                  <span>Hedef</span>
-                  <span>Maliyet</span>
-                </div>
+          <Hideable
+            duration={300}
+            show={strategicActivityIsActive(strategicActivity._id)}
+          >
+            <div className="flex justify-center pt-5">
+              <div className="inline-flex flex-col items-end px-3">
+                <span>Yıl</span>
+                <span>Hedef</span>
+                <span>Maliyet</span>
+              </div>
+              {strategicActivity.periodGoal.map((periodGoal, index) => (
+                <Fragment key={periodGoal._id}>
+                  {index > 0 && (
+                    <div className="border-r h-[48px] self-center border-solid border-gray-500"></div>
+                  )}
+                  <div className="inline-flex flex-col items-center px-3">
+                    <span>{periodGoal.strategicPeriod.title}</span>
+                    <span>{periodGoal.goal}</span>
+                    <span>{periodGoal.price}</span>
+                  </div>
+                </Fragment>
+              ))}
+              <div className="inline-flex flex-col items-start px-3">
+                <span>Yıl</span>
+                <span>Hedef</span>
+                <span>Maliyet</span>
               </div>
             </div>
-          </div>
+          </Hideable>
         </div>
       ))}
       {editMode && !activityAddMode && (

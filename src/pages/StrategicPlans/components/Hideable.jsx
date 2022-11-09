@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react'
 
-const Hideable = ({ show, children }) => {
+const Hideable = ({ show, duration = 700, children }) => {
   const childrenElement = useRef()
   const currentHeight = useMemo(() => {
     if (childrenElement.current) {
@@ -12,11 +12,11 @@ const Hideable = ({ show, children }) => {
   return (
     <div className="relative overflow-hidden">
       <div
-        style={{ height: currentHeight }}
-        className="transition-all duration-700"
+        style={{ height: currentHeight, transitionDuration: `${duration}ms` }}
+        className="transition-all"
       ></div>
       <div
-        className="absolute bottom-0"
+        className="absolute bottom-0 w-full"
         ref={childrenElement}
       >
         {children}
