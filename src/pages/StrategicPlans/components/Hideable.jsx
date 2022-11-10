@@ -1,13 +1,17 @@
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 const Hideable = ({ show, duration = 700, children }) => {
-  const childrenElement = useRef()
+  const childrenElement = useRef(null)
+  const [height, setHeight] = useState(0)
   const currentHeight = useMemo(() => {
+    return show ? height : 0
+  }, [height, show])
+
+  useEffect(() => {
     if (childrenElement.current) {
-      return show ? childrenElement.current.offsetHeight : 0
+      setHeight(childrenElement.current.offsetHeight)
     }
-    return 0
-  }, [show, childrenElement])
+  }, [childrenElement.current])
 
   return (
     <div className="relative overflow-hidden">
