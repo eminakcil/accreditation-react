@@ -5,8 +5,9 @@ import classNames from 'classnames'
 import { Button, Label, Modal, TextInput } from 'flowbite-react'
 import { useFormik } from 'formik'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
-import ErrorMessage from './ErrorMessage'
+import ErrorMessage from '@components/ErrorMessage'
 
 const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} }) => {
   const params = useParams()
@@ -33,8 +34,13 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
         strategicGoal: params.strategicGoalId,
       })
         .then((response) => {
+          formik.resetForm()
+          toast.success('Faaliyet ve Performans Göstergesi Olşturuldu!')
           onSubmit({ ...response, strategicGoalId: params.strategicGoalId })
           onClose()
+        })
+        .catch((error) => {
+          toast.error('Oluşturulamadı!')
         })
         .finally(() => setLoading(false))
     },

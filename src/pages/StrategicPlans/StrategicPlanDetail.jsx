@@ -16,7 +16,7 @@ import Hideable from './components/Hideable'
 import AddButton from './components/AddButton'
 import SubmitButton from './components/SubmitButton'
 import EditButton from './components/EditButton'
-import ErrorMessage from './components/ErrorMessage'
+import ErrorMessage from '../../components/ErrorMessage'
 const StrategicActivityList = lazy(() => import('./components/StrategicActivityList'))
 
 const StrategicPlanDetail = () => {

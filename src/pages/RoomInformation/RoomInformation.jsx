@@ -1,5 +1,8 @@
+import { UserShema } from '@/validations/UserSchema'
+import UserCreateModal from '@pages/RoomInformation/UserCreateModal'
 import { UserRoleService, UserService } from '@services/index'
-import { Card, Table, Tabs } from 'flowbite-react'
+import { Button, Card, Table, Tabs } from 'flowbite-react'
+import { useFormik } from 'formik'
 import React from 'react'
 import { useCallback } from 'react'
 import { useEffect } from 'react'
@@ -18,20 +21,35 @@ const RoomInformation = () => {
   const [roles, setRoles] = useState(false)
   const [users, setUsers] = useState(false)
 
-  useEffect(() => {
-    UserRoleService.getAll().then((response) => {
-      setRoles(response)
-    })
+  const [modalOn, setModalOn] = useState(false)
+  const [choice, setChoice] = useState(false)
 
-    UserService.getAll().then((response) => {
-      setUsers(response)
-    })
+  const clicked = () => {
+    setModalOn(true)
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [])
+
+  const fetchData = () => {
+    Promise.all([UserRoleService.getAll(), UserService.getAll()]).then(
+      ([roleResponse, userResponse]) => {
+        setRoles(roleResponse)
+        setUsers(userResponse)
+      }
+    )
+  }
 
   const userByRole = useCallback(
     (roleId) => users.filter((user) => user.userRole._id === roleId),
     [users]
   )
+
+  const handleSubmit = (response) => {
+    console.log(response)
+    fetchData()
+  }
 
   return (
     <>
@@ -50,8 +68,9 @@ const RoomInformation = () => {
           <div>
             <span className="float-right space-x-2">
               <FaUserEdit className="inline" />
-              <span>Yeni Ekle</span>
+              <button onClick={clicked}>Yeni Ekle</button>
             </span>
+            {choice && <div className="flex justify-center">Yesss</div>}
           </div>
           <div className="clear-both"></div>
           {roles && users && (
@@ -71,6 +90,13 @@ const RoomInformation = () => {
           )}
         </Card>
       </div>
+
+      <UserCreateModal
+        show={modalOn}
+        onClose={() => setModalOn(false)}
+        onSubmit={handleSubmit}
+        data={{ roles }}
+      />
     </>
   )
 }

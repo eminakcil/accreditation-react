@@ -13,7 +13,10 @@ const UsersTable = ({ users }) => {
       </Table.Head>
       <Table.Body className="divide-y">
         {users.map((user) => (
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <Table.Row
+            className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            key={user._id}
+          >
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
               {user.fullName}
             </Table.Cell>
