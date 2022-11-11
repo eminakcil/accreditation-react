@@ -1,3 +1,4 @@
+import { element } from 'prop-types'
 import { lazy, Suspense } from 'react'
 import Loading from './components/Loading'
 
@@ -11,9 +12,16 @@ const StrategicPlanCreate = lazy(() => import('./pages/StrategicPlans/StrategicP
 
 const RoomInformation = lazy(() => import('./pages/RoomInformation/RoomInformation'))
 
+const Login = lazy(() => import('./pages/Login/Login'))
+
 /** @type {import('react-router-dom').RouteObject[]} */
 
 const routes = [
+  {
+   path: 'login',
+   element: <Login />,
+   lazy: true,
+  },
   {
     path: '/',
     element: <MainLayout />,
