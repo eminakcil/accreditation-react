@@ -85,7 +85,7 @@ const SideBar = () => {
                 Anketleri Görüntüle
               </SidebarItem>
               <SidebarItem
-                to="#"
+                to='login'
                 icon={FaExternalLinkAlt}
               >
                 Çıkış Yap

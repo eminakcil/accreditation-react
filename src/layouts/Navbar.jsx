@@ -1,5 +1,6 @@
 import { getPath } from '@/utils'
 import NavbarLink from '@components/NavbarLink'
+import Login from '@pages/Login/Login'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
 import { FaSearch } from 'react-icons/fa'
 
@@ -78,7 +79,7 @@ const Navbar = () => {
                 <span className="block text-sm">Damla Akcin</span>
                 <span className="block truncate text-sm font-medium">damla@gmail.com</span>
               </Dropdown.Header>
-              <Dropdown.Item>Ana Sayfa</Dropdown.Item>
+              <Dropdown.Item to='/'>Ana Sayfa</Dropdown.Item>
               <Dropdown.Item>Ayarlar</Dropdown.Item>
               <Dropdown.Item>Şifremi Değiştir </Dropdown.Item>
               <Dropdown.Divider />
