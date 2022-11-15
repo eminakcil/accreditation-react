@@ -41,32 +41,6 @@ const StrategicSystemDetail = () => {
       </>
     )
 
-  // return (
-  //   <div className="grid grid-cols-3 gap-4">
-  // {strategicPlanList &&
-  //   strategicPlanList.map((strategicPlan) => (
-  //     <Fragment key={strategicPlan._id}>
-  //       <div className="flex flex-col w-full aspect-video shadow hover:shadow-xl rounded-2xl p-2">
-  //         <span className="text-xl text-center">{strategicPlan.title}</span>
-  //         <span className="text-center">
-  //           {strategicPlan.period.at(0)?.title} - {strategicPlan.period.at(-1)?.title}
-  //         </span>
-  //         <div className="ml-auto mt-auto flex items-center gap-2">
-  //           {dateFormat(strategicPlan.createdAt)}
-  //           <Button
-  //             as={Link}
-  //             to={getPath('strategicPlans.detail', { strategicPlanId: strategicPlan._id })}
-  //             className="inline-flex justify-center"
-  //             variant="dark-0"
-  //           >
-  //             {search}
-  //           </Button>
-  //         </div>
-  //       </div>
-  //     </Fragment>
-  //   ))}
-  //   </div>
-  // )
   return (
     <>
       <hr />
@@ -82,30 +56,31 @@ const StrategicSystemDetail = () => {
           </div>
           <Card>
             <div className="grid grid-cols-3 gap-6">
-              {strategicService.strategicPlans.map((strategicPlan) => (
-                <Fragment key={strategicPlan._id}>
-                  <Card style={{ backgroundColor: '#F9FCFF' }}>
-                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                      {strategicPlan.title}
-                    </h5>
-                    <hr />
-                    <div className="ml-auto mt-auto flex items-center gap-2">
-                      {dateFormat(strategicPlan.createdAt)}
-                    </div>
-                    <div className="ml-auto mt-auto flex items-center gap-2">
-                      <Button
-                        as={Link}
-                        to={getPath('strategicPlans.detail', {
-                          strategicPlanId: strategicPlan._id,
-                        })}
-                        className="inline-flex justify-center"
-                        variant="dark-0"
-                      >
-                        {search} Görüntüle
-                      </Button>
-                    </div>
-                  </Card>
-                </Fragment>
+              {strategicService.strategicPlans.map((strategicPlan, index) => (
+                <Card
+                  key={index}
+                  style={{ backgroundColor: '#F9FCFF' }}
+                >
+                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                    {strategicPlan.title}
+                  </h5>
+                  <hr />
+                  <div className="ml-auto mt-auto flex items-center gap-2">
+                    {dateFormat(strategicPlan.createdAt)}
+                  </div>
+                  <div className="ml-auto mt-auto flex items-center gap-2">
+                    <Button
+                      as={Link}
+                      to={getPath('strategicPlans.detail', {
+                        strategicPlanId: strategicPlan._id,
+                      })}
+                      className="inline-flex justify-center"
+                      variant="dark-0"
+                    >
+                      {search} Görüntüle
+                    </Button>
+                  </div>
+                </Card>
               ))}
             </div>
           </Card>

@@ -1,4 +1,3 @@
-import { element } from 'prop-types'
 import { lazy, Suspense } from 'react'
 import Loading from './components/Loading'
 
@@ -6,7 +5,6 @@ const MainLayout = lazy(() => import('./layouts/MainLayout'))
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 
-const StrategicPlans = lazy(() => import('./pages/StrategicPlans'))
 const StrategicPlanDetail = lazy(() => import('./pages/StrategicPlans/StrategicPlanDetail'))
 const StrategicPlanCreate = lazy(() => import('./pages/StrategicPlans/StrategicPlanCreate'))
 const StrategicSystem = lazy(() => import('./pages/StrategicPlans/StrategicSystem'))
@@ -66,11 +64,6 @@ const routes = [
         path: 'strategic-plans',
         name: 'strategicPlans',
         children: [
-          {
-            index: true,
-            element: <StrategicPlans />,
-            lazy: true,
-          },
           {
             path: ':strategicPlanId',
             name: 'detail',

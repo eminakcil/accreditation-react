@@ -136,7 +136,7 @@ const StrategicPlanDetail = () => {
           <div className="grid grid-cols-1 gap-6">
             <div className="flex flex-col items-center">
               <span className="text-xl">{strategicPlan.title}</span>
-              <span className="text-xl">{getPeriodTitleByStrategicPlan(strategicPlan)}</span>
+              <span className="text-xl">{strategicPlan.strategicSystem.title}</span>
             </div>
             <Divider />
             <div className="flex gap-2 items-center">
@@ -160,8 +160,8 @@ const StrategicPlanDetail = () => {
                       <Table.HeadCell>{strategicGoal.title}</Table.HeadCell>
                       <Table.HeadCell>Performans Göstergesi</Table.HeadCell>
                       <Table.HeadCell>Performans Hedefi</Table.HeadCell>
-                      {strategicPlan.period.map((period) => (
-                        <Table.HeadCell key={period._id}>{period.title}</Table.HeadCell>
+                      {strategicPlan.strategicSystem.period.map((period) => (
+                        <Table.HeadCell key={period._id}>{period.year}</Table.HeadCell>
                       ))}
                       <Table.HeadCell>Sorumlu </Table.HeadCell>
                     </Table.Head>
@@ -172,7 +172,7 @@ const StrategicPlanDetail = () => {
                           <Table.Cell>{strategicActivity.title}</Table.Cell>
                           <Table.Cell>{strategicActivity.performanceIndicator}</Table.Cell>
                           <Table.Cell>{strategicActivity.performanceGoalCount}</Table.Cell>
-                          {strategicPlan.period.map((period) => (
+                          {strategicPlan.strategicSystem.period.map((period) => (
                             <Table.Cell key={period._id}>
                               <span className="flex flex-col">
                                 <span>{getPeriodGoal(strategicActivity, period._id).goal}</span>
@@ -245,7 +245,7 @@ const StrategicPlanDetail = () => {
                       <StrategicActivityList
                         strategicActivities={selectedStrategicGoal.strategicActivities}
                         editMode={canEdit}
-                        periodList={strategicPlan.period}
+                        periodList={strategicPlan.strategicSystem.period}
                         onActivityCreate={handleActivityCreate}
                       />
                     </Suspense>
