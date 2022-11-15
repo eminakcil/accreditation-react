@@ -65,7 +65,10 @@ const StrategicPlans = () => {
   //   </div>
   // )
   return (
-    <>
+    <div className="space-y-4">
+      <div className="flex">
+        <div className="p-3 bg-gray-200 rounded-lg">2022-2025</div>
+      </div>
       <hr />
       <div className="w-full">
         <div className="grid grid-cols-1 gap-6">
@@ -109,7 +112,7 @@ const StrategicPlans = () => {
           </div>
         </Card>
       </div>
-    </>
+    </div>
   )
 }
 export default StrategicPlans

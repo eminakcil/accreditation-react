@@ -14,3 +14,15 @@ th,
 td {
   border: 1px solid black;
 }
+
+.giris {
+  transition-delay: 50ms;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.cikis {
+  transition-duration: 100ms;
+  transform: translateX(0);
+  opacity: 0;
+}

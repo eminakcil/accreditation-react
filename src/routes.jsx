@@ -1,4 +1,3 @@
-import { element } from 'prop-types'
 import { lazy, Suspense } from 'react'
 import Loading from './components/Loading'
 
@@ -18,9 +17,9 @@ const Login = lazy(() => import('./pages/Login/Login'))
 
 const routes = [
   {
-   path: 'login',
-   element: <Login />,
-   lazy: true,
+    path: 'login',
+    element: <Login />,
+    lazy: true,
   },
   {
     path: '/',
