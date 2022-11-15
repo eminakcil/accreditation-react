@@ -79,7 +79,7 @@ const Navbar = () => {
                 <span className="block text-sm">Damla Akcin</span>
                 <span className="block truncate text-sm font-medium">damla@gmail.com</span>
               </Dropdown.Header>
-              <Dropdown.Item to='/'>Ana Sayfa</Dropdown.Item>
+              <Dropdown.Item to="/">Ana Sayfa</Dropdown.Item>
               <Dropdown.Item>Ayarlar</Dropdown.Item>
               <Dropdown.Item>Şifremi Değiştir </Dropdown.Item>
               <Dropdown.Divider />
@@ -93,7 +93,7 @@ const Navbar = () => {
                 <NavbarLink to="/">Ana Sayfa</NavbarLink>
               </div>
               <div className="text-xl">
-                <NavbarLink to={getPath('strategicPlans')}>Stratejik Plan</NavbarLink>
+                <NavbarLink to={getPath('strategicSystem')}>Stratejik Plan</NavbarLink>
               </div>
               <div className="text-xl">
                 <NavbarLink to="#">İş Planı</NavbarLink>

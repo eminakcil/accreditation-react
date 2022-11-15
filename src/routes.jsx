@@ -9,6 +9,8 @@ const HomePage = lazy(() => import('./pages/HomePage'))
 const StrategicPlans = lazy(() => import('./pages/StrategicPlans'))
 const StrategicPlanDetail = lazy(() => import('./pages/StrategicPlans/StrategicPlanDetail'))
 const StrategicPlanCreate = lazy(() => import('./pages/StrategicPlans/StrategicPlanCreate'))
+const StrategicSystem = lazy(() => import('./pages/StrategicPlans/StrategicSystem'))
+const StrategicSystemDetail = lazy(() => import('./pages/StrategicPlans/StrategicSystemDetail'))
 
 const RoomInformation = lazy(() => import('./pages/RoomInformation/RoomInformation'))
 
@@ -18,9 +20,9 @@ const Login = lazy(() => import('./pages/Login/Login'))
 
 const routes = [
   {
-   path: 'login',
-   element: <Login />,
-   lazy: true,
+    path: 'login',
+    element: <Login />,
+    lazy: true,
   },
   {
     path: '/',
@@ -39,6 +41,23 @@ const routes = [
           {
             index: true,
             element: <RoomInformation />,
+            lazy: true,
+          },
+        ],
+      },
+      {
+        path: 'strategic-system',
+        name: 'strategicSystem',
+        children: [
+          {
+            index: true,
+            element: <StrategicSystem />,
+            lazy: true,
+          },
+          {
+            path: ':strategicSystemId',
+            name: 'detail',
+            element: <StrategicSystemDetail />,
             lazy: true,
           },
         ],
