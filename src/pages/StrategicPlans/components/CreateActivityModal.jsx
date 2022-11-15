@@ -133,7 +133,7 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
                     className="flex-1 space-y-1 text-center"
                     key={period._id}
                   >
-                    <span>{period.title}</span>
+                    <span>{period.year}</span>
                     <input
                       type="hidden"
                       name={`periodGoal.${index}.strategicPeriod`}

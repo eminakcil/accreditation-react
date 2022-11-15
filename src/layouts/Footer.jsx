@@ -15,7 +15,7 @@ const Footer = () => {
               name="Ereğli Ticaret ve Sanayi Odası"
             />
             <FFooter.LinkGroup>
-              <FooterLink to={getPath('strategicPlans')}>Stratejik Plan</FooterLink>
+              <FooterLink to={getPath('strategicSystem')}>Stratejik Plan</FooterLink>
               <FooterLink to="#">İş Planı</FooterLink>
               <FooterLink to="#">Akreditasyon</FooterLink>
               <FooterLink to="#">Anketler</FooterLink>

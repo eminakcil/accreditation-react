@@ -53,7 +53,7 @@ const SideBar = () => {
                 Yeni Stratejik Plan Oluştur
               </SidebarItem>
               <SidebarItem
-                to={getPath('strategicPlans')}
+                to={getPath('strategicSystem')}
                 icon={FaRegChartBar}
               >
                 Stratejik Planları Görüntüle
@@ -85,7 +85,7 @@ const SideBar = () => {
                 Anketleri Görüntüle
               </SidebarItem>
               <SidebarItem
-                to='login'
+                to="login"
                 icon={FaExternalLinkAlt}
               >
                 Çıkış Yap

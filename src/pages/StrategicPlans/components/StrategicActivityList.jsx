@@ -92,7 +92,7 @@ const StrategicActivityList = ({
                       <div className="border-r h-[48px] self-center border-solid border-gray-500"></div>
                     )}
                     <div className="inline-flex flex-col items-center px-3">
-                      <span>{periodGoal.strategicPeriod.title}</span>
+                      <span>{periodGoal.strategicPeriod.year}</span>
                       <span>{periodGoal.goal}</span>
                       <span>{periodGoal.price}</span>
                     </div>
