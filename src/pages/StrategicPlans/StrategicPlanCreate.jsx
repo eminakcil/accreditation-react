@@ -1,104 +1,19 @@
-import { StrategicSystemService } from '@services/index'
-import { Button, Card, Label, Spinner, TextInput } from 'flowbite-react'
-import React, { useState } from 'react'
-import { useFormik } from 'formik'
-import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
-import { getPath } from '@/utils'
-import { StrategicSystemSchema } from '@/validations/StrategicSystemSchema'
+import { Card, Tabs } from 'flowbite-react'
+import StrategicPlanForm from './components/StrategicPlanForm'
+import StrategicSystemForm from './components/StrategicSystemForm'
 
 const StrategicPlanCreate = () => {
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
-
-  const formik = useFormik({
-    initialValues: {
-      periodStartYear: '',
-    },
-    validationSchema: StrategicSystemSchema,
-    onSubmit: (values) => {
-      setLoading(true)
-      StrategicSystemService.create({
-        periodStartYear: values.periodStartYear,
-      })
-        .then((response) => {
-          toast.success('Eklendi!')
-          navigate(
-            getPath('strategicSystem.detail', {
-              strategicSystemId: response._id,
-            })
-          )
-          console.log(response)
-        })
-        .catch((error) => {
-          toast.error('Eklenemedi! :(((')
-          console.log('aaa oouu bir hata aldım', error)
-        })
-        .finally(() => setLoading(false))
-    },
-  })
-
   return (
     <Card>
       <Card style={{ backgroundColor: '#F9FCFF' }}>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="grid grid-cols-1 gap-6">
-            <div className="flex flex-col gap-8">
-              <div>
-                <div className="mb-2 block">
-                  <Label value="Başlangıç Yılı" />
-                </div>
-                <TextInput
-                  type="number"
-                  max="9999"
-                  value={formik.values.periodStartYear}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  name="periodStartYear"
-                  id="period"
-                  placeholder="Stratejik Plan Başlangıç Yılı"
-                  color="red"
-                  helperText={
-                    <React.Fragment>
-                      <span className="block">
-                        {formik.errors.periodStartYear && formik.touched.periodStartYear && (
-                          <>{formik.errors.periodStartYear}</>
-                        )}
-                      </span>
-                      <span
-                        className="font-medium"
-                        style={{ color: 'red' }}
-                      >
-                        Dikkat!
-                      </span>{' '}
-                      <span style={{ color: 'grey' }}>
-                        Stratejik Plan Başlangıç Yılından İtibaren 4 Yıllık Periyot Halinde
-                        Düzenlenecektir!
-                      </span>
-                    </React.Fragment>
-                  }
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <div>
-              <Button
-                gradientDuoTone="cyanToBlue"
-                type="submit"
-                disabled={loading}
-              >
-                {loading && (
-                  <>
-                    <Spinner />
-                    <span className="pl-3"></span>
-                  </>
-                )}
-                Stratejik Planı Oluştur
-              </Button>
-            </div>
-          </div>
-        </form>
+        <Tabs.Group>
+          <Tabs.Item title="Stratejik Plan Ekle">
+            <StrategicSystemForm />
+          </Tabs.Item>
+          <Tabs.Item title="Stratejik Amaç Ekle">
+            <StrategicPlanForm />
+          </Tabs.Item>
+        </Tabs.Group>
       </Card>
     </Card>
   )
