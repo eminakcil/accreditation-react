@@ -107,7 +107,7 @@ const HomePage = () => {
                 </a>
               </div>
             </Card>
-            <Card style={{ roundColor: '#F9FCFF' }}>
+            <Card style={{ backgroundColor: '#F9FCFF' }}>
               <a href="#">
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   2023- 2026 Stratejik Planı

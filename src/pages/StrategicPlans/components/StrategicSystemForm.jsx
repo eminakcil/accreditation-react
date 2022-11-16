@@ -3,13 +3,10 @@ import { Button, Label, Spinner, TextInput } from 'flowbite-react'
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
-import { getPath } from '@/utils'
 import { StrategicSystemSchema } from '@/validations/StrategicSystemSchema'
 
-const StrategicSystemForm = () => {
+const StrategicSystemForm = ({ handleCreateSystem = () => {} }) => {
   const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -23,16 +20,11 @@ const StrategicSystemForm = () => {
       })
         .then((response) => {
           toast.success('Eklendi!')
-          navigate(
-            getPath('strategicSystem.detail', {
-              strategicSystemId: response._id,
-            })
-          )
-          console.log(response)
+          handleCreateSystem(response)
         })
         .catch((error) => {
           toast.error('Eklenemedi! :(((')
-          console.log('aaa oouu bir hata aldım', error)
+          console.log('Eklenemedi', error)
         })
         .finally(() => setLoading(false))
     },

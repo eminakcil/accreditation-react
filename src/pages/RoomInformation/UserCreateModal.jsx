@@ -5,7 +5,7 @@ import { UserService } from '@services/index'
 import classNames from 'classnames'
 import { Button, Label, Modal, Select, TextInput } from 'flowbite-react'
 import { useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 const UserCreateModal = ({ data: { roles }, show, onClose, onSubmit = () => {} }) => {
@@ -37,6 +37,13 @@ const UserCreateModal = ({ data: { roles }, show, onClose, onSubmit = () => {} }
         .finally(() => setLoading(false))
     },
   })
+
+  useEffect(() => {
+    if (roles && formik.values.role.length === 0) {
+      formik.setFieldValue('role', roles?.[0]._id)
+    }
+  }, [roles])
+
   return (
     <Modal
       show={show}
@@ -106,7 +113,7 @@ const UserCreateModal = ({ data: { roles }, show, onClose, onSubmit = () => {} }
               {roles && (
                 <div>
                   <div className="mb-2 block">
-                    <Label value="Role" />
+                    <Label value="Rol" />
                   </div>
                   <Select
                     name="role"
