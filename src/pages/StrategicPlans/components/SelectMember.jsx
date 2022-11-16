@@ -2,8 +2,9 @@ import Loading from '@components/Loading'
 import { UserRoleService, UserService } from '@services/index'
 import { Button, Tabs } from 'flowbite-react'
 import { useCallback, useEffect, useState } from 'react'
+import classNames from 'classnames'
 
-const SelectMember = () => {
+const SelectMember = ({ handleMemberChange = () => {}, selectedUser = false }) => {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
   const [roles, setRoles] = useState(false)
@@ -44,9 +45,29 @@ const SelectMember = () => {
 
   return (
     <Tabs.Group style="underline">
-      <Tabs.Item title="deneme">
-        <pre>{JSON.stringify(roles, null, 2)}</pre>
-      </Tabs.Item>
+      {roles.map((role) => (
+        <Tabs.Item
+          key={role._id}
+          title={role.title}
+        >
+          <div className="flex flex-col gap-3">
+            {userByRole(role._id).map((user) => (
+              <div
+                key={user._id}
+                className={classNames('p-3 rounded-2xl cursor-pointer select-none', {
+                  'bg-gray-100 hover:bg-gray-300 hover:text-gray-700':
+                    selectedUser?._id !== user._id,
+                  'bg-gray-300 hover:bg-gray-400 hover:text-gray-700':
+                    selectedUser?._id === user._id,
+                })}
+                onClick={() => selectedUser?._id !== user._id && handleMemberChange(user)}
+              >
+                {user.fullName}
+              </div>
+            ))}
+          </div>
+        </Tabs.Item>
+      ))}
     </Tabs.Group>
   )
 }

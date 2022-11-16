@@ -48,8 +48,16 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
     },
   })
 
+  const [selectedUser, setSelectedUser] = useState(false)
+
   const handleSelectMemberClick = () => {
     setActiveViewOrder(1)
+  }
+
+  const handleMemberChange = (user) => {
+    setSelectedUser(user)
+    setActiveViewOrder(0)
+    formik.setFieldValue('responsible', user._id)
   }
 
   const views = [
@@ -61,16 +69,22 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
           loading={loading}
           periodList={periodList}
           handleSelectMemberClick={handleSelectMemberClick}
+          selectedUser={selectedUser}
         />
       ),
     },
     {
       name: 'selectMember',
-      element: <SelectMember />,
+      element: (
+        <SelectMember
+          handleMemberChange={handleMemberChange}
+          selectedUser={selectedUser}
+        />
+      ),
     },
   ].map((item, index) => ({ ...item, order: index }))
 
-  const [activeViewOrder, setActiveViewOrder] = useState(1)
+  const [activeViewOrder, setActiveViewOrder] = useState(0)
 
   const calculateViewPosition = useCallback(
     (order) => {
@@ -79,10 +93,6 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
     [views, activeViewOrder]
   )
 
-  const nextView = () => {
-    setActiveViewOrder((curr) => (curr === views.length - 1 ? 0 : curr + 1))
-  }
-
   return (
     <Modal
       show={show}
@@ -90,7 +100,6 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
     >
       <Modal.Header />
       <Modal.Body>
-        <Button onClick={nextView}>toggleActiveViewName</Button>
         <div className="relative h-[560px] overflow-hidden">
           {loading && (
             <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">

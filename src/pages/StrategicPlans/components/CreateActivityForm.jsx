@@ -2,7 +2,13 @@ import ErrorMessage from '@components/ErrorMessage'
 import classNames from 'classnames'
 import { Button, Label, TextInput } from 'flowbite-react'
 
-const CreateActivityForm = ({ loading, periodList, formik, handleSelectMemberClick }) => {
+const CreateActivityForm = ({
+  loading,
+  periodList,
+  formik,
+  handleSelectMemberClick,
+  selectedUser,
+}) => {
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -47,6 +53,7 @@ const CreateActivityForm = ({ loading, periodList, formik, handleSelectMemberCli
           <div className="mb-2 block">
             <Label value="Sorumlu" />
           </div>
+          {selectedUser && <div className="mb-2 block">{selectedUser.fullName}</div>}
           <Button onClick={handleSelectMemberClick}>Seç</Button>
           {formik.errors.responsible && formik.touched.responsible ? (
             <ErrorMessage>{formik.errors.responsible}</ErrorMessage>
