@@ -47,8 +47,8 @@ const StrategicPlanForm = forwardRef((props, ref) => {
         .then((response) => {
           toast.success('Eklendi!')
           navigate(
-            getPath('strategicSystem.detail', {
-              strategicSystemId: response._id,
+            getPath('strategicPlans.detail', {
+              strategicPlanId: response._id,
             })
           )
           console.log(response)
