@@ -9,6 +9,7 @@ import { dateFormat, getPath } from '../../utils'
 import { search } from '../../icons'
 import { Card } from 'flowbite-react'
 import Divider from '@components/Divider'
+import { FaRegCalendarAlt } from 'react-icons/fa'
 
 const StrategicSystemDetail = () => {
   const params = useParams() // strategicSystemId
@@ -65,8 +66,9 @@ const StrategicSystemDetail = () => {
                     {strategicPlan.title}
                   </h5>
                   <hr />
+                  <h5> {strategicService.title}</h5>
                   <div className="ml-auto mt-auto flex items-center gap-2">
-                    {dateFormat(strategicPlan.createdAt)}
+                    <FaRegCalendarAlt /> {dateFormat(strategicPlan.createdAt)}
                   </div>
                   <div className="ml-auto mt-auto flex items-center gap-2">
                     <Button
