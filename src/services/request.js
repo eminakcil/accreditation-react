@@ -1,3 +1,6 @@
+import { setUser } from '@store/authSlice'
+import store from '@store/index'
+
 function parseData(data) {
   const formData = new FormData()
   for (let [key, value] of Object.entries(data)) {
@@ -24,6 +27,16 @@ function request(url, data = false, method = 'GET', type = 'FORM_DATA') {
         if (response.ok) {
           resolve(result)
         } else {
+          if ('message' in result) {
+            switch (result.message) {
+              case 'not logged in':
+                store.dispatch(setUser(false))
+                break
+
+              default:
+                break
+            }
+          }
           reject(result)
         }
       })

@@ -1,7 +1,54 @@
+import { LoginShema } from '@/validations/UserSchema'
+import ErrorMessage from '@components/ErrorMessage'
+import { UserService } from '@services/index'
+import { useAppDispatch, useAppSelector } from '@store/index'
 import { Button, Card, Footer, Label, TextInput } from 'flowbite-react'
-import React from 'react'
+import { useFormik } from 'formik'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import { setUser } from '@store/authSlice'
+import { getPath } from '@/utils'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+  const formik = useFormik({
+    initialValues: {
+      mail: '',
+      password: '',
+    },
+    validationSchema: LoginShema,
+    onSubmit: (values) => {
+      console.log(values)
+      UserService.login(values)
+        .then((response) => {
+          console.log('then', response)
+          dispatch(setUser(response))
+          navigate('/')
+        })
+        .catch(({ error }) => {
+          switch (error?.message) {
+            case 'wrong email':
+              toast.error('Hatalı Mail Adresi Girdiniz!')
+
+              break
+            case 'wrong password':
+              toast.error('Hatalı Şifre Girdiniz!')
+              break
+
+            default:
+              break
+          }
+          console.log('catch', error)
+        })
+        .finally(() => {
+          console.log('end')
+        })
+    },
+  })
+
   return (
     <>
       <div
@@ -19,33 +66,41 @@ const Login = () => {
         <span className="text-m text-gray-500 dark:text-gray-400 p-2">Akreditasyon Sistemi</span>
         <Card style={{ width: '50%' }}>
           <div className="p-2">
-            <form className="flex flex-col gap-4">
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={formik.handleSubmit}
+            >
               <div>
                 <div className="mb-2 block">
-                  <Label
-                    htmlFor="email"
-                    value="Mail Adresi"
-                  />
+                  <Label value="Mail Adresi" />
                 </div>
                 <TextInput
-                  id="email"
                   type="email"
                   placeholder="Mail Adresi"
-                  required={true}
+                  name="mail"
+                  value={formik.values.mail}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.errors.mail && formik.touched.mail ? (
+                  <ErrorMessage>{formik.errors.mail}</ErrorMessage>
+                ) : null}
               </div>
               <div>
                 <div className="mb-2 block">
-                  <Label
-                    htmlFor="password"
-                    value="Şifre"
-                  />
+                  <Label value="Şifre" />
                 </div>
                 <TextInput
-                  id="password"
                   type="password"
-                  required={true}
+                  name="password"
+                  placeholder="Şifre"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.errors.password && formik.touched.password ? (
+                  <ErrorMessage>{formik.errors.password}</ErrorMessage>
+                ) : null}
               </div>
 
               <Button type="submit">Giriş Yap</Button>
