@@ -4,15 +4,15 @@ import { UserService } from '@services/index'
 import { useAppDispatch, useAppSelector } from '@store/index'
 import { Button, Card, Footer, Label, TextInput } from 'flowbite-react'
 import { useFormik } from 'formik'
-import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { setUser } from '@store/authSlice'
 import { getPath } from '@/utils'
 
 const Login = () => {
-  const navigate = useNavigate()
+  const { user } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
+  const location = useLocation()
 
   const formik = useFormik({
     initialValues: {
@@ -24,9 +24,7 @@ const Login = () => {
       console.log(values)
       UserService.login(values)
         .then((response) => {
-          console.log('then', response)
           dispatch(setUser(response))
-          navigate('/')
         })
         .catch(({ error }) => {
           switch (error?.message) {
@@ -48,6 +46,8 @@ const Login = () => {
         })
     },
   })
+
+  if (user) return <Navigate to={location?.state?.returnUrl || getPath('homepage')} />
 
   return (
     <>

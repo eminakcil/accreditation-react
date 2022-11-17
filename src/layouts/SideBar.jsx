@@ -1,4 +1,4 @@
-import { getPath } from '@/utils'
+import { getPath, signOut } from '@/utils'
 import SidebarItem from '@components/SidebarItem'
 import { Sidebar } from 'flowbite-react'
 import React from 'react'
@@ -85,8 +85,8 @@ const SideBar = () => {
                 Anketleri Görüntüle
               </SidebarItem>
               <SidebarItem
-                to="login"
                 icon={FaExternalLinkAlt}
+                onClick={signOut}
               >
                 Çıkış Yap
               </SidebarItem>

@@ -1,19 +1,20 @@
-import { useAppSelector } from '../store'
+import { useAppSelector } from '@store/index'
 import { Navigate, useLocation } from 'react-router-dom'
-import { getPath } from '@/utils'
+import { getPath } from '../utils'
 
-export default function PrivateRoute({ children }) {
-  const location = useLocation()
+const PrivateRoute = ({ children }) => {
   const { user } = useAppSelector((state) => state.auth)
+  const location = useLocation()
 
-  if (!user) {
+  if (!user)
     return (
       <Navigate
         to={getPath('login')}
-        state={{ return_url: location.pathname }}
+        state={{ returnUrl: location.pathname + location.search }}
       />
     )
-  }
 
   return children
 }
+
+export default PrivateRoute

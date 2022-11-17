@@ -16,6 +16,14 @@ function request(url, data = false, method = 'GET', type = 'FORM_DATA') {
       headers: {},
     }
 
+    const {
+      auth: { user },
+    } = store.getState()
+
+    if (user) {
+      options.headers.Authorization = ['Bearer', user.tokens.accessToken].join(' ')
+    }
+
     if (data) {
       if (type === 'JSON') options.headers['Content-Type'] = 'application/json'
       options.body = type === 'JSON' ? JSON.stringify(data) : parseData(data)
