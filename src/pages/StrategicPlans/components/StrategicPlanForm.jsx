@@ -130,7 +130,7 @@ const StrategicPlanForm = forwardRef((props, ref) => {
                 <span className="pl-3"></span>
               </>
             )}
-            Stratejik Planı Oluştur
+            Stratejik Amacı Oluştur
           </Button>
         </div>
       </div>

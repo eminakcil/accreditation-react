@@ -16,6 +16,8 @@ const RoomInformation = lazy(() => import('./pages/RoomInformation/RoomInformati
 
 const Login = lazy(() => import('./pages/Login/Login'))
 
+const NotFound = lazy(() => import('./pages/NotFound'))
+
 /** @type {import('react-router-dom').RouteObject[]} */
 
 const routes = [
@@ -23,6 +25,11 @@ const routes = [
     path: 'login',
     name: 'login',
     element: <Login />,
+    lazy: true,
+  },
+  {
+    path: 'notFound',
+    element: <NotFound />,
     lazy: true,
   },
   {

@@ -9,6 +9,7 @@ import { dateFormat, getPath } from '../../utils'
 import { search } from '../../icons'
 import { Card } from 'flowbite-react'
 import Divider from '@components/Divider'
+import { FaPlus, FaRegCalendarAlt } from 'react-icons/fa'
 
 const StrategicSystemDetail = () => {
   const params = useParams() // strategicSystemId
@@ -40,6 +41,30 @@ const StrategicSystemDetail = () => {
         Hata <Button onClick={fetchData}>Tekrar Dene</Button>
       </>
     )
+  if (!strategicService?.strategicPlans || !strategicService?.strategicPlans?.length)
+    return (
+      <>
+        <div className="text-center">
+          <div className="p-4">
+            <h1>Bu Stratejik Plana Ait Hiç Stratejik Amaç Bulunamamaktadır!</h1>
+          </div>
+          <div>
+            <Button
+              as={Link}
+              to={getPath('strategicPlans.create')}
+              className="inline-flex justify-center"
+              variant="dark-0"
+            >
+              Stratejik Amaç Ekle
+              <div className="p-1">
+                {' '}
+                <FaPlus />
+              </div>
+            </Button>
+          </div>
+        </div>
+      </>
+    )
 
   return (
     <>
@@ -65,8 +90,9 @@ const StrategicSystemDetail = () => {
                     {strategicPlan.title}
                   </h5>
                   <hr />
+                  <h5> {strategicService.title}</h5>
                   <div className="ml-auto mt-auto flex items-center gap-2">
-                    {dateFormat(strategicPlan.createdAt)}
+                    <FaRegCalendarAlt /> {dateFormat(strategicPlan.createdAt)}
                   </div>
                   <div className="ml-auto mt-auto flex items-center gap-2">
                     <Button

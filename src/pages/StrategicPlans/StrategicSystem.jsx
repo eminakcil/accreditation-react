@@ -4,6 +4,7 @@ import Button from '@components/Button'
 import Divider from '@components/Divider'
 import { Card } from 'flowbite-react'
 import React, { Fragment, useEffect, useState } from 'react'
+import { FaPlus, FaRegCalendarAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import { StrategicSystemService } from '../../services'
@@ -35,6 +36,31 @@ const StrategicSystem = () => {
       </>
     )
 
+  if (!strategicSystemList || !strategicSystemList?.length)
+    return (
+      <>
+        <div className="text-center">
+          <div className="p-4">
+            <h1>Daha Önce Oluşturulan Hiç Stratejik Plan Bulunamamaktadır!</h1>
+          </div>
+          <div>
+            <Button
+              as={Link}
+              to={getPath('strategicPlans.create')}
+              className="inline-flex justify-center"
+              variant="dark-0"
+            >
+              Stratejik Plan Ekle
+              <div className="p-1">
+                {' '}
+                <FaPlus />
+              </div>
+            </Button>
+          </div>
+        </div>
+      </>
+    )
+
   return (
     <>
       <hr />
@@ -46,7 +72,7 @@ const StrategicSystem = () => {
           <Divider />
         </div>
         <Card>
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             {strategicSystemList &&
               strategicSystemList.map((strategicSystem) => (
                 <Fragment key={strategicSystem._id}>
@@ -56,6 +82,7 @@ const StrategicSystem = () => {
                     </h5>
                     <hr />
                     <div className="ml-auto mt-auto flex items-center gap-2">
+                      <FaRegCalendarAlt />
                       {dateFormat(strategicSystem.createdAt)}
                     </div>
                     <div className="ml-auto mt-auto flex items-center gap-2">
