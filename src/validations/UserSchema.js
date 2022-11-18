@@ -6,3 +6,8 @@ export const UserShema = Yup.object().shape({
   telephone: Yup.string().required(),
   role: Yup.string().required(),
 })
+
+export const LoginShema = Yup.object().shape({
+  mail: Yup.string().required(),
+  password: Yup.string().required(),
+})

@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react'
 import Loading from './components/Loading'
 
+import PrivateRoute from '@components/PrivateRoute'
+
 const MainLayout = lazy(() => import('./layouts/MainLayout'))
 
 const HomePage = lazy(() => import('./pages/HomePage'))
@@ -21,6 +23,7 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 const routes = [
   {
     path: 'login',
+    name: 'login',
     element: <Login />,
     lazy: true,
   },
@@ -38,6 +41,7 @@ const routes = [
         index: true,
         element: <HomePage />,
         lazy: true,
+        auth: true,
       },
       {
         path: 'room-informations',
@@ -47,6 +51,7 @@ const routes = [
             index: true,
             element: <RoomInformation />,
             lazy: true,
+            auth: true,
           },
         ],
       },
@@ -58,12 +63,14 @@ const routes = [
             index: true,
             element: <StrategicSystem />,
             lazy: true,
+            auth: true,
           },
           {
             path: ':strategicSystemId',
             name: 'detail',
             element: <StrategicSystemDetail />,
             lazy: true,
+            auth: true,
           },
         ],
       },
@@ -79,6 +86,7 @@ const routes = [
                 index: true,
                 element: <StrategicPlanDetail />,
                 lazy: true,
+                auth: true,
               },
               {
                 path: 'goals/:strategicGoalId',
@@ -88,12 +96,14 @@ const routes = [
                     index: true,
                     element: <StrategicPlanDetail />,
                     lazy: true,
+                    auth: true,
                   },
                   {
                     path: 'activities/:strategicActivityId',
                     name: 'activities',
                     element: <StrategicPlanDetail />,
                     lazy: true,
+                    auth: true,
                   },
                 ],
               },
@@ -104,6 +114,7 @@ const routes = [
             name: 'create',
             element: <StrategicPlanCreate />,
             lazy: true,
+            auth: true,
           },
         ],
       },
@@ -113,9 +124,9 @@ const routes = [
 
 const mapRoute = (list) => {
   return list.map((item) => {
-    // if (item?.auth && 'element' in item) {
-    //   item.element = <PrivateRoute>{item.element}</PrivateRoute>
-    // }
+    if (item?.auth && 'element' in item) {
+      item.element = <PrivateRoute>{item.element}</PrivateRoute>
+    }
 
     if (item?.lazy && 'element' in item) {
       item.element = <Suspense fallback={<Loading />}>{item.element}</Suspense>

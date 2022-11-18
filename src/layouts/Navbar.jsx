@@ -1,8 +1,6 @@
-import { getPath } from '@/utils'
+import { getPath, signOut } from '@/utils'
 import NavbarLink from '@components/NavbarLink'
-import Login from '@pages/Login/Login'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
-import { FaSearch } from 'react-icons/fa'
 
 const Navbar = () => {
   return (
@@ -83,7 +81,7 @@ const Navbar = () => {
               <Dropdown.Item>Ayarlar</Dropdown.Item>
               <Dropdown.Item>Şifremi Değiştir </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>Çıkış Yap</Dropdown.Item>
+              <Dropdown.Item onClick={signOut}>Çıkış Yap</Dropdown.Item>
             </Dropdown>
             <NNavbar.Toggle />
           </div>
