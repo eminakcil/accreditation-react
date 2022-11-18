@@ -9,7 +9,7 @@ import { dateFormat, getPath } from '../../utils'
 import { search } from '../../icons'
 import { Card } from 'flowbite-react'
 import Divider from '@components/Divider'
-import { FaRegCalendarAlt } from 'react-icons/fa'
+import { FaPlus, FaRegCalendarAlt } from 'react-icons/fa'
 
 const StrategicSystemDetail = () => {
   const params = useParams() // strategicSystemId
@@ -39,6 +39,30 @@ const StrategicSystemDetail = () => {
     return (
       <>
         Hata <Button onClick={fetchData}>Tekrar Dene</Button>
+      </>
+    )
+  if (!strategicService?.strategicPlans || !strategicService?.strategicPlans?.length)
+    return (
+      <>
+        <div className="text-center">
+          <div className="p-4">
+            <h1>Bu Stratejik Plana Ait Hiç Stratejik Amaç Bulunamamaktadır!</h1>
+          </div>
+          <div>
+            <Button
+              as={Link}
+              to={getPath('strategicPlans.create')}
+              className="inline-flex justify-center"
+              variant="dark-0"
+            >
+              Stratejik Amaç Ekle
+              <div className="p-1">
+                {' '}
+                <FaPlus />
+              </div>
+            </Button>
+          </div>
+        </div>
       </>
     )
 
