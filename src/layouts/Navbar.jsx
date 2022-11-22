@@ -1,8 +1,11 @@
 import { getPath, signOut } from '@/utils'
 import NavbarLink from '@components/NavbarLink'
+import { useAppSelector } from '@store/index'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
 
 const Navbar = () => {
+  const { user } = useAppSelector((state) => state.auth)
+
   return (
     <>
       <div>
@@ -74,8 +77,8 @@ const Navbar = () => {
               }
             >
               <Dropdown.Header>
-                <span className="block text-sm">Damla Akcin</span>
-                <span className="block truncate text-sm font-medium">damla@gmail.com</span>
+                <span className="block text-sm">{user.fullName}</span>
+                <span className="block truncate text-sm font-medium">{user.mail}</span>
               </Dropdown.Header>
               <Dropdown.Item to="/">Ana Sayfa</Dropdown.Item>
               <Dropdown.Item>Ayarlar</Dropdown.Item>
