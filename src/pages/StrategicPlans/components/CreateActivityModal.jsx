@@ -1,10 +1,9 @@
 import { StrategicActivityShema } from '@/validations/StrategicPlanSchema'
 import Loading from '@components/Loading'
 import { StrategicActivityService } from '@services/index'
-import classNames from 'classnames'
-import { Button, Modal } from 'flowbite-react'
+import { Modal } from 'flowbite-react'
 import { useFormik } from 'formik'
-import { Fragment, useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
@@ -100,7 +99,7 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
     >
       <Modal.Header />
       <Modal.Body>
-        <div className="relative h-[560px] overflow-hidden">
+        <div className="relative h-[680px] overflow-hidden">
           {loading && (
             <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
               <Loading size={16} />
