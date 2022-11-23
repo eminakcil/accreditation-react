@@ -1,3 +1,4 @@
+import constants from '@/constants'
 import { getPath } from '@/utils'
 import FooterLink from '@components/FooterLink'
 import { Footer as FFooter } from 'flowbite-react'
@@ -12,7 +13,7 @@ const Footer = () => {
               href="/"
               src="/images/logo.png"
               alt="Logo"
-              name="Ereğli Ticaret ve Sanayi Odası"
+              name={constants.TITLE}
             />
             <FFooter.LinkGroup>
               <FooterLink to={getPath('strategicSystem')}>Stratejik Plan</FooterLink>

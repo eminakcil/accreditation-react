@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import { Navigate, useLocation } from 'react-router-dom'
 import { setUser } from '@store/authSlice'
 import { getPath } from '@/utils'
+import constants from '@/constants'
 
 const Login = () => {
   const { user } = useAppSelector((state) => state.auth)
@@ -61,7 +62,7 @@ const Login = () => {
           alt="Bonnie image"
         />
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white p-2">
-          Ereğli Ticaret ve Sanayi Odası
+          {constants.TITLE}
         </h5>
         <span className="text-m text-gray-500 dark:text-gray-400 p-2">Akreditasyon Sistemi</span>
         <Card style={{ width: '50%' }}>
