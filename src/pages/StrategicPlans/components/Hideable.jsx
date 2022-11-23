@@ -1,17 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef } from 'react'
+import { useSize } from '@/hooks'
 
 const Hideable = ({ show, duration = 700, children }) => {
   const childrenElement = useRef(null)
-  const [height, setHeight] = useState(0)
+  const size = useSize(childrenElement)
+  const height = useMemo(() => size?.height || 0, [size])
   const currentHeight = useMemo(() => {
     return show ? height : 0
   }, [height, show])
-
-  useEffect(() => {
-    if (childrenElement.current) {
-      setHeight(childrenElement.current.offsetHeight)
-    }
-  }, [childrenElement.current])
 
   return (
     <div className="relative overflow-hidden">

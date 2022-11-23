@@ -180,7 +180,7 @@ const StrategicPlanDetail = () => {
                               </span>
                             </Table.Cell>
                           ))}
-                          <Table.Cell>{strategicActivity.responsible}</Table.Cell>
+                          <Table.Cell>{strategicActivity.responsible.fullName}</Table.Cell>
                         </Table.Row>
                       ))}
                     </Table.Body>

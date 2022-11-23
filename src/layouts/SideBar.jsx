@@ -1,5 +1,6 @@
 import { getPath, signOut } from '@/utils'
 import SidebarItem from '@components/SidebarItem'
+import { useAppSelector } from '@store/index'
 import { Sidebar } from 'flowbite-react'
 import React from 'react'
 import {
@@ -15,6 +16,7 @@ import {
 } from 'react-icons/fa'
 
 const SideBar = () => {
+  const { user } = useAppSelector((state) => state.auth)
   return (
     <>
       <div
@@ -28,8 +30,10 @@ const SideBar = () => {
             src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
             alt="Bonnie image"
           />
-          <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">Damla Akcin</h5>
-          <span className="text-sm text-gray-500 dark:text-gray-400">Meclis Üyesi</span>
+          <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+            {user?.fullName}
+          </h5>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{user?.userRole?.title}</span>
         </div>
         <Sidebar aria-label="Sidebar with logo branding example">
           <Sidebar.Items>
