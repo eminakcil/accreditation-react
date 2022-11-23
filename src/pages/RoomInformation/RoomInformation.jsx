@@ -1,3 +1,4 @@
+import constants from '@/constants'
 import { UserShema } from '@/validations/UserSchema'
 import UserCreateModal from '@pages/RoomInformation/UserCreateModal'
 import { UserRoleService, UserService } from '@services/index'
@@ -62,7 +63,7 @@ const RoomInformation = () => {
               alt="Bonnie image"
             />
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-              Ereğli Ticaret ve Sanayi Odası
+              {constants.TITLE}
             </h5>
           </div>
           <div>

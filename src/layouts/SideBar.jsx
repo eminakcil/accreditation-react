@@ -60,7 +60,7 @@ const SideBar = () => {
               </SidebarItem>
 
               <SidebarItem
-                to="#"
+                to={getPath('businessPlan')}
                 icon={FaPencilAlt}
               >
                 Yeni İş Planı Oluştur

@@ -1,3 +1,4 @@
+import constants from '@/constants'
 import { getPath, signOut } from '@/utils'
 import NavbarLink from '@components/NavbarLink'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
@@ -58,7 +59,7 @@ const Navbar = () => {
               alt="Logo"
             />
             <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-              Ereğli Ticaret ve Sanayi Odası
+              {constants.TITLE}
             </span>
           </NNavbar.Brand>
           <div className="flex md:order-2">

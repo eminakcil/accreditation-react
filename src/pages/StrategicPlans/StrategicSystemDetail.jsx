@@ -46,7 +46,7 @@ const StrategicSystemDetail = () => {
       <>
         <div className="text-center">
           <div className="p-4">
-            <h1>Bu Stratejik Plana Ait Hiç Stratejik Amaç Bulunamamaktadır!</h1>
+            <h1>Bu Stratejik Plana Ait Hiç Stratejik Amaç Bulunmamaktadır!</h1>
           </div>
           <div>
             <Button

@@ -41,7 +41,7 @@ const StrategicSystem = () => {
       <>
         <div className="text-center">
           <div className="p-4">
-            <h1>Daha Önce Oluşturulan Hiç Stratejik Plan Bulunamamaktadır!</h1>
+            <h1>Daha Önce Oluşturulan Hiç Stratejik Plan Bulunmamaktadır!</h1>
           </div>
           <div>
             <Button
