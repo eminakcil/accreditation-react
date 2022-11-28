@@ -70,7 +70,7 @@ const SideBar = () => {
                 Yeni İş Planı Oluştur
               </SidebarItem>
               <SidebarItem
-                href="#"
+                to={getPath('businessPlanList')}
                 icon={FaTasks}
               >
                 İş Planlarını Listele

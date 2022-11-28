@@ -1,10 +1,12 @@
 import { getPath } from '@/utils'
+import Button from '@components/Button'
 import Divider from '@components/Divider'
 import classNames from 'classnames'
 import { useState } from 'react'
 import { Fragment, useCallback } from 'react'
 import { useMemo } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { FaPencilAlt } from 'react-icons/fa'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import AddButton from './AddButton'
 import CreateActivityModal from './CreateActivityModal'
 import Hideable from './Hideable'
@@ -75,6 +77,22 @@ const StrategicActivityList = ({
             show={strategicActivityIsActive(strategicActivity._id)}
           >
             <div className="pt-5 space-y-3">
+              <div className="float-right">
+                <Button
+                  as={Link}
+                  to={{
+                    pathname: getPath('businessPlan'),
+                    search: `?strategicActivity=${strategicActivity._id}`,
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    console.log('damla')
+                  }}
+                  className="float-right inline-flex items-center gap-2"
+                >
+                  <span>İş Planı</span> <FaPencilAlt />
+                </Button>
+              </div>
               <div className="flex flex-col items-center">
                 <span className="font-medium">Performans Göstergesi</span>
                 <span>{strategicActivity.performanceIndicator}</span>
