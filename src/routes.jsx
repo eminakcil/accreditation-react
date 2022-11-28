@@ -19,6 +19,7 @@ const Login = lazy(() => import('./pages/Login/Login'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 const BusinessPlan = lazy(() => import('./pages/BusinessPlans/BusinessPlanCreate'))
+const BusinessPlanList = lazy(() => import('./pages/BusinessPlans/BusinessPlanList'))
 
 /** @type {import('react-router-dom').RouteObject[]} */
 
@@ -52,6 +53,18 @@ const routes = [
           {
             index: true,
             element: <BusinessPlan />,
+            lazy: true,
+            auth: true,
+          },
+        ],
+      },
+      {
+        path: 'business-planList',
+        name: 'businessPlanList',
+        children: [
+          {
+            index: true,
+            element: <BusinessPlanList />,
             lazy: true,
             auth: true,
           },
