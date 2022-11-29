@@ -55,6 +55,8 @@ export const getPath = (path, data = {}) => {
 }
 
 export const dateFormat = (date) => dayjs(date).format('DD.MM.YYYY HH:mm')
+export const yearFormat = (date) => dayjs(date).format('DD.MM.YYYY')
+
 export const getDate = () => dayjs().format('DD.MM.YYYY')
 
 export const hourFormat = (hour) => (hour < 10 ? '0' : '') + hour

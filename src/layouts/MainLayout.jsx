@@ -9,7 +9,7 @@ const MainLayout = () => {
       <div>
         <Navbar />
         <div className="flex">
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 float-left">
             <SideBar />
           </div>
           <div className="flex-1 pr-8 pt-12">

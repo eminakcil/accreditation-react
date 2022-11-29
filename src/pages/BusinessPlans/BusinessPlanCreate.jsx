@@ -11,8 +11,10 @@ import { useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { getPath } from '@/utils'
 import { useNavigate } from 'react-router-dom'
+import ErrorMessage from '@components/ErrorMessage'
+import ManuelPlanCard from './components/ManuelPlanCard'
 
-const BusinessPlanCreate = () => {
+const BusinessPlanCreate = ({ handleSelectMemberClick, selectedUser }) => {
   const [loading, setLoading] = useState(false)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -20,26 +22,26 @@ const BusinessPlanCreate = () => {
 
   const formik = useFormik({
     initialValues: {
-      title: '',
       responsible: '',
       date: '',
       time: '',
       location: '',
       activity: strategicActivityId,
       period: '',
+      statu: false,
     },
     validationSchema: BusinessPlanShema,
     onSubmit: (values) => {
       setLoading(true)
 
       BusinessPlanService.create({
-        title: values.title,
         responsible: values.responsible,
         date: values.date,
         time: values.time,
         location: values.location,
         activity: values.activity,
         period: values.period,
+        statu: values.statu,
       })
         .then(() => {
           formik.resetForm()
@@ -73,15 +75,15 @@ const BusinessPlanCreate = () => {
             <Loading size={16} />
           </div>
         )}
-        <form onSubmit={formik.handleSubmit}>
-          <Tabs.Group
-            aria-label="Tabs with icons"
-            style="underline"
+        <Tabs.Group
+          aria-label="Tabs with icons"
+          style="underline"
+        >
+          <Tabs.Item
+            title="Mevcut İş Planı Kart Ekle"
+            icon={FaCalendar}
           >
-            <Tabs.Item
-              title="Mevcut İş Planı Kart Ekle"
-              icon={FaCalendar}
-            >
+            <form onSubmit={formik.handleSubmit}>
               <Card>
                 <div className="flex flex-col gap-4">
                   <Hideable show={!!strategicActivity}>
@@ -92,35 +94,6 @@ const BusinessPlanCreate = () => {
                     </div>
                   </Hideable>
                   <hr />
-                  <div>
-                    <div className="mb-2 block">
-                      <Label
-                        htmlFor="title"
-                        color="green"
-                        value="Plan Adı"
-                      />
-                    </div>
-                    <TextInput
-                      id="title"
-                      placeholder="Plan Adı"
-                      value={formik.values.title}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      required={true}
-                      color="green"
-                      helperText={
-                        <React.Fragment>
-                          <span
-                            className="font-medium"
-                            style={{ color: 'red' }}
-                          >
-                            Dikkat!
-                          </span>{' '}
-                          Bu faaliyet daha önce performans göstergesinde tanımlanmış olmalıdır!
-                        </React.Fragment>
-                      }
-                    />
-                  </div>
                   <div>
                     <div className="mb-2 block">
                       <Label
@@ -212,6 +185,16 @@ const BusinessPlanCreate = () => {
                       color="red"
                     />
                   </div>
+                  <div>
+                    <div className="mb-2 block">
+                      <Label value="Sorumlu" />
+                    </div>
+                    {selectedUser && <div className="mb-2 block">{selectedUser.fullName}</div>}
+                    <Button onClick={handleSelectMemberClick}>Seç</Button>
+                    {formik.errors.responsible && formik.touched.responsible ? (
+                      <ErrorMessage>{formik.errors.responsible}</ErrorMessage>
+                    ) : null}
+                  </div>
                   <div className="mb-2 block">
                     <Label
                       htmlFor="warning"
@@ -278,15 +261,15 @@ const BusinessPlanCreate = () => {
                   </div>
                 </div>
               </Card>
-            </Tabs.Item>
-            <Tabs.Item
-              title="Manuel İş Planı Kart Ekle"
-              icon={FaCalendarPlus}
-            >
-              <Card> Manuel İş Planı Ekle</Card>
-            </Tabs.Item>
-          </Tabs.Group>
-        </form>
+            </form>
+          </Tabs.Item>
+          <Tabs.Item
+            title="Manuel İş Planı Kart Ekle"
+            icon={FaCalendarPlus}
+          >
+            <ManuelPlanCard />
+          </Tabs.Item>
+        </Tabs.Group>
       </div>
     </>
   )
