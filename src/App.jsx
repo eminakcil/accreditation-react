@@ -5,11 +5,12 @@ import 'normalize.css'
 import './style/reset.css'
 import './style/index.css'
 import { Toaster } from 'react-hot-toast'
+import GlobalListeners from '@components/GlobalListeners'
 
 const App = () => {
   return (
     <>
-      {useRoutes(routes)}
+      <GlobalListeners>{useRoutes(routes)}</GlobalListeners>
       <Toaster position="top-right" />
     </>
   )
