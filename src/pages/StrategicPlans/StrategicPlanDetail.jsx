@@ -1,4 +1,4 @@
-import { getPath, getPeriodTitleByStrategicPlan } from '@/utils'
+import { getPath } from '@/utils'
 import { StrategicGoalShema } from '@/validations/StrategicPlanSchema'
 import Divider from '@components/Divider'
 import Input from '@components/Input'
