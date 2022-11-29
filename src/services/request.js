@@ -1,5 +1,6 @@
 import { setUser } from '@store/authSlice'
 import store from '@store/index'
+import { UserService } from '.'
 
 function parseData(data) {
   const formData = new FormData()
@@ -16,41 +17,62 @@ function request(url, data = false, method = 'GET', type = 'FORM_DATA') {
       headers: {},
     }
 
-    const {
-      auth: { user },
-    } = store.getState()
+    const fetchData = (inner = false) => {
+      let {
+        auth: { user },
+      } = store.getState()
 
-    if (user) {
-      options.headers.Authorization = ['Bearer', user.tokens.accessToken].join(' ')
-    }
+      if (user) {
+        options.headers.Authorization = ['Bearer', user.tokens.accessToken].join(' ')
+      }
 
-    if (data) {
-      if (type === 'JSON') options.headers['Content-Type'] = 'application/json'
-      options.body = type === 'JSON' ? JSON.stringify(data) : parseData(data)
-    }
+      if (data) {
+        if (type === 'JSON') options.headers['Content-Type'] = 'application/json'
+        options.body = type === 'JSON' ? JSON.stringify(data) : parseData(data)
+      }
 
-    fetch(import.meta.env.VITE_API_URL + url, options)
-      .then(async (response) => {
-        const result = await response.json()
-        if (response.ok) {
-          resolve(result)
-        } else {
-          if ('message' in result) {
-            switch (result.message) {
-              case 'not logged in':
-                store.dispatch(setUser(false))
-                break
+      fetch(import.meta.env.VITE_API_URL + url, options)
+        .then(async (response) => {
+          const result = await response.json()
+          if (response.ok) {
+            resolve(result)
+          } else {
+            if ('message' in result) {
+              switch (result.message) {
+                case 'not logged in':
+                  store.dispatch(setUser(false))
+                  break
+                case 'jwt expired': {
+                  console.log('token yenile')
+                  if (!inner) {
+                    UserService.refreshToken({
+                      refreshToken: user.tokens.refreshToken,
+                    })
+                      .then((response) => {
+                        console.log('cevap', response)
+                        store.dispatch(setUser({ ...user, tokens: response, ne: 'tamam' }))
+                        fetchData(true)
+                      })
+                      .catch((error) => {
+                        reject(error)
+                      })
+                  }
+                  return
+                }
 
-              default:
-                break
+                default:
+                  break
+              }
             }
+            reject(result)
           }
-          reject(result)
-        }
-      })
-      .catch((error) => {
-        reject(error)
-      })
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    }
+
+    fetchData()
   })
 }
 
