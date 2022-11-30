@@ -1,4 +1,8 @@
-import { BusinessPlanService } from '@services/index'
+import {
+  BusinessPlanService,
+  StrategicActivityService,
+  StrategicPeriodService,
+} from '@services/index'
 import { Card, Dropdown } from 'flowbite-react'
 import Loading from '../../components/Loading'
 import React, { Fragment, useEffect, useState } from 'react'
@@ -15,19 +19,40 @@ const BusinessPlanList = () => {
   const [error, setError] = useState(false)
   const [businessPlanList, setBusinessPlanList] = useState(false)
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  const [strategicPeriodList, setStrategicPeriodList] = useState(false)
+  const [strategicActivityList, setStrategicActivityList] = useState(false)
+
+  const [filter, setFilter] = useState({})
 
   const fetchData = () => {
     setLoading(true)
     setError(false)
 
-    BusinessPlanService.getAll()
+    Promise.all([StrategicPeriodService.getAll(), StrategicActivityService.getAll()])
+      .then(([strategicPeriodResponse, strategicActivityResponse]) => {
+        setStrategicPeriodList(strategicPeriodResponse)
+
+        setStrategicActivityList(strategicActivityResponse)
+      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false))
+  }
+
+  const fetchBusinessPlanList = () => {
+    BusinessPlanService.getAll(filter)
       .then((response) => setBusinessPlanList(response))
       .catch(() => setError(true))
       .finally(() => setLoading(false))
   }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    fetchBusinessPlanList()
+  }, [filter])
+
   if (loading) return <Loading />
 
   if (error)
@@ -37,30 +62,6 @@ const BusinessPlanList = () => {
       </>
     )
 
-  if (!businessPlanList || !businessPlanList?.length)
-    return (
-      <>
-        <div className="text-center">
-          <div className="p-4">
-            <h1>Daha Önce Oluşturulan Hiç İş Planı Bulunmamaktadır!</h1>
-          </div>
-          <div>
-            <Button
-              as={Link}
-              to={getPath('businessPlan.create')}
-              className="inline-flex justify-center"
-              variant="dark-0"
-            >
-              İş Planı Ekle
-              <div className="p-1">
-                {' '}
-                <FaPlus />
-              </div>
-            </Button>
-          </div>
-        </div>
-      </>
-    )
   return (
     <>
       <hr />
@@ -77,16 +78,27 @@ const BusinessPlanList = () => {
               label="Yıl Seç"
               inline={true}
             >
-              <Dropdown.Item>2019</Dropdown.Item>
-              <Dropdown.Item>2020</Dropdown.Item>
-              <Dropdown.Item>2021</Dropdown.Item>
-              <Dropdown.Item>2022</Dropdown.Item>
+              {strategicPeriodList?.map((period) => (
+                <Dropdown.Item
+                  key={period._id}
+                  onClick={() => setFilter((x) => ({ ...x, period: period._id }))}
+                >
+                  {period.year}
+                </Dropdown.Item>
+              ))}
             </Dropdown>
             <Dropdown
               label="Faaliyet Seç"
               inline={true}
             >
-              <Dropdown.Item>Faaliyet Seç</Dropdown.Item>
+              {strategicActivityList?.map((activity) => (
+                <Dropdown.Item
+                  key={activity._id}
+                  onClick={() => setFilter((x) => ({ ...x, activity: activity._id }))}
+                >
+                  {activity.title}
+                </Dropdown.Item>
+              ))}
             </Dropdown>
             <Dropdown
               label="Tamamlanma durumuna göre"
@@ -95,17 +107,17 @@ const BusinessPlanList = () => {
               <Dropdown.Item>Tamamlananlar</Dropdown.Item>
               <Dropdown.Item>Henüz tamamlanmayanlar</Dropdown.Item>
             </Dropdown>
-            <a
-              href="#"
+            <button
+              type="button"
+              onClick={() => setFilter({})}
               className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
             >
               Tümünü Görüntüle
-            </a>
+            </button>
           </div>
           <Divider />
-          {/* deneme */}
           <div className="grid grid-cols-1 gap-6">
-            {businessPlanList &&
+            {businessPlanList && businessPlanList?.length > 0 ? (
               businessPlanList.map((businessPlanList) => (
                 <Fragment key={businessPlanList._id}>
                   <Card>
@@ -159,7 +171,28 @@ const BusinessPlanList = () => {
                     </ul>
                   </Card>
                 </Fragment>
-              ))}
+              ))
+            ) : (
+              <div className="text-center">
+                <div className="p-4">
+                  <h1>Daha Önce Oluşturulan Hiç İş Planı Bulunmamaktadır!</h1>
+                </div>
+                <div>
+                  <Button
+                    as={Link}
+                    to={getPath('businessPlan.create')}
+                    className="inline-flex justify-center"
+                    variant="dark-0"
+                  >
+                    İş Planı Ekle
+                    <div className="p-1">
+                      {' '}
+                      <FaPlus />
+                    </div>
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
           {/* deneme */}
         </Card>
