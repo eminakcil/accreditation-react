@@ -1,12 +1,14 @@
 import { BusinessPlanService } from '@services/index'
-import { Button, Card } from 'flowbite-react'
+import { Card, Dropdown } from 'flowbite-react'
 import Loading from '../../components/Loading'
 import React, { Fragment, useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
-import { getPath } from '@/utils'
+import { getPath, yearFormat } from '@/utils'
 import { Link } from 'react-router-dom'
 import Divider from '@components/Divider'
-import Moment from 'moment'
+import classNames from 'classnames'
+import { search } from '@/icons'
+import Button from '@components/Button'
 
 const BusinessPlanList = () => {
   const [loading, setLoading] = useState(true)
@@ -45,11 +47,11 @@ const BusinessPlanList = () => {
           <div>
             <Button
               as={Link}
-              to={getPath('strategicPlans')}
+              to={getPath('businessPlan.create')}
               className="inline-flex justify-center"
               variant="dark-0"
             >
-              Stratejik Plan Ekle
+              İş Planı Ekle
               <div className="p-1">
                 {' '}
                 <FaPlus />
@@ -71,6 +73,28 @@ const BusinessPlanList = () => {
             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
               İş Planları
             </h5>
+            <Dropdown
+              label="Yıl Seç"
+              inline={true}
+            >
+              <Dropdown.Item>2019</Dropdown.Item>
+              <Dropdown.Item>2020</Dropdown.Item>
+              <Dropdown.Item>2021</Dropdown.Item>
+              <Dropdown.Item>2022</Dropdown.Item>
+            </Dropdown>
+            <Dropdown
+              label="Faaliyet Seç"
+              inline={true}
+            >
+              <Dropdown.Item>Faaliyet Seç</Dropdown.Item>
+            </Dropdown>
+            <Dropdown
+              label="Tamamlanma durumuna göre"
+              inline={true}
+            >
+              <Dropdown.Item>Tamamlananlar</Dropdown.Item>
+              <Dropdown.Item>Henüz tamamlanmayanlar</Dropdown.Item>
+            </Dropdown>
             <a
               href="#"
               className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
@@ -78,14 +102,15 @@ const BusinessPlanList = () => {
               Tümünü Görüntüle
             </a>
           </div>
+          <Divider />
           {/* deneme */}
           <div className="grid grid-cols-1 gap-6">
             {businessPlanList &&
               businessPlanList.map((businessPlanList) => (
                 <Fragment key={businessPlanList._id}>
-                  <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                    <li className="py-3 sm:py-4">
-                      <Card>
+                  <Card>
+                    <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+                      <li className="py-3 sm:py-4">
                         <div className="flex items-center space-x-4">
                           <div className="shrink-0">
                             <img
@@ -96,7 +121,7 @@ const BusinessPlanList = () => {
                           </div>
                           <div className="min-w-0 flex-1">
                             <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
-                              Eğitim Adı : {businessPlanList.title}
+                              Faaliyet Adı : {businessPlanList?.activity?.title}
                             </p>
                             <p className="truncate text-sm text-gray-500 dark:text-gray-400">
                               Sorumlu : {businessPlanList.responsible}
@@ -105,14 +130,34 @@ const BusinessPlanList = () => {
                               Eğitim Yeri: {businessPlanList.location}
                             </p>
                           </div>
-                          <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                            {Moment(businessPlanList.date).format('DD/MM/YYYY')}{' '}
-                            {businessPlanList.time}
+                          <div className="inline-flex flex-col items-center text-base font-semibold text-gray-900 dark:text-white">
+                            {yearFormat(businessPlanList.date)} {businessPlanList.time}
+                            <p
+                              className={classNames('truncate text-sm ', {
+                                'text-green-400': businessPlanList?.statu,
+                                'text-red-500 animate-pulse': !businessPlanList?.statu,
+                              })}
+                            >
+                              {businessPlanList?.statu ? 'Tamamlandı' : 'Tamamlanmadı'}
+                            </p>
+                            <div style={{ margin: '2% 0' }}>
+                              <Button
+                                as={Link}
+                                to={getPath('businessPlan.detail', {
+                                  id: businessPlanList._id,
+                                })}
+                                className="inline-flex justify-center"
+                                variant="dark-0"
+                                style={{ backgroundColor: 'white', color: 'grey' }}
+                              >
+                                {search} Görüntüle
+                              </Button>
+                            </div>
                           </div>
                         </div>
-                      </Card>
-                    </li>
-                  </ul>
+                      </li>
+                    </ul>
+                  </Card>
                 </Fragment>
               ))}
           </div>

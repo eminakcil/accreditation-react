@@ -98,7 +98,7 @@ const Navbar = () => {
                 <NavbarLink to={getPath('strategicSystem')}>Stratejik Plan</NavbarLink>
               </div>
               <div className="text-xl">
-                <NavbarLink to="#">İş Planı</NavbarLink>
+                <NavbarLink to={getPath('businessPlan')}>İş Planı</NavbarLink>
               </div>
               <div className="text-xl">
                 <NavbarLink to="#">Akreditasyon</NavbarLink>
