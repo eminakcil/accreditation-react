@@ -5,7 +5,7 @@ export const BusinessPlanShema = Yup.object().shape({
   time: Yup.string().required(),
   responsible: Yup.string().required(),
   activity: Yup.string().required(),
-  period: Yup.string().required(),
+  period: Yup.string().required('Tablodan yıl seçmeniz gerekiyor.'),
   location: Yup.string(),
   statu: Yup.bool(),
 })

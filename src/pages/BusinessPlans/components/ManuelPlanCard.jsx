@@ -1,12 +1,13 @@
 import { Button, Card, Checkbox, Label, TextInput } from 'flowbite-react'
 import { useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { ManuelPlanShema } from '@/validations/ManuelPlanSchema'
 import { ManuelPlanService } from '@services/index'
 import toast from 'react-hot-toast'
-import { getPath } from '@/utils'
+import { errorInfo, getPath } from '@/utils'
 import { useNavigate } from 'react-router-dom'
 import Loading from '@components/Loading'
+import SelectResponsibleModal from './SelectResponsibleModal'
 
 const ManuelPlanCard = () => {
   const navigate = useNavigate()
@@ -44,6 +45,9 @@ const ManuelPlanCard = () => {
         .finally(() => setLoading(false))
     },
   })
+
+  const responsibleModalRef = useRef(false)
+
   return (
     <>
       <div className="relative">
@@ -68,7 +72,6 @@ const ManuelPlanCard = () => {
                 value={formik.values.title}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                required={true}
                 color="red"
               />
             </div>
@@ -86,7 +89,6 @@ const ManuelPlanCard = () => {
                 value={formik.values.period}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                required={true}
                 color="red"
               />
             </div>
@@ -104,7 +106,6 @@ const ManuelPlanCard = () => {
                 value={formik.values.location}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                required={true}
                 color="red"
               />
             </div>
@@ -122,7 +123,6 @@ const ManuelPlanCard = () => {
                 value={formik.values.date}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                required={true}
                 color="red"
               />
             </div>
@@ -137,7 +137,6 @@ const ManuelPlanCard = () => {
               <TextInput
                 id="time"
                 type="time"
-                required={true}
                 value={formik.values.time}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -146,23 +145,17 @@ const ManuelPlanCard = () => {
             </div>
             <div>
               <div className="mb-2 block">
-                <Label
-                  htmlFor="person"
-                  color="red"
-                  value="Sorumlu"
-                />
+                <Label value="Sorumlu" />
               </div>
-              <TextInput
-                id="person"
-                name="responsible"
-                placeholder="Sorumlu"
-                value={formik.values.responsible}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                required={true}
-                color="red"
-              />
+              {responsibleModalRef.current.selectedResponsible && (
+                <div className="mb-2 block">
+                  {responsibleModalRef.current.selectedResponsible.fullName}
+                </div>
+              )}
+              <Button onClick={() => responsibleModalRef.current.setVisibility(true)}>Seç</Button>
+              {errorInfo(formik, 'responsible')}
             </div>
+
             <div className="mb-2 block">
               <Label
                 htmlFor="warning"
@@ -230,6 +223,13 @@ const ManuelPlanCard = () => {
           </Card>
         </form>
       </div>
+
+      <SelectResponsibleModal
+        ref={responsibleModalRef}
+        onMemberChange={(responsible) =>
+          formik.setFieldValue('responsible', responsible?._id || '')
+        }
+      />
     </>
   )
 }

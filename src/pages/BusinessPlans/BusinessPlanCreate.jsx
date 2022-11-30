@@ -1,5 +1,5 @@
 import { Button, Card, Checkbox, Label, Modal, Tabs, TextInput } from 'flowbite-react'
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FaCalendar, FaCalendarPlus } from 'react-icons/fa'
 import { useFormik } from 'formik'
 import Loading from '@components/Loading'
@@ -11,15 +11,17 @@ import { useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { errorInfo, getPath } from '@/utils'
 import { useNavigate } from 'react-router-dom'
-import ErrorMessage from '@components/ErrorMessage'
 import ManuelPlanCard from './components/ManuelPlanCard'
-import SelectMember from '@components/SelectMember'
+import SelectResponsibleModal from './components/SelectResponsibleModal'
+import { useRef } from 'react'
 
 const BusinessPlanCreate = () => {
   const [loading, setLoading] = useState(false)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const strategicActivityId = useMemo(() => searchParams.get('strategicActivity'), [searchParams])
+
+  const [selectedPeriod, setSelectedPeriod] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -54,6 +56,10 @@ const BusinessPlanCreate = () => {
     },
   })
 
+  useEffect(() => {
+    formik.setFieldValue('period', selectedPeriod?._id || '')
+  }, [selectedPeriod])
+
   const [strategicActivity, setStrategicActivity] = useState(false)
 
   const getActivity = async () => {
@@ -68,25 +74,7 @@ const BusinessPlanCreate = () => {
     }
   }, [])
 
-  const [responsibleModalVisibility, setResponsibleModalVisibility] = useState(false)
-  const [selectedResponsible, setSelectedResponsible] = useState(false)
-
-  const handleSelectMemberClick = () => {
-    setResponsibleModalVisibility(true)
-  }
-
-  const closeResponsibleModal = () => {
-    setResponsibleModalVisibility(false)
-  }
-
-  const handleMemberChange = (responsible) => {
-    setSelectedResponsible(responsible)
-    closeResponsibleModal()
-  }
-
-  useEffect(() => {
-    formik.setFieldValue('responsible', selectedResponsible?._id || '')
-  }, [selectedResponsible])
+  const responsibleModalRef = useRef(false)
 
   return (
     <>
@@ -110,152 +98,151 @@ const BusinessPlanCreate = () => {
                   <Hideable show={!!strategicActivity}>
                     <div>
                       {strategicActivity && (
-                        <StrategicActivityCard strategicActivity={strategicActivity} />
+                        <StrategicActivityCard
+                          strategicActivity={strategicActivity}
+                          onYearChange={setSelectedPeriod}
+                        />
                       )}
                     </div>
+                    {errorInfo(formik, 'period')}
                   </Hideable>
                   <hr />
-                  <div>
-                    <div className="mb-2 block">
-                      <Label
-                        color="red"
-                        value="Yıl"
-                      />
-                    </div>
-                    <TextInput
-                      placeholder="Yıl"
-                      name="period"
-                      value={formik.values.period}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      color="red"
-                    />
-                    {errorInfo(formik, 'period')}
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label
-                        color="red"
-                        value="Faaliyetin Gerçekleşeceği Yer"
-                      />
-                    </div>
-                    <TextInput
-                      name="location"
-                      placeholder="Faaliyetin gerçekleşeceği yer"
-                      value={formik.values.location}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      color="red"
-                    />
-                    {errorInfo(formik, 'location')}
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label
-                        color="red"
-                        value="Faaliyet Tarihi"
-                      />
-                    </div>
-                    <TextInput
-                      name="date"
-                      type="date"
-                      value={formik.values.date}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      color="red"
-                    />
-                    {errorInfo(formik, 'date')}
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label
-                        color="red"
-                        value="Faaliyetin Gerçekleşeceği Saat"
-                      />
-                    </div>
-                    <TextInput
-                      name="time"
-                      type="time"
-                      value={formik.values.time}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      color="red"
-                    />
-                    {errorInfo(formik, 'time')}
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label value="Sorumlu" />
-                    </div>
-                    {selectedResponsible && (
-                      <div className="mb-2 block">{selectedResponsible.fullName}</div>
-                    )}
-                    <Button onClick={handleSelectMemberClick}>Seç</Button>
-                    {errorInfo(formik, 'responsible')}
-                  </div>
-                  <div className="mb-2 block">
-                    <Label
-                      htmlFor="warning"
-                      color="red"
-                      value="Uyarı"
-                    />
-                  </div>
-                  <div
-                    className="flex flex-col gap-4"
-                    id="checkbox"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        id="oneday"
-                        defaultChecked={true}
-                      />
-                      <Label htmlFor="promotion">1 gün kala uyarı mesajı gönder!</Label>
-                      <div className="text-gray-500 dark:text-gray-300">
-                        <span className="text-xs font-normal">
-                          Bu uyarı mesajı zaten her iş planında otomatik olarak aktif olarak
-                          ayarlanmıştır!
-                        </span>
+                  <div className="grid lg:grid-cols-2 gap-3">
+                    <Card>
+                      <div>
+                        <div className="mb-2 block">
+                          <Label
+                            color="red"
+                            value="Faaliyetin Gerçekleşeceği Yer"
+                          />
+                        </div>
+                        <TextInput
+                          name="location"
+                          placeholder="Faaliyetin gerçekleşeceği yer"
+                          value={formik.values.location}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          color="red"
+                        />
+                        {errorInfo(formik, 'location')}
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Checkbox id="oneweek" />
-                      <Label htmlFor="age">1 hafta kala uyarı mesajı gönder!</Label>
-                    </div>
-                    <div className="flex gap-2">
-                      <div className="flex h-5 items-center">
-                        <Checkbox id="shipping" />
+                      <div>
+                        <div className="mb-2 block">
+                          <Label
+                            color="red"
+                            value="Faaliyet Tarihi"
+                          />
+                        </div>
+                        <TextInput
+                          name="date"
+                          type="date"
+                          value={formik.values.date}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          color="red"
+                        />
+                        {errorInfo(formik, 'date')}
                       </div>
-                      <div className="flex flex-col">
-                        <Label htmlFor="shipping">15 gün kala uyarı mesajı gönder!</Label>
+                      <div>
+                        <div className="mb-2 block">
+                          <Label
+                            color="red"
+                            value="Faaliyetin Gerçekleşeceği Saat"
+                          />
+                        </div>
+                        <TextInput
+                          name="time"
+                          type="time"
+                          value={formik.values.time}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          color="red"
+                        />
+                        {errorInfo(formik, 'time')}
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        id="disabled"
-                        disabled={true}
-                        defaultChecked={true}
-                      />
-                      <Label
-                        htmlFor="disabled"
-                        disabled={true}
+                      <div>
+                        <div className="mb-2 block">
+                          <Label value="Sorumlu" />
+                        </div>
+                        {responsibleModalRef.current.selectedResponsible && (
+                          <div className="mb-2 block">
+                            {responsibleModalRef.current.selectedResponsible.fullName}
+                          </div>
+                        )}
+                        <Button onClick={() => responsibleModalRef.current.setVisibility(true)}>
+                          Seç
+                        </Button>
+                        {errorInfo(formik, 'responsible')}
+                      </div>
+                      <div className="mb-2 block">
+                        <Label
+                          htmlFor="warning"
+                          color="red"
+                          value="Uyarı"
+                        />
+                      </div>
+                      <div
+                        className="flex flex-col gap-4"
+                        id="checkbox"
                       >
-                        1 ay kala uyarı mesajı gönder!
-                      </Label>
-                      <div className="text-gray-500 dark:text-gray-300">
-                        <span className="text-xs font-normal">
-                          Bu uyarı mesajı zaten her iş planında otomatik olarak aktif olarak
-                          ayarlanmıştır!
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="oneday"
+                            defaultChecked={true}
+                          />
+                          <Label htmlFor="promotion">1 gün kala uyarı mesajı gönder!</Label>
+                          <div className="text-gray-500 dark:text-gray-300">
+                            <span className="text-xs font-normal">
+                              Bu uyarı mesajı zaten her iş planında otomatik olarak aktif olarak
+                              ayarlanmıştır!
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox id="oneweek" />
+                          <Label htmlFor="age">1 hafta kala uyarı mesajı gönder!</Label>
+                        </div>
+                        <div className="flex gap-2">
+                          <div className="flex h-5 items-center">
+                            <Checkbox id="shipping" />
+                          </div>
+                          <div className="flex flex-col">
+                            <Label htmlFor="shipping">15 gün kala uyarı mesajı gönder!</Label>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            id="disabled"
+                            disabled={true}
+                            defaultChecked={true}
+                          />
+                          <Label
+                            htmlFor="disabled"
+                            disabled={true}
+                          >
+                            1 ay kala uyarı mesajı gönder!
+                          </Label>
+                          <div className="text-gray-500 dark:text-gray-300">
+                            <span className="text-xs font-normal">
+                              Bu uyarı mesajı zaten her iş planında otomatik olarak aktif olarak
+                              ayarlanmıştır!
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <Button
-                      gradientDuoTone="cyanToBlue"
-                      type="submit"
-                    >
-                      Kaydet
-                    </Button>
+                      <div className="w-full">
+                        <Button
+                          gradientDuoTone="cyanToBlue"
+                          type="submit"
+                        >
+                          Kaydet
+                        </Button>
+                      </div>
+                    </Card>
+                    <Card>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus vero
+                      aliquam praesentium.
+                    </Card>
                   </div>
                 </div>
               </Card>
@@ -270,18 +257,12 @@ const BusinessPlanCreate = () => {
         </Tabs.Group>
       </div>
 
-      <Modal
-        show={responsibleModalVisibility}
-        onClose={closeResponsibleModal}
-      >
-        <Modal.Header />
-        <Modal.Body>
-          <SelectMember
-            handleMemberChange={handleMemberChange}
-            selectedUser={selectedResponsible}
-          />
-        </Modal.Body>
-      </Modal>
+      <SelectResponsibleModal
+        ref={responsibleModalRef}
+        onMemberChange={(responsible) =>
+          formik.setFieldValue('responsible', responsible?._id || '')
+        }
+      />
     </>
   )
 }
