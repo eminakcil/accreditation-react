@@ -8,7 +8,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
 import CreateActivityForm from './CreateActivityForm'
-import SelectMember from './SelectMember'
+import SelectMember from '@components/SelectMember'
 
 const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} }) => {
   const params = useParams()
