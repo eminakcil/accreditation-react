@@ -64,13 +64,13 @@ const SideBar = () => {
               </SidebarItem>
 
               <SidebarItem
-                to={getPath('businessPlan')}
+                to={getPath('businessPlan.create')}
                 icon={FaPencilAlt}
               >
                 Yeni İş Planı Oluştur
               </SidebarItem>
               <SidebarItem
-                to={getPath('businessPlanList')}
+                to={getPath('businessPlan')}
                 icon={FaTasks}
               >
                 İş Planlarını Listele

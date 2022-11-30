@@ -81,7 +81,7 @@ const StrategicActivityList = ({
                 <Button
                   as={Link}
                   to={{
-                    pathname: getPath('businessPlan'),
+                    pathname: getPath('businessPlan.create'),
                     search: `?strategicActivity=${strategicActivity._id}`,
                   }}
                   onClick={(e) => {
