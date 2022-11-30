@@ -3,6 +3,7 @@ import { generatePath } from 'react-router-dom'
 import dayjs from 'dayjs'
 import store from '@store/index'
 import { setUser } from '@store/authSlice'
+import ErrorMessage from '@components/ErrorMessage'
 
 /**
  *
@@ -73,4 +74,12 @@ export const getPeriodTitleByStrategicPlan = (strategicPlan, seperator = ' - ') 
 
 export const signOut = () => {
   store.dispatch(setUser(false))
+}
+
+export const errorInfo = (formik, key) => {
+  if (formik.errors?.[key] && formik.touched?.[key]) {
+    return <ErrorMessage>{formik.errors[key]}</ErrorMessage>
+  }
+
+  return null
 }

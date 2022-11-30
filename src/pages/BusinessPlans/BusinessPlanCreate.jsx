@@ -1,4 +1,4 @@
-import { Button, Card, Checkbox, Label, Tabs, TextInput } from 'flowbite-react'
+import { Button, Card, Checkbox, Label, Modal, Tabs, TextInput } from 'flowbite-react'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import { FaCalendar, FaCalendarPlus } from 'react-icons/fa'
 import { useFormik } from 'formik'
@@ -9,12 +9,13 @@ import Hideable from '@pages/StrategicPlans/components/Hideable'
 import StrategicActivityCard from './components/StrategicActivityCard'
 import { useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { getPath } from '@/utils'
+import { errorInfo, getPath } from '@/utils'
 import { useNavigate } from 'react-router-dom'
 import ErrorMessage from '@components/ErrorMessage'
 import ManuelPlanCard from './components/ManuelPlanCard'
+import SelectMember from '@components/SelectMember'
 
-const BusinessPlanCreate = ({ handleSelectMemberClick, selectedUser }) => {
+const BusinessPlanCreate = () => {
   const [loading, setLoading] = useState(false)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -67,6 +68,26 @@ const BusinessPlanCreate = ({ handleSelectMemberClick, selectedUser }) => {
     }
   }, [])
 
+  const [responsibleModalVisibility, setResponsibleModalVisibility] = useState(false)
+  const [selectedResponsible, setSelectedResponsible] = useState(false)
+
+  const handleSelectMemberClick = () => {
+    setResponsibleModalVisibility(true)
+  }
+
+  const closeResponsibleModal = () => {
+    setResponsibleModalVisibility(false)
+  }
+
+  const handleMemberChange = (responsible) => {
+    setSelectedResponsible(responsible)
+    closeResponsibleModal()
+  }
+
+  useEffect(() => {
+    formik.setFieldValue('responsible', selectedResponsible?._id || '')
+  }, [selectedResponsible])
+
   return (
     <>
       <div className="relative">
@@ -97,103 +118,80 @@ const BusinessPlanCreate = ({ handleSelectMemberClick, selectedUser }) => {
                   <div>
                     <div className="mb-2 block">
                       <Label
-                        htmlFor="period"
                         color="red"
                         value="Yıl"
                       />
                     </div>
                     <TextInput
-                      id="period"
                       placeholder="Yıl"
+                      name="period"
                       value={formik.values.period}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      required={true}
                       color="red"
                     />
+                    {errorInfo(formik, 'period')}
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label
-                        htmlFor="location"
                         color="red"
                         value="Faaliyetin Gerçekleşeceği Yer"
                       />
                     </div>
                     <TextInput
-                      id="location"
+                      name="location"
                       placeholder="Faaliyetin gerçekleşeceği yer"
                       value={formik.values.location}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      required={true}
                       color="red"
                     />
+                    {errorInfo(formik, 'location')}
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label
-                        htmlFor="date"
                         color="red"
                         value="Faaliyet Tarihi"
                       />
                     </div>
                     <TextInput
-                      id="date"
+                      name="date"
                       type="date"
                       value={formik.values.date}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      required={true}
                       color="red"
                     />
+                    {errorInfo(formik, 'date')}
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label
-                        htmlFor="time"
                         color="red"
                         value="Faaliyetin Gerçekleşeceği Saat"
                       />
                     </div>
                     <TextInput
-                      id="time"
+                      name="time"
                       type="time"
-                      required={true}
                       value={formik.values.time}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       color="red"
                     />
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label
-                        htmlFor="person"
-                        color="red"
-                        value="Sorumlu"
-                      />
-                    </div>
-                    <TextInput
-                      id="person"
-                      name="responsible"
-                      placeholder="Sorumlu"
-                      value={formik.values.responsible}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      required={true}
-                      color="red"
-                    />
+                    {errorInfo(formik, 'time')}
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label value="Sorumlu" />
                     </div>
-                    {selectedUser && <div className="mb-2 block">{selectedUser.fullName}</div>}
+                    {selectedResponsible && (
+                      <div className="mb-2 block">{selectedResponsible.fullName}</div>
+                    )}
                     <Button onClick={handleSelectMemberClick}>Seç</Button>
-                    {formik.errors.responsible && formik.touched.responsible ? (
-                      <ErrorMessage>{formik.errors.responsible}</ErrorMessage>
-                    ) : null}
+                    {errorInfo(formik, 'responsible')}
                   </div>
                   <div className="mb-2 block">
                     <Label
@@ -271,6 +269,19 @@ const BusinessPlanCreate = ({ handleSelectMemberClick, selectedUser }) => {
           </Tabs.Item>
         </Tabs.Group>
       </div>
+
+      <Modal
+        show={responsibleModalVisibility}
+        onClose={closeResponsibleModal}
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <SelectMember
+            handleMemberChange={handleMemberChange}
+            selectedUser={selectedResponsible}
+          />
+        </Modal.Body>
+      </Modal>
     </>
   )
 }
