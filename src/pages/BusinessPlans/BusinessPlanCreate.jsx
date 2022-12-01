@@ -1,4 +1,4 @@
-import { Button, Card, Checkbox, Label, Modal, Tabs, TextInput } from 'flowbite-react'
+import { Button, Card, Checkbox, Label, Tabs, TextInput } from 'flowbite-react'
 import React, { useEffect, useMemo, useState } from 'react'
 import { FaCalendar, FaCalendarPlus } from 'react-icons/fa'
 import { useFormik } from 'formik'

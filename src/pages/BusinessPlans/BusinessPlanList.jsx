@@ -104,8 +104,12 @@ const BusinessPlanList = () => {
               label="Tamamlanma durumuna göre"
               inline={true}
             >
-              <Dropdown.Item>Tamamlananlar</Dropdown.Item>
-              <Dropdown.Item>Henüz tamamlanmayanlar</Dropdown.Item>
+              <Dropdown.Item onClick={() => setFilter((x) => ({ ...x, statu: true }))}>
+                Tamamlananlar
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setFilter((x) => ({ ...x, statu: false }))}>
+                Henüz tamamlanmayanlar
+              </Dropdown.Item>
             </Dropdown>
             <button
               type="button"

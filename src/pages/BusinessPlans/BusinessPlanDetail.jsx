@@ -1,6 +1,7 @@
 import { yearFormat } from '@/utils'
 import Divider from '@components/Divider'
 import Loading from '@components/Loading'
+import Hideable from '@pages/StrategicPlans/components/Hideable'
 import classNames from 'classnames'
 import { Button, Card, FileInput, Label, Table, Textarea } from 'flowbite-react'
 import { useEffect, useState } from 'react'
@@ -91,15 +92,11 @@ const BusinessPlanDetail = () => {
                     onClick={() => setShow((show) => !show)}
                     gradientDuoTone="greenToBlue"
                   >
-                    {show ? 'Kart Ekle' : 'Kartı Gizle'}
+                    {show ? 'Kartı Gizle' : 'Kart Ekle'}
                   </Button>
                 </div>
-                <div
-                  className={classNames({
-                    hidden: show,
-                  })}
-                >
-                  <Card style={{ backgroundColor: '#f9fcff' }}>
+                <Hideable show={show}>
+                  <Card>
                     <div id="description">
                       <div className="mb-2 block">
                         <Label
@@ -130,7 +127,7 @@ const BusinessPlanDetail = () => {
                       <Button gradientDuoTone="tealToLime">Kanıt Kartını Kaydet</Button>
                     </div>
                   </Card>
-                </div>
+                </Hideable>
               </div>
             </Card>
           </div>
