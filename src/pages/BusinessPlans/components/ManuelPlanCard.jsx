@@ -10,7 +10,6 @@ import Loading from '@components/Loading'
 import SelectResponsibleModal from './SelectResponsibleModal'
 import { useEffect } from 'react'
 import classNames from 'classnames'
-import Divider from '@components/Divider'
 
 const ManuelPlanCard = () => {
   const navigate = useNavigate()
@@ -43,7 +42,7 @@ const ManuelPlanCard = () => {
           formik.resetForm()
           toast.success('Ekleme Başarılıdır!')
 
-          navigate(getPath('businessPlanList'))
+          navigate(getPath('businessPlan'))
         })
         .finally(() => setLoading(false))
     },
@@ -107,13 +106,14 @@ const ManuelPlanCard = () => {
                     />
                   </div>
                   <TextInput
-                    id="title"
+                    name="title"
                     placeholder="Başlık"
                     value={formik.values.title}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     color="red"
                   />
+                  {errorInfo(formik, 'title')}
                 </div>
                 <div>
                   <div className="mb-2 block">
@@ -124,13 +124,14 @@ const ManuelPlanCard = () => {
                     />
                   </div>
                   <TextInput
-                    id="location"
+                    name="location"
                     placeholder="Faaliyetin gerçekleşeceği yer"
                     value={formik.values.location}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     color="red"
                   />
+                  {errorInfo(formik, 'location')}
                 </div>
                 <div>
                   <div className="mb-2 block">
@@ -141,13 +142,14 @@ const ManuelPlanCard = () => {
                     />
                   </div>
                   <TextInput
-                    id="date"
+                    name="date"
                     type="date"
                     value={formik.values.date}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     color="red"
                   />
+                  {errorInfo(formik, 'date')}
                 </div>
                 <div>
                   <div className="mb-2 block">
@@ -158,13 +160,14 @@ const ManuelPlanCard = () => {
                     />
                   </div>
                   <TextInput
-                    id="time"
+                    name="time"
                     type="time"
                     value={formik.values.time}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     color="red"
                   />
+                  {errorInfo(formik, 'time')}
                 </div>
                 <div>
                   <div className="mb-2 block">

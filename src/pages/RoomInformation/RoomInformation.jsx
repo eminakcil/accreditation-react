@@ -1,21 +1,12 @@
 import constants from '@/constants'
-import { UserShema } from '@/validations/UserSchema'
 import UserCreateModal from '@pages/RoomInformation/UserCreateModal'
 import { UserRoleService, UserService } from '@services/index'
-import { Button, Card, Table, Tabs } from 'flowbite-react'
-import { useFormik } from 'formik'
+import { Card, Tabs } from 'flowbite-react'
 import React from 'react'
 import { useCallback } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import {
-  FaReact,
-  FaUserCircle,
-  FaUserEdit,
-  FaUserFriends,
-  FaUsers,
-  FaUserTie,
-} from 'react-icons/fa'
+import { FaUserEdit } from 'react-icons/fa'
 import UsersTable from './UsersTable'
 
 const RoomInformation = () => {
@@ -59,7 +50,7 @@ const RoomInformation = () => {
           <div className="flex flex-col items-center pb-10">
             <img
               className="mb-3 h-36 w-36 rounded-full shadow-lg"
-              src="/images/logo.png"
+              src={constants.LOGO}
               alt="Bonnie image"
             />
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">

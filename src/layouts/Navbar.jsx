@@ -57,7 +57,7 @@ const Navbar = () => {
         >
           <NNavbar.Brand>
             <img
-              src="/images/logo.png"
+              src={constants.LOGO}
               className="mr-3 h-6 sm:h-9"
               alt="Logo"
             />
