@@ -1,22 +1,26 @@
 import classNames from 'classnames'
 import { Card } from 'flowbite-react'
+import { useEffect } from 'react'
 import { useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import StrategicPlanForm from './components/StrategicPlanForm'
 import StrategicSystemForm from './components/StrategicSystemForm'
 
 const StrategicPlanCreate = ({ initalTabId = 1 }) => {
   const planRef = useRef(null)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const handleCreateSystem = (system) => {
     setActiveTabId(2)
     console.log(system)
     setTimeout(() => {
-      planRef.current.createAndSelectSystem(system)
+      planRef.current.selectSystem(system._id)
     }, 300)
   }
   const tabs = [
     {
       id: 1,
+      name: 'system',
       title: 'Stratejik Plan Ekle',
       element: StrategicSystemForm,
       props: {
@@ -25,6 +29,7 @@ const StrategicPlanCreate = ({ initalTabId = 1 }) => {
     },
     {
       id: 2,
+      name: 'plan',
       title: 'Stratejik Amaç Ekle',
       element: StrategicPlanForm,
       props: {
@@ -33,9 +38,32 @@ const StrategicPlanCreate = ({ initalTabId = 1 }) => {
     },
   ]
 
-  const [activeTabId, setActiveTabId] = useState(initalTabId)
+  const [activeTabId, setActiveTabId] = useState(() => {
+    const tabParam = searchParams.get('tab')
+    if (tabParam) {
+      const existingTab = tabs.find((x) => x.name === tabParam)
+
+      if (existingTab?.id) {
+        return existingTab.id
+      }
+    }
+
+    return initalTabId
+  })
 
   const activeTab = useMemo(() => tabs.find((tab) => tab.id === activeTabId), [activeTabId, tabs])
+
+  const hangleTabChange = (tab) => {
+    setActiveTabId(tab.id)
+    setSearchParams((x) => ({ ...x, tab: tab.name }))
+  }
+
+  useEffect(() => {
+    const systemId = searchParams.get('system')
+    if (systemId) {
+      planRef.current.selectSystem(systemId)
+    }
+  }, [])
 
   return (
     <Card>
@@ -52,7 +80,7 @@ const StrategicPlanCreate = ({ initalTabId = 1 }) => {
                   'text-gray-500 hover:bg-gray-50 hover:text-gray-600': tab.id !== activeTabId,
                 }
               )}
-              onClick={() => setActiveTabId(tab.id)}
+              onClick={() => hangleTabChange(tab)}
             >
               {tab.title}
             </div>

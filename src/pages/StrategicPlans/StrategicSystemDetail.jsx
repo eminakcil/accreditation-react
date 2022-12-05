@@ -50,7 +50,10 @@ const StrategicSystemDetail = () => {
           <div>
             <Button
               as={Link}
-              to={getPath('strategicPlans.create')}
+              to={{
+                pathname: getPath('strategicPlans.create'),
+                search: `?tab=plan&system=${params.strategicSystemId}`,
+              }}
               className="inline-flex justify-center"
               variant="dark-0"
             >

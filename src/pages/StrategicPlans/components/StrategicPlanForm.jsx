@@ -26,10 +26,7 @@ const StrategicPlanForm = forwardRef((props, ref) => {
   }
 
   useImperativeHandle(ref, () => ({
-    createAndSelectSystem(system) {
-      // setStrategicSystemList((x) => x.concat(system))
-      selectSystem(system._id)
-    },
+    selectSystem,
   }))
 
   const formik = useFormik({
