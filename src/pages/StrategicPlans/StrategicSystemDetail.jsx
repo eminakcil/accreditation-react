@@ -110,6 +110,15 @@ const StrategicSystemDetail = () => {
                   </div>
                 </Card>
               ))}
+              <Link
+                className="w-full h-full bg-[#F9FCFF] hover:bg-slate-100 grid place-items-center text-gray-400 hover:text-gray-600 rounded-lg shadow-md aspect-video"
+                to={{
+                  pathname: getPath('strategicPlans.create'),
+                  search: `?tab=plan&system=${params.strategicSystemId}`,
+                }}
+              >
+                <FaPlus size={32} />
+              </Link>
             </div>
           </Card>
         </div>
