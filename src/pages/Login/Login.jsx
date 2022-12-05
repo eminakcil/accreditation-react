@@ -58,7 +58,7 @@ const Login = () => {
       >
         <img
           className="mb-3 h-36 w-36 rounded-full shadow-lg"
-          src="/images/logo.png"
+          src={constants.LOGO}
           alt="Bonnie image"
         />
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white p-2">

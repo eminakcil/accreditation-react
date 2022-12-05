@@ -11,12 +11,8 @@ const GlobalListeners = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    console.log(user)
     if (user) {
       GeneralService.ping()
-        .then(() => {
-          console.log('devam no problem')
-        })
         .catch((e) => {
           if (e?.message === 'jwt expired') {
             signOut()

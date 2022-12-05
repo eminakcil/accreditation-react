@@ -7,12 +7,11 @@ import { Card, Dropdown } from 'flowbite-react'
 import Loading from '../../components/Loading'
 import React, { Fragment, useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
-import { getPath, yearFormat } from '@/utils'
+import { getPath } from '@/utils'
 import { Link } from 'react-router-dom'
 import Divider from '@components/Divider'
-import classNames from 'classnames'
-import { search } from '@/icons'
 import Button from '@components/Button'
+import PlanListCard from './components/PlanListCard'
 
 const BusinessPlanList = () => {
   const [loading, setLoading] = useState(true)
@@ -120,62 +119,9 @@ const BusinessPlanList = () => {
             </button>
           </div>
           <Divider />
-          <div className="grid grid-cols-1 gap-6">
+          <div>
             {businessPlanList && businessPlanList?.length > 0 ? (
-              businessPlanList.map((businessPlanList) => (
-                <Fragment key={businessPlanList._id}>
-                  <Card>
-                    <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                      <li className="py-3 sm:py-4">
-                        <div className="flex items-center space-x-4">
-                          <div className="shrink-0">
-                            <img
-                              className="h-8 w-8 rounded-full"
-                              src="/images/logo.png"
-                              alt="Neil image"
-                            />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
-                              Faaliyet Adı : {businessPlanList?.activity?.title}
-                            </p>
-                            <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-                              Sorumlu : {businessPlanList.responsible}
-                            </p>
-                            <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-                              Eğitim Yeri: {businessPlanList.location}
-                            </p>
-                          </div>
-                          <div className="inline-flex flex-col items-center text-base font-semibold text-gray-900 dark:text-white">
-                            {yearFormat(businessPlanList.date)} {businessPlanList.time}
-                            <p
-                              className={classNames('truncate text-sm ', {
-                                'text-green-400': businessPlanList?.statu,
-                                'text-red-500 animate-pulse': !businessPlanList?.statu,
-                              })}
-                            >
-                              {businessPlanList?.statu ? 'Tamamlandı' : 'Tamamlanmadı'}
-                            </p>
-                            <div style={{ margin: '2% 0' }}>
-                              <Button
-                                as={Link}
-                                to={getPath('businessPlan.detail', {
-                                  id: businessPlanList._id,
-                                })}
-                                className="inline-flex justify-center"
-                                variant="dark-0"
-                                style={{ backgroundColor: 'white', color: 'grey' }}
-                              >
-                                {search} Görüntüle
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </Card>
-                </Fragment>
-              ))
+              <PlanListCard businessPlanList={businessPlanList} />
             ) : (
               <div className="text-center">
                 <div className="p-4">

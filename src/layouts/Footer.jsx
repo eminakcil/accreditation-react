@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="w-full justify-between sm:flex xs:items-center xs:justify-between">
             <FFooter.Brand
               href="/"
-              src="/images/logo.png"
+              src={constants.LOGO}
               alt="Logo"
               name={constants.TITLE}
             />
