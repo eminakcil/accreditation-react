@@ -128,12 +128,12 @@ const BusinessPlanCreate = () => {
                           <div className="mb-2 block">
                             <Label
                               color="red"
-                              value="Faaliyetin Gerçekleşeceği Yer"
+                              value="Faaliyet / İş Planı Adı"
                             />
                           </div>
                           <TextInput
                             name="location"
-                            placeholder="Faaliyetin gerçekleşeceği yer"
+                            placeholder="Faaliyet / İş Planı Adı"
                             value={formik.values.location}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
