@@ -121,7 +121,7 @@ const BusinessPlanDetail = () => {
                             Faaliyet / İş Planı Adı
                           </p>
                           <p className=" py-2 truncate text-sm text-gray-500 dark:text-gray-400">
-                            {items.location}
+                            {items.title}
                           </p>
                         </div>
                       </div>
