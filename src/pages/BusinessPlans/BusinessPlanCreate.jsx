@@ -29,7 +29,7 @@ const BusinessPlanCreate = () => {
       responsible: '',
       date: '',
       time: '',
-      location: '',
+      title: '',
       activity: strategicActivityId,
       period: '',
       statu: false,
@@ -42,7 +42,7 @@ const BusinessPlanCreate = () => {
         responsible: values.responsible,
         date: values.date,
         time: values.time,
-        location: values.location,
+        title: values.title,
         activity: values.activity,
         period: values.period,
         statu: values.statu,
@@ -132,14 +132,14 @@ const BusinessPlanCreate = () => {
                             />
                           </div>
                           <TextInput
-                            name="location"
+                            name="title"
                             placeholder="Faaliyet / İş Planı Adı"
-                            value={formik.values.location}
+                            value={formik.values.title}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             color="red"
                           />
-                          {errorInfo(formik, 'location')}
+                          {errorInfo(formik, 'title')}
                         </div>
                         <div>
                           <div className="mb-2 block">

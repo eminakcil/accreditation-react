@@ -6,6 +6,6 @@ export const BusinessPlanShema = Yup.object().shape({
   responsible: Yup.string().required(),
   activity: Yup.string().required(),
   period: Yup.string().required('Tablodan yıl seçmeniz gerekiyor.'),
-  location: Yup.string(),
+  title: Yup.string(),
   statu: Yup.bool(),
 })
