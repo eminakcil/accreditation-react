@@ -63,6 +63,12 @@ function request(url, data = false, method = 'GET', type = 'FORM_DATA') {
                 default:
                   break
               }
+            } else if ('error' in result) {
+              switch (result.error.message) {
+                case 'Refresh token is not in database!':
+                  store.dispatch(setUser(false))
+                  break
+              }
             }
             reject(result)
           }

@@ -80,14 +80,16 @@ const BusinessPlanCreate = () => {
   const [businessPlanList, setBusinessPlanList] = useState()
 
   useEffect(() => {
-    ;(async function () {
-      setBusinessPlanList(
-        await BusinessPlanService.getAll({
-          activity: strategicActivityId,
-          ...(selectedPeriod && { period: selectedPeriod._id }),
-        })
-      )
-    })()
+    if (strategicActivityId) {
+      ;(async function () {
+        setBusinessPlanList(
+          await BusinessPlanService.getAll({
+            activity: strategicActivityId,
+            ...(selectedPeriod && { period: selectedPeriod._id }),
+          })
+        )
+      })()
+    }
   }, [selectedPeriod, strategicActivityId])
 
   return (

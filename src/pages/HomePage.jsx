@@ -1,7 +1,24 @@
+import { search } from '@/icons'
+import { getPath } from '@/utils'
+import { BusinessPlanService } from '@services/index'
+import classNames from 'classnames'
 import { Button, Card, Progress, Timeline } from 'flowbite-react'
+import CButton from '@components/Button'
+import { useEffect, useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const HomePage = () => {
+  const [businessPlanList, setBusinessPlanList] = useState(false)
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = () => {
+    BusinessPlanService.getAll({ limit: 5, fromnow: true }).then(setBusinessPlanList)
+  }
+
   return (
     <>
       <hr />
@@ -147,37 +164,60 @@ const HomePage = () => {
                 Yaklaşan Etkinlikler
               </h5>
               <Timeline>
-                <Timeline.Item>
-                  <Timeline.Point icon={FaRegCalendarAlt} />
-                  <Timeline.Content>
-                    <Timeline.Time>21 Kasım 2022</Timeline.Time>
-                    <Timeline.Title>Üyelere Yönelik Yerinde Kobi Danışmanlığı</Timeline.Title>
-                    <Timeline.Body>Sorumlu : Emin AKÇİL </Timeline.Body>
-                  </Timeline.Content>
-                </Timeline.Item>
-                <Timeline.Item>
-                  <Timeline.Point icon={FaRegCalendarAlt} />
-                  <Timeline.Content>
-                    <Timeline.Time>18 Aralık 2022</Timeline.Time>
-                    <Timeline.Title>Sanal Kütüphane Oluşturmak</Timeline.Title>
-                    <Timeline.Body>Sorumlu : Can SARIHAN </Timeline.Body>
-                  </Timeline.Content>
-                </Timeline.Item>
-                <Timeline.Item>
-                  <Timeline.Point icon={FaRegCalendarAlt} />
-                  <Timeline.Content>
-                    <Timeline.Time>22 Aralık 2022</Timeline.Time>
-                    <Timeline.Title>Yarınların Önemi Eğitimi</Timeline.Title>
-                    <Timeline.Body>Sorumlu : Damla AKCİN</Timeline.Body>
-                  </Timeline.Content>
-                </Timeline.Item>
+                {businessPlanList &&
+                  businessPlanList.map((businessPlan) => (
+                    <Timeline.Item key={businessPlan._id}>
+                      <Timeline.Point icon={FaRegCalendarAlt} />
+                      <Timeline.Content>
+                        <div className="flex">
+                          <div className="flex-1">
+                            <Timeline.Time>
+                              {new Date(businessPlan.date).toLocaleDateString('tr-TR', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                              })}{' '}
+                              {businessPlan.time}
+                            </Timeline.Time>
+                            <Timeline.Title>{businessPlan.title}</Timeline.Title>
+                            <Timeline.Body>
+                              Sorumlu :{businessPlan?.responsible?.fullName}
+                            </Timeline.Body>
+                          </div>
+                          <div className="inline-flex flex-col items-center text-base font-semibold text-gray-900 dark:text-white">
+                            <p
+                              className={classNames('truncate text-sm ', {
+                                'text-green-400': businessPlan?.statu,
+                                'text-red-500 animate-pulse': !businessPlan?.statu,
+                              })}
+                            >
+                              {businessPlan?.statu ? 'Tamamlandı' : 'Tamamlanmadı'}
+                            </p>
+                            <div style={{ margin: '2% 0' }}>
+                              <CButton
+                                as={Link}
+                                to={getPath('businessPlan.detail', {
+                                  id: businessPlan._id,
+                                })}
+                                className="inline-flex justify-center"
+                                variant="dark-0"
+                                style={{ backgroundColor: '#F9FCFF', color: 'grey' }}
+                              >
+                                {search} Görüntüle
+                              </CButton>
+                            </div>
+                          </div>
+                        </div>
+                      </Timeline.Content>
+                    </Timeline.Item>
+                  ))}
               </Timeline>
-              <a
-                href="#"
+              <Link
+                to={getPath('businessPlan')}
                 className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
               >
                 Tümünü Görüntüle
-              </a>
+              </Link>
             </Card>
           </div>
           <div className="flex-1 mt-12">

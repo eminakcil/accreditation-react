@@ -53,7 +53,7 @@ const PlanListCard = ({ businessPlanList }) => {
                           })}
                           className="inline-flex justify-center"
                           variant="dark-0"
-                          style={{ backgroundColor: 'white', color: 'grey' }}
+                          style={{ backgroundColor: '#F9FCFF', color: 'grey' }}
                         >
                           {search} Görüntüle
                         </Button>

@@ -83,3 +83,11 @@ export const errorInfo = (formik, key) => {
 
   return null
 }
+
+export const generateSearchQuery = (obj) => {
+  const arr = Object.entries(obj)
+
+  const searchQuery = arr.map(([key, value]) => `${key}=${value}`).join('&')
+
+  return searchQuery
+}
