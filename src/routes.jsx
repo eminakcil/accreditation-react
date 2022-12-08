@@ -22,6 +22,7 @@ const BusinessPlan = lazy(() => import('./pages/BusinessPlans/BusinessPlanCreate
 const BusinessPlanList = lazy(() => import('./pages/BusinessPlans/BusinessPlanList'))
 const BusinessPlanDetail = lazy(() => import('./pages/BusinessPlans/BusinessPlanDetail'))
 
+const Accreditation = lazy(() => import('./pages/Accreditation/Accreditation'))
 /** B@type {import('react-router-dom').RouteObject[]} */
 
 const routes = [
@@ -70,6 +71,18 @@ const routes = [
             lazy: true,
             auth: true,
             element: <BusinessPlanDetail />,
+          },
+        ],
+      },
+      {
+        path: 'accreditation',
+        name: 'accreditation',
+        children: [
+          {
+            index: true,
+            element: <Accreditation />,
+            lazy: true,
+            auth: true,
           },
         ],
       },

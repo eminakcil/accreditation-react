@@ -16,7 +16,7 @@ const Hideable = ({ show, duration = 700, children }) => {
         className="transition-all"
       ></div>
       <div
-        className="absolute bottom-0 w-full"
+        className="absolute bottom-0 w-full transition-none"
         ref={childrenElement}
       >
         {children}
