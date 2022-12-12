@@ -24,10 +24,20 @@ const Accreditation = () => {
             {
               no: '1.1.1.',
               name: 'Vizyon ve açıkça tanımlanmış Misyon beyanının hazırlandığını, (Misyon Ve Vizyon Beyanları)',
+              proofList: [
+                {
+                  title: 'Eğitim Vermek',
+                },
+              ],
             },
             {
               no: '1.1.2.',
               name: '5174 sayılı Türkiye Odalar ve Borsalar Birliği ile Odalar ve Borsalar Kanunu, ilgili tüm yönetmelikler ve tüzüklere uygunluğun sağlandığını, ortaya koyabilmeli(Meclis ve Meslek Komiteleri bilgi ve toplantı Tutanakları )',
+              proofList: [
+                {
+                  title: 'Personel Kapasitesini Arttırmak',
+                },
+              ],
             },
             {
               no: '1.1.3.',
