@@ -1,12 +1,12 @@
-import constants from '@/constants'
 import { yearFormat } from '@/utils'
 import Divider from '@components/Divider'
 import Loading from '@components/Loading'
-import Hideable from '@pages/StrategicPlans/components/Hideable'
-import { Button, Card, FileInput, Label, Textarea } from 'flowbite-react'
+// import Hideable from '@pages/StrategicPlans/components/Hideable'
+import { Button, Card } from 'flowbite-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { BusinessPlanService } from '../../services'
+import BusinessPlanProofForm from './components/BusinessPlanProofForm'
 
 const BusinessPlanDetail = () => {
   const { id } = useParams()
@@ -171,52 +171,9 @@ const BusinessPlanDetail = () => {
                   {show ? 'Kartı Gizle' : 'Kart Ekle'}
                 </Button>
               </div>
-              <Hideable show={show}>
-                <div className="max-w-xl">
-                  <div className="flex flex-col items-center pb-10">
-                    <img
-                      className="mb-3 h-24 w-24 rounded-full shadow-lg"
-                      src={constants.LOGO}
-                    />
-                    <span>İş Planı Kanıt Kartı</span>
-                  </div>
-                  <div id="description">
-                    <div className="mb-2 block">
-                      <Label
-                        htmlFor="description"
-                        value="Açıklama:"
-                      />
-                    </div>
-                    <Textarea
-                      id="description"
-                      placeholder="Açıklama..."
-                      required={true}
-                      rows={4}
-                    />
-                  </div>
-                  <div id="file">
-                    <div className="mb-2 block">
-                      <Label
-                        htmlFor="file"
-                        value="Kanıt:"
-                      />
-                    </div>
-                    <FileInput id="file" />
-                    <span
-                      className="font-medium"
-                      style={{ color: 'red' }}
-                    >
-                      Dikkat!
-                    </span>{' '}
-                    <span style={{ color: 'grey' }}>
-                      İş planının gerçekleştiğine dair tüm çıktıları buraya yükleyiniz!
-                    </span>
-                  </div>
-                  <div className="py-2">
-                    <Button style={{ backgroundColor: '#24475C' }}>Kanıt Kartını Kaydet</Button>
-                  </div>
-                </div>
-              </Hideable>
+              {/* <Hideable show={show}> */}
+              <BusinessPlanProofForm businessPlanId={id} />
+              {/* </Hideable> */}
             </div>
           </div>
         </div>

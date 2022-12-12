@@ -5,7 +5,11 @@ import { UserService } from '.'
 function parseData(data) {
   const formData = new FormData()
   for (let [key, value] of Object.entries(data)) {
-    formData.append(key, value)
+    if (Array.isArray(value)) {
+      value.forEach((item) => formData.append(key, item))
+    } else {
+      formData.append(key, value)
+    }
   }
   return formData
 }

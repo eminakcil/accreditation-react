@@ -1,7 +1,12 @@
-const Loading = ({ size = 10 }) => {
+import classNames from 'classnames'
+
+const Loading = ({ size = 10, light = false }) => {
   return (
     <svg
-      className={`animate-spin inline h-${size} w-${size} text-black`}
+      className={classNames(`animate-spin inline h-${size} w-${size}`, {
+        'text-black': !light,
+        'text-white': light,
+      })}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
