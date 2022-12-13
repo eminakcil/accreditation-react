@@ -1,31 +1,44 @@
 import constants from '@/constants'
+import Divider from '@components/Divider'
+import FileCard from '@components/FileCard'
 import Loading from '@components/Loading'
 import UploadInput from '@components/UploadInput'
 import { BusinessPlanProofService } from '@services/index'
 import { Button, Label, Textarea } from 'flowbite-react'
 import { useFormik } from 'formik'
+import { useRef } from 'react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-const BusinessPlanProofForm = ({ businessPlanId }) => {
+const BusinessPlanProofForm = ({ businessPlanId, onSuccess, initialValues }) => {
   const [loading, setLoading] = useState(false)
+
+  const uploadFileRef = useRef()
 
   const formik = useFormik({
     initialValues: {
-      description: '',
+      description: initialValues?.description || '',
       fileList: [],
       businessPlan: businessPlanId,
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       setLoading(true)
 
       BusinessPlanProofService.create(values)
-        .then(() => {
+        .then((response) => {
           toast.success('Kanıt Kaydedildi!')
+          onSuccess?.(response)
+          resetForm()
         })
         .finally(() => {
           setLoading(false)
         })
+    },
+    onReset: (values, { setFieldValue }) => {
+      console.log('resetlendi')
+      setFieldValue('fileList', [])
+      setFieldValue('businessPlan', businessPlanId)
+      uploadFileRef.current.reset()
     },
   })
 
@@ -50,19 +63,39 @@ const BusinessPlanProofForm = ({ businessPlanId }) => {
             id="description"
             placeholder="Açıklama..."
             rows={4}
+            value={formik.values.description}
             name="description"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
         </div>
-        <div id="file">
+        <div
+          id="file"
+          className="space-y-3"
+        >
           <div className="mb-2 block">
             <Label
               htmlFor="file"
               value="Kanıt:"
             />
           </div>
-          <UploadInput onChange={(fileList) => formik.setFieldValue('fileList', fileList)} />
+          <UploadInput
+            ref={uploadFileRef}
+            onChange={(fileList) => formik.setFieldValue('fileList', fileList)}
+          />
+          {initialValues && (
+            <>
+              <Divider />
+              {initialValues?.path?.map((path, index) => (
+                <FileCard
+                  key={index}
+                  onRemove={() => null}
+                >
+                  {path}
+                </FileCard>
+              ))}
+            </>
+          )}
           <span
             className="font-medium"
             style={{ color: 'red' }}

@@ -15,13 +15,16 @@ const BusinessPlanDetail = () => {
   useEffect(() => {
     BusinessPlanService.getById(id)
       .then((res) => {
-        console.log(items)
         setItems(res)
       })
       .finally(() => {
         setLoading(false)
       })
   }, [])
+
+  const handleProofSuccess = (response) => {
+    setItems((x) => ({ ...x, proof: response }))
+  }
 
   if (loading) return <Loading />
 
@@ -149,7 +152,11 @@ const BusinessPlanDetail = () => {
           </div>
           <div>
             <div className="py-2">
-              <BusinessPlanProofForm businessPlanId={id} />
+              <BusinessPlanProofForm
+                businessPlanId={id}
+                initialValues={items.proof}
+                onSuccess={handleProofSuccess}
+              />
             </div>
           </div>
         </div>

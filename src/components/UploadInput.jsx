@@ -1,9 +1,10 @@
-import { useState, useRef } from 'react'
-import { SlClose } from 'react-icons/sl'
-import { BsCardImage, BsFileEarmark, BsTable, BsUpload } from 'react-icons/Bs'
+import { useState, useRef, forwardRef } from 'react'
+import { BsCardImage, BsTable, BsUpload } from 'react-icons/Bs'
 import { useEffect } from 'react'
+import FileCard from './FileCard'
+import { useImperativeHandle } from 'react'
 
-const UploadInput = ({ onChange }) => {
+const UploadInput = forwardRef(({ onChange }, ref) => {
   const [selectedFiles, setSelectedFiles] = useState([])
 
   const fileInputRef = useRef()
@@ -27,6 +28,14 @@ const UploadInput = ({ onChange }) => {
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': <BsTable />,
   }
 
+  const reset = () => {
+    setSelectedFiles([])
+  }
+
+  useImperativeHandle(ref, () => ({
+    reset,
+  }))
+
   return (
     <div className="space-y-3">
       <div
@@ -44,23 +53,18 @@ const UploadInput = ({ onChange }) => {
         onChange={handleChange}
       />
       {selectedFiles.map((file, index) => (
-        <div
+        <FileCard
           key={index}
-          className="bg-gray-50 border border-solid border-gray-300 rounded-lg flex items-stretch overflow-hidden"
+          icon={types?.[file.type]}
+          onRemove={() => handleRemove(index)}
         >
-          <div className="bg-green-400 text-white p-4 grid place-items-center">
-            {types?.[file.type] || <BsFileEarmark />}
-          </div>
-          <div className="max-w-full flex items-center py-2 px-4">{file.name}</div>
-          <div
-            className="hover:bg-gray-400 hover:text-white cursor-pointer p-4 grid place-items-center ml-auto"
-            onClick={() => handleRemove(index)}
-          >
-            <SlClose />
-          </div>
-        </div>
+          {file.name}
+        </FileCard>
       ))}
     </div>
   )
-}
+})
+
+UploadInput.displayName = 'UploadInput'
+
 export default UploadInput
