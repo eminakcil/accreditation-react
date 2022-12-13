@@ -21,24 +21,20 @@ const BusinessPlanProofForm = ({ businessPlanId, onSuccess, initialValues }) => 
       fileList: [],
       businessPlan: businessPlanId,
     },
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values, { setFieldValue }) => {
       setLoading(true)
 
       BusinessPlanProofService.create(values)
         .then((response) => {
           toast.success('Kanıt Kaydedildi!')
           onSuccess?.(response)
-          resetForm()
+          setFieldValue('fileList', [])
+          setFieldValue('businessPlan', businessPlanId)
+          uploadFileRef.current.reset()
         })
         .finally(() => {
           setLoading(false)
         })
-    },
-    onReset: (values, { setFieldValue }) => {
-      console.log('resetlendi')
-      setFieldValue('fileList', [])
-      setFieldValue('businessPlan', businessPlanId)
-      uploadFileRef.current.reset()
     },
   })
 

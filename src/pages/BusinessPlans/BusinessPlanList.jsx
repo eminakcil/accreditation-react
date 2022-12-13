@@ -77,7 +77,7 @@ const BusinessPlanList = () => {
               label="Yıl Seç"
               inline={true}
             >
-              {strategicPeriodList?.map((period) => (
+              {strategicPeriodList?.map?.((period) => (
                 <Dropdown.Item
                   key={period._id}
                   onClick={() => setFilter((x) => ({ ...x, period: period._id }))}
@@ -90,7 +90,7 @@ const BusinessPlanList = () => {
               label="Faaliyet Seç"
               inline={true}
             >
-              {strategicActivityList?.map((activity) => (
+              {strategicActivityList?.map?.((activity) => (
                 <Dropdown.Item
                   key={activity._id}
                   onClick={() => setFilter((x) => ({ ...x, activity: activity._id }))}
