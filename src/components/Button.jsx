@@ -7,6 +7,9 @@ const Button = ({ as = 'button', variant = 'blue', children, className, ...props
     {
       className: classNames(
         'px-3 py-2 rounded text-center',
+        {
+          'bg-[#093d92] text-gray-100 hover:bg-[#1958bf] hover:text-white': variant === 'dark-blue',
+        },
         { 'bg-blue-500 text-gray-200 hover:bg-blue-700 hover:text-white': variant === 'blue' },
         { 'bg-red-500 text-gray-200 hover:bg-red-700 hover:text-white': variant === 'red' },
         { 'text-red-500 hover:bg-red-100 hover:text-red': variant === 'red-0' },

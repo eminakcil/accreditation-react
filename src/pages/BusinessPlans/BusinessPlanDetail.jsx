@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { BusinessPlanService } from '../../services'
 import BusinessPlanProofForm from './components/BusinessPlanProofForm'
+import BusinessPlanProofPreview from './components/BusinessPlanProofPreview'
 
 const BusinessPlanDetail = () => {
   const { id } = useParams()
@@ -152,11 +153,15 @@ const BusinessPlanDetail = () => {
           </div>
           <div>
             <div className="py-2">
-              <BusinessPlanProofForm
-                businessPlanId={id}
-                initialValues={items.proof}
-                onSuccess={handleProofSuccess}
-              />
+              {items.proof ? (
+                <BusinessPlanProofPreview proof={items.proof} />
+              ) : (
+                <BusinessPlanProofForm
+                  businessPlanId={id}
+                  initialValues={items.proof}
+                  onSuccess={handleProofSuccess}
+                />
+              )}
             </div>
           </div>
         </div>
