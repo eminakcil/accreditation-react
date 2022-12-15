@@ -1,8 +1,7 @@
-import { getPath, signOut } from '@/utils'
+import { getPath } from '@/utils'
 import SidebarItem from '@components/SidebarItem'
 import { useAppSelector } from '@store/index'
 import { Sidebar } from 'flowbite-react'
-import React from 'react'
 import {
   FaHome,
   FaRegChartBar,
@@ -15,9 +14,18 @@ import {
   FaRegListAlt,
 } from 'react-icons/fa'
 import Avatar from '@assets/img/avatar.jpg'
+import { useRef } from 'react'
+import ConfirmSignOutModal from '@components/ConfirmSignOutModal'
 
 const SideBar = () => {
   const { user } = useAppSelector((state) => state.auth)
+
+  const signOutPopupRef = useRef()
+
+  const handleSignOut = () => {
+    signOutPopupRef.current.setVisibility(true)
+  }
+
   return (
     <>
       <div
@@ -91,7 +99,7 @@ const SideBar = () => {
               </SidebarItem>
               <SidebarItem
                 icon={FaExternalLinkAlt}
-                onClick={signOut}
+                onClick={handleSignOut}
               >
                 Çıkış Yap
               </SidebarItem>
@@ -99,6 +107,7 @@ const SideBar = () => {
           </Sidebar.Items>
         </Sidebar>
       </div>
+      <ConfirmSignOutModal ref={signOutPopupRef} />
     </>
   )
 }

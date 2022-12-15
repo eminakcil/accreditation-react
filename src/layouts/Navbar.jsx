@@ -1,12 +1,19 @@
 import constants from '@/constants'
-import { getPath, signOut } from '@/utils'
+import { getPath } from '@/utils'
+import ConfirmSignOutModal from '@components/ConfirmSignoutModal'
 import NavbarLink from '@components/NavbarLink'
 import { useAppSelector } from '@store/index'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
+import { useRef } from 'react'
 
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.auth)
 
+  const signOutPopupRef = useRef()
+
+  const handleSignOut = () => {
+    signOutPopupRef.current.setVisibility(true)
+  }
   return (
     <>
       <div>
@@ -85,7 +92,9 @@ const Navbar = () => {
               <Dropdown.Item>Ayarlar</Dropdown.Item>
               <Dropdown.Item>Şifremi Değiştir </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={signOut}>Çıkış Yap</Dropdown.Item>
+              <Dropdown.Item onClick={handleSignOut}>
+                <span className="select-none">Çıkış Yap</span>
+              </Dropdown.Item>
             </Dropdown>
             <NNavbar.Toggle />
           </div>
@@ -110,6 +119,7 @@ const Navbar = () => {
           </div>
         </NNavbar>
       </div>
+      <ConfirmSignOutModal ref={signOutPopupRef} />
     </>
   )
 }
