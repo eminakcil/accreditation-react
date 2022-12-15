@@ -4,5 +4,5 @@ import { ViteAliases } from 'vite-aliases'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), ViteAliases({ useConfig: true, logPath: true })],
+  plugins: [react(), ViteAliases({ useConfig: !true, logPath: !true })],
 })
