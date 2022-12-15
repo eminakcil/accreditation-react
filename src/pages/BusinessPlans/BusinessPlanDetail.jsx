@@ -3,6 +3,7 @@ import Divider from '@components/Divider'
 import Loading from '@components/Loading'
 import { Card } from 'flowbite-react'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
 import { BusinessPlanService } from '../../services'
 import BusinessPlanProofForm from './components/BusinessPlanProofForm'
@@ -25,6 +26,20 @@ const BusinessPlanDetail = () => {
 
   const handleProofSuccess = (response) => {
     setItems((x) => ({ ...x, proof: response }))
+  }
+
+  const handleComplete = () => {
+    setLoading(true)
+
+    BusinessPlanService.completeById(id)
+      .then((response) => {
+        setItems((x) => ({ ...x, statu: response.statu }))
+        toast.success('İş planı tamamlandı olarak işaretlendi!')
+      })
+      .catch(() => {})
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   if (loading) return <Loading />
@@ -154,7 +169,11 @@ const BusinessPlanDetail = () => {
           <div>
             <div className="py-2">
               {items.proof ? (
-                <BusinessPlanProofPreview proof={items.proof} />
+                <BusinessPlanProofPreview
+                  proof={items.proof}
+                  completed={items.statu}
+                  handleComplete={handleComplete}
+                />
               ) : (
                 <BusinessPlanProofForm
                   businessPlanId={id}

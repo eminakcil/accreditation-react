@@ -17,3 +17,4 @@ export const getAll = (filter) => {
   return get(path)
 }
 export const getById = (id) => get(SERVICE_PATH.concat('/', id))
+export const completeById = (id) => postJSON(SERVICE_PATH + '/complete', { businessPlan: id })

@@ -38,5 +38,5 @@ const SelectResponsibleModal = forwardRef(({ onMemberChange }, ref) => {
   )
 })
 
-SelectResponsibleModal.displayName = SelectResponsibleModal
+SelectResponsibleModal.displayName = 'SelectResponsibleModal'
 export default SelectResponsibleModal
