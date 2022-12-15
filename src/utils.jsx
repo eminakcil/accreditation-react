@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import store from '@store/index'
 import { setUser } from '@store/authSlice'
 import ErrorMessage from '@components/ErrorMessage'
+import { toast } from 'react-hot-toast'
 
 /**
  *
@@ -74,6 +75,7 @@ export const getPeriodTitleByStrategicPlan = (strategicPlan, seperator = ' - ') 
 
 export const signOut = () => {
   store.dispatch(setUser(false))
+  toast('Çıkış Yapıldı!')
 }
 
 export const errorInfo = (formik, key) => {

@@ -26,6 +26,7 @@ const Login = () => {
       UserService.login(values)
         .then((response) => {
           dispatch(setUser(response))
+          toast.success('Giriş Başarılı!')
         })
         .catch(({ error }) => {
           switch (error?.message) {
