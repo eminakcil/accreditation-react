@@ -69,7 +69,7 @@ const ManuelPlanCard = () => {
     <>
       <Card>
         <hr />
-        <div className="grid lg:grid-cols-2 gap-3">
+        <div className="grid gap-3">
           <div className="relative">
             {loading && (
               <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
@@ -251,10 +251,6 @@ const ManuelPlanCard = () => {
               </Card>
             </form>
           </div>
-          <Card>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, recusandae? Deleniti,
-            qui.
-          </Card>
         </div>
       </Card>
 
