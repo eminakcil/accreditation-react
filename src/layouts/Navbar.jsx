@@ -5,6 +5,7 @@ import NavbarLink from '@components/NavbarLink'
 import { useAppSelector } from '@store/index'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.auth)
@@ -85,8 +86,12 @@ const Navbar = () => {
               }
             >
               <Dropdown.Header>
-                <span className="block text-sm">{user.fullName}</span>
-                <span className="block truncate text-sm font-medium">{user.mail}</span>
+                <Link to="/profile">
+                  <span className="block text-sm">{user.fullName}</span>
+                </Link>
+                <Link to="/profile">
+                  <span className="block truncate text-sm font-medium">{user.mail}</span>
+                </Link>
               </Dropdown.Header>
               <Dropdown.Item to="/">Ana Sayfa</Dropdown.Item>
               <Dropdown.Item>Ayarlar</Dropdown.Item>
