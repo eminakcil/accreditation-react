@@ -1,4 +1,4 @@
-import { BsFileEarmark } from 'react-icons/bs'
+import { BsFileEarmark } from 'react-icons/Bs'
 import { SlClose } from 'react-icons/sl'
 
 const FileCard = ({ isRemovable = true, onRemove, children, icon }) => {

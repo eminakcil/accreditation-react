@@ -3,7 +3,7 @@ import Button from '@components/Button'
 import FileCard from '@components/FileCard'
 import { Card, Label } from 'flowbite-react'
 import { useRef } from 'react'
-import { BsCheck } from 'react-icons/bs'
+import { BsCheck } from 'react-icons/Bs'
 import BusinessPlanCompleteModal from './BusinessPlanCompleteModal'
 
 const BusinessPlanProofPreview = ({ proof, handleComplete, completed }) => {

@@ -1,6 +1,6 @@
 import { Button, Modal } from 'flowbite-react'
 import { forwardRef, useImperativeHandle, useState } from 'react'
-import { BsQuestionCircle } from 'react-icons/bs'
+import { BsQuestionCircle } from 'react-icons/Bs'
 
 const BusinessPlanCompleteModal = forwardRef(({ onSuccess }, ref) => {
   const [visibility, setVisibility] = useState(false)
