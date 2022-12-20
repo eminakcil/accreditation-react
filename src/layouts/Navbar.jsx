@@ -1,6 +1,6 @@
 import constants from '@/constants'
 import { getPath } from '@/utils'
-import ConfirmSignOutModal from '@components/ConfirmSignoutModal'
+import ConfirmSignOutModal from '@components/ConfirmSignOutModal'
 import NavbarLink from '@components/NavbarLink'
 import { useAppSelector } from '@store/index'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'

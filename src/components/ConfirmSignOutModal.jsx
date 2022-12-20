@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import { Button, Modal } from 'flowbite-react'
-import { BsExclamationCircle } from 'react-icons/Bs'
+import { BsExclamationCircle } from 'react-icons/bs'
 import { signOut } from '@/utils'
 
 const ConfirmSignOutModal = forwardRef((props, ref) => {
