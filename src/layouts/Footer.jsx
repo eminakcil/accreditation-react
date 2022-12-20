@@ -19,7 +19,7 @@ const Footer = () => {
               <FooterLink to={getPath('strategicSystem')}>Stratejik Plan</FooterLink>
               <FooterLink to={getPath('businessPlan')}>İş Planı</FooterLink>
               <FooterLink to={getPath('accreditation')}>Akreditasyon</FooterLink>
-              <FooterLink to="#">Anketler</FooterLink>
+              <FooterLink to={getPath('survey')}>Anketler</FooterLink>
             </FFooter.LinkGroup>
           </div>
           <FFooter.Divider />

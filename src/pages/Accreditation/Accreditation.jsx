@@ -32,9 +32,11 @@ const Accreditation = () => {
                     {accreditation.rota.map((rota, index) => (
                       <Fragment key={rota._id}>
                         {index > 0 && (
-                          <div className="border-r h-[48px] self-center border-solid border-gray-500"></div>
+                          <div className="self-center border-solid border-gray-500"></div>
                         )}
-                        <span>{rota.title}</span>
+                        <span className="text-l font-semibold tracking-tight text-gray-900 dark:text-white">
+                          {rota.title}
+                        </span>
                         <hr />
                         {rota.rota2.map((rota2, index) => (
                           <Fragment key={rota2._id}>
@@ -44,6 +46,7 @@ const Accreditation = () => {
                             <span>{rota2.title2}</span>
                           </Fragment>
                         ))}
+                        <span></span>
                       </Fragment>
                     ))}
                     <div className="ml-auto mt-auto flex items-center gap-2"></div>
