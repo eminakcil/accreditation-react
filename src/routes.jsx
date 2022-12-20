@@ -15,6 +15,7 @@ const StrategicSystemDetail = lazy(() => import('./pages/StrategicPlans/Strategi
 const RoomInformation = lazy(() => import('./pages/RoomInformation/RoomInformation'))
 
 const Login = lazy(() => import('./pages/Login/Login'))
+const Profile = lazy(() => import('./pages/User/Profile'))
 
 const NotFound = lazy(() => import('./pages/NotFound'))
 
@@ -174,6 +175,13 @@ const routes = [
             auth: true,
           },
         ],
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        element: <Profile />,
+        lazy: true,
+        auth: true,
       },
     ],
   },
