@@ -1,5 +1,5 @@
 import { useState, useRef, forwardRef } from 'react'
-import { BsCardImage, BsTable, BsUpload } from 'react-icons/Bs'
+import { BsCardImage, BsTable, BsUpload } from 'react-icons/bs'
 import { useEffect } from 'react'
 import FileCard from './FileCard'
 import { useImperativeHandle } from 'react'
