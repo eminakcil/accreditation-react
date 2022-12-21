@@ -178,7 +178,6 @@ const routes = [
       },
       {
         path: 'profile',
-        name: 'profile',
         element: <Profile />,
         lazy: true,
         auth: true,

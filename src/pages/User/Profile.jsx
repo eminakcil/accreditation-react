@@ -1,9 +1,21 @@
+import constants from '@/constants'
+import Button from '@components/Button'
+import Loading from '@components/Loading'
+import { UserService } from '@services/index'
+import { setUser } from '@store/authSlice'
+import { useAppDispatch, useAppSelector } from '@store/index'
 import { Card } from 'flowbite-react'
 import { useRef, useState } from 'react'
 
 const Profile = () => {
   const fileInputRef = useRef()
   const [fileDataUrl, setfileDataUrl] = useState(false)
+
+  const [file, setFile] = useState()
+
+  const [loading, setLoading] = useState(false)
+  const { user } = useAppSelector((state) => state.auth)
+  const dispatch = useAppDispatch()
 
   const handleFileChange = (_e) => {
     const file = _e.target.files?.[0]
@@ -20,6 +32,22 @@ const Profile = () => {
     } else {
       setfileDataUrl(false)
     }
+
+    setFile(file)
+  }
+
+  const handleClick = () => {
+    setLoading(true)
+
+    UserService.changeAvatar(file)
+      .then(({ avatar }) => {
+        setfileDataUrl(false)
+        setFile(false)
+        dispatch(setUser({ ...user, avatar }))
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   return (
@@ -30,8 +58,8 @@ const Profile = () => {
             onClick={() => {
               fileInputRef.current.click()
             }}
-            src={fileDataUrl || '/src/assets/img/avatar.jpg'}
-            className="rounded w-full aspect-square object-cover cursor-pointer hover:blur transition-all"
+            src={fileDataUrl || constants.IMAGE_PREFIX + user.avatar}
+            className="rounded w-full aspect-square object-cover cursor-pointer"
           />
           <input
             ref={fileInputRef}
@@ -39,6 +67,21 @@ const Profile = () => {
             hidden
             onChange={handleFileChange}
           />
+          {fileDataUrl && (
+            <Button
+              type="button"
+              onClick={handleClick}
+              className="flex items-center justify-center gap-3"
+              disabled={loading}
+            >
+              {loading && (
+                <span>
+                  <Loading size={4} />
+                </span>
+              )}
+              Kaydet
+            </Button>
+          )}
         </Card>
       </div>
     </div>

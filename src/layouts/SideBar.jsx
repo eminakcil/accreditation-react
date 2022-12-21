@@ -17,6 +17,7 @@ import Avatar from '@assets/img/avatar.jpg'
 import { useRef } from 'react'
 import ConfirmSignOutModal from '@components/ConfirmSignOutModal'
 import { Link } from 'react-router-dom'
+import constants from '@/constants'
 
 const SideBar = () => {
   const { user } = useAppSelector((state) => state.auth)
@@ -37,8 +38,8 @@ const SideBar = () => {
         <div className="flex flex-col items-center pb-10">
           <Link to="/profile">
             <img
-              className="mb-3 h-24 w-24 rounded-full shadow-lg"
-              src={Avatar}
+              className="mb-3 h-24 w-24 rounded-full shadow-lg object-cover"
+              src={constants.IMAGE_PREFIX + user?.avatar}
               alt="avatar"
             />
           </Link>

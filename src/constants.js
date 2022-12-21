@@ -5,4 +5,5 @@ export default {
   LOGO,
   TITLE: 'Ereğli Ticaret ve Sanayi Odası',
   // TITLE: 'Zonguldak Ticaret ve Sanayi Odası',
+  IMAGE_PREFIX: 'http://localhost:3000',
 }

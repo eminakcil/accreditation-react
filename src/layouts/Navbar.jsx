@@ -23,7 +23,7 @@ const Navbar = () => {
           rounded={true}
           style={{ backgroundColor: '#F9FCFF' }}
         >
-          <NNavbar.Brand href="https://flowbite.com/">
+          <NNavbar.Brand href="/">
             <img
               src="/images/logo.svg"
               className="mr-3 h-6 sm:h-9"
@@ -80,7 +80,7 @@ const Navbar = () => {
               label={
                 <Avatar
                   alt="Kullanıcı"
-                  img="/images/avatar.png"
+                  img={constants.IMAGE_PREFIX + user.avatar}
                   rounded={true}
                 />
               }
