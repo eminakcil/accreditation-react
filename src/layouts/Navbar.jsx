@@ -3,7 +3,7 @@ import { getPath } from '@/utils'
 import ConfirmSignOutModal from '@components/ConfirmSignOutModal'
 import NavbarLink from '@components/NavbarLink'
 import { useAppSelector } from '@store/index'
-import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
+import { Dropdown, Navbar as NNavbar } from 'flowbite-react'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -78,11 +78,11 @@ const Navbar = () => {
               arrowIcon={false}
               inline={true}
               label={
-                <Avatar
-                  alt="Kullanıcı"
-                  img={constants.IMAGE_PREFIX + user.avatar}
-                  rounded={true}
-                />
+                <img
+                  className="w-10 h-10 rounded-full object-cover"
+                  src={constants.IMAGE_PREFIX + user.avatar}
+                  alt={user.fullName}
+                ></img>
               }
             >
               <Dropdown.Header>
