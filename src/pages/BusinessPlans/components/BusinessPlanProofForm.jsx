@@ -102,6 +102,7 @@ const BusinessPlanProofForm = ({ businessPlanId, onSuccess, initialValues }) => 
             İş planının gerçekleştiğine dair tüm çıktıları buraya yükleyiniz!
           </span>
         </div>
+
         <div className="py-2">
           <Button
             type="submit"

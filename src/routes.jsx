@@ -21,10 +21,13 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 const BusinessPlan = lazy(() => import('./pages/BusinessPlans/BusinessPlanCreate'))
 const BusinessPlanList = lazy(() => import('./pages/BusinessPlans/BusinessPlanList'))
 const BusinessPlanDetail = lazy(() => import('./pages/BusinessPlans/BusinessPlanDetail'))
+const ManuelPlanList = lazy(() => import('./pages/BusinessPlans/ManuelPlanList'))
+const ManuelPlanDetail = lazy(() => import('./pages/BusinessPlans/ManuelPlanDetail'))
 
 const Accreditation = lazy(() => import('./pages/Accreditation/Accreditation'))
 
 const Survey = lazy(() => import('./pages/Survey/Survey'))
+
 /** B@type {import('react-router-dom').RouteObject[]} */
 
 const routes = [
@@ -73,6 +76,20 @@ const routes = [
             lazy: true,
             auth: true,
             element: <BusinessPlanDetail />,
+          },
+          {
+            path: 'manuelList',
+            name: 'manuelList',
+            lazy: true,
+            auth: true,
+            element: <ManuelPlanList />,
+          },
+          {
+            path: 'manuelList/:id',
+            name: 'manuelDetail',
+            lazy: true,
+            auth: true,
+            element: <ManuelPlanDetail />,
           },
         ],
       },

@@ -25,7 +25,7 @@ const Accreditation = () => {
                 <Fragment key={accreditation._id}>
                   <Card style={{ backgroundColor: '#F9FCFF' }}>
                     <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                      {accreditation.heading} Yılı Stratejik Planı
+                      {accreditation.heading}
                     </h5>
                     <hr />
 
