@@ -1,6 +1,7 @@
 import constants from '@/constants'
 import Button from '@components/Button'
 import FileCard from '@components/FileCard'
+import AccreditationAddModal from '@pages/Accreditation/components/AccreditationAddModal'
 import { Card, Label } from 'flowbite-react'
 import { useRef } from 'react'
 import { BsCheck } from 'react-icons/Bs'
@@ -8,9 +9,11 @@ import BusinessPlanCompleteModal from './BusinessPlanCompleteModal'
 
 const BusinessPlanProofPreview = ({ proof, handleComplete, completed }) => {
   const modalRef = useRef()
+  const modal2Ref = useRef()
 
   const onSuccess = () => {
     modalRef.current.setVisibility(false)
+    modal2Ref.current.setVisibility(false)
 
     handleComplete()
   }
@@ -41,6 +44,19 @@ const BusinessPlanProofPreview = ({ proof, handleComplete, completed }) => {
               </FileCard>
             ))}
           </div>
+          <div className="py-2">
+            <Button
+              type="button"
+              variant="red"
+              className="flex items-center gap-2"
+              onClick={() => {
+                modal2Ref.current.setVisibility(true)
+              }}
+            >
+              <BsCheck size={28} />
+              <span>Akreditasyona Ekle</span>
+            </Button>
+          </div>
           {!completed && (
             <div className="py-2">
               <Button
@@ -60,6 +76,10 @@ const BusinessPlanProofPreview = ({ proof, handleComplete, completed }) => {
       </Card>
       <BusinessPlanCompleteModal
         ref={modalRef}
+        onSuccess={onSuccess}
+      />
+      <AccreditationAddModal
+        ref={modal2Ref}
         onSuccess={onSuccess}
       />
     </>

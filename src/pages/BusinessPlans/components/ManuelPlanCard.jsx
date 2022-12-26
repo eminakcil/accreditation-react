@@ -5,7 +5,7 @@ import { ManuelPlanShema } from '@/validations/ManuelPlanSchema'
 import { ManuelPlanService, StrategicPeriodService } from '@services/index'
 import toast from 'react-hot-toast'
 import { errorInfo, getPath } from '@/utils'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Loading from '@components/Loading'
 import SelectResponsibleModal from './SelectResponsibleModal'
 import { useEffect } from 'react'
@@ -69,6 +69,12 @@ const ManuelPlanCard = () => {
     <>
       <Card>
         <hr />
+        <Link
+          to={getPath('businessPlan.manuelList')}
+          className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+        >
+          Tümünü Görüntüle
+        </Link>
         <div className="grid gap-3">
           <div className="relative">
             {loading && (
