@@ -5,7 +5,10 @@ const SidebarItem = ({ to, children, icon = false, onClick = useLinkClickHandler
   const location = useLocation()
 
   return (
-    <span onClick={onClick}>
+    <span
+      onClick={onClick}
+      className="cursor-pointer select-none"
+    >
       <Sidebar.Item
         href={to}
         icon={icon}

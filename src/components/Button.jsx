@@ -16,6 +16,7 @@ const Button = ({ as = 'button', variant = 'blue', children, className, ...props
         { 'text-gray-700 hover:bg-gray-300 hover:text-gray-900': variant === 'dark-0' },
         { 'bg-green-400 text-green-700 hover:bg-green-600 hover:text-white': variant === 'green' },
         { 'bg-gray-400 text-gray-800 hover:bg-gray-600 hover:text-white': variant === 'gray' },
+        'disabled:cursor-not-allowed',
         className
       ),
       ...props,

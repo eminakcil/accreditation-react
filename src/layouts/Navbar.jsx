@@ -1,12 +1,20 @@
 import constants from '@/constants'
-import { getPath, signOut } from '@/utils'
+import { getPath } from '@/utils'
+import ConfirmSignOutModal from '@components/ConfirmSignOutModal'
 import NavbarLink from '@components/NavbarLink'
 import { useAppSelector } from '@store/index'
 import { Avatar, Dropdown, Navbar as NNavbar } from 'flowbite-react'
+import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.auth)
 
+  const signOutPopupRef = useRef()
+
+  const handleSignOut = () => {
+    signOutPopupRef.current.setVisibility(true)
+  }
   return (
     <>
       <div>
@@ -15,7 +23,7 @@ const Navbar = () => {
           rounded={true}
           style={{ backgroundColor: '#F9FCFF' }}
         >
-          <NNavbar.Brand href="https://flowbite.com/">
+          <NNavbar.Brand href="/">
             <img
               src="/images/logo.svg"
               className="mr-3 h-6 sm:h-9"
@@ -72,20 +80,26 @@ const Navbar = () => {
               label={
                 <Avatar
                   alt="Kullanıcı"
-                  img="/images/avatar.png"
+                  img={constants.IMAGE_PREFIX + user.avatar}
                   rounded={true}
                 />
               }
             >
               <Dropdown.Header>
-                <span className="block text-sm">{user.fullName}</span>
-                <span className="block truncate text-sm font-medium">{user.mail}</span>
+                <Link to="/profile">
+                  <span className="block text-sm">{user.fullName}</span>
+                </Link>
+                <Link to="/profile">
+                  <span className="block truncate text-sm font-medium">{user.mail}</span>
+                </Link>
               </Dropdown.Header>
               <Dropdown.Item to="/">Ana Sayfa</Dropdown.Item>
               <Dropdown.Item>Ayarlar</Dropdown.Item>
               <Dropdown.Item>Şifremi Değiştir </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={signOut}>Çıkış Yap</Dropdown.Item>
+              <Dropdown.Item onClick={handleSignOut}>
+                <span className="select-none">Çıkış Yap</span>
+              </Dropdown.Item>
             </Dropdown>
             <NNavbar.Toggle />
           </div>
@@ -110,6 +124,7 @@ const Navbar = () => {
           </div>
         </NNavbar>
       </div>
+      <ConfirmSignOutModal ref={signOutPopupRef} />
     </>
   )
 }

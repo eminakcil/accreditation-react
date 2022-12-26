@@ -1,8 +1,7 @@
-import { getPath, signOut } from '@/utils'
+import { getPath } from '@/utils'
 import SidebarItem from '@components/SidebarItem'
 import { useAppSelector } from '@store/index'
 import { Sidebar } from 'flowbite-react'
-import React from 'react'
 import {
   FaHome,
   FaRegChartBar,
@@ -15,9 +14,20 @@ import {
   FaRegListAlt,
 } from 'react-icons/fa'
 import Avatar from '@assets/img/avatar.jpg'
+import { useRef } from 'react'
+import ConfirmSignOutModal from '@components/ConfirmSignOutModal'
+import { Link } from 'react-router-dom'
+import constants from '@/constants'
 
 const SideBar = () => {
   const { user } = useAppSelector((state) => state.auth)
+
+  const signOutPopupRef = useRef()
+
+  const handleSignOut = () => {
+    signOutPopupRef.current.setVisibility(true)
+  }
+
   return (
     <>
       <div
@@ -26,14 +36,18 @@ const SideBar = () => {
       >
         <div className="flex justify-end px-4 pt-4"></div>
         <div className="flex flex-col items-center pb-10">
-          <img
-            className="mb-3 h-24 w-24 rounded-full shadow-lg"
-            src={Avatar}
-            alt="avatar"
-          />
-          <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            {user?.fullName}
-          </h5>
+          <Link to="/profile">
+            <img
+              className="mb-3 h-24 w-24 rounded-full shadow-lg object-cover"
+              src={constants.IMAGE_PREFIX + user?.avatar}
+              alt="avatar"
+            />
+          </Link>
+          <Link to="/profile">
+            <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+              {user?.fullName}
+            </h5>
+          </Link>
           <span className="text-sm text-gray-500 dark:text-gray-400">{user?.userRole?.title}</span>
         </div>
         <Sidebar aria-label="Sidebar with logo branding example">
@@ -91,7 +105,7 @@ const SideBar = () => {
               </SidebarItem>
               <SidebarItem
                 icon={FaExternalLinkAlt}
-                onClick={signOut}
+                onClick={handleSignOut}
               >
                 Çıkış Yap
               </SidebarItem>
@@ -99,6 +113,7 @@ const SideBar = () => {
           </Sidebar.Items>
         </Sidebar>
       </div>
+      <ConfirmSignOutModal ref={signOutPopupRef} />
     </>
   )
 }
