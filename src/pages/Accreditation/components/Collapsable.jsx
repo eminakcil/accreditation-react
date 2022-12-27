@@ -1,13 +1,12 @@
 import classNames from 'classnames'
-import { Table } from 'flowbite-react'
 import { useState } from 'react'
 
-const Collapsable = ({ item }) => {
+const Collapsable = ({ item, indent = 0 }) => {
   const [active, setActive] = useState(false)
 
   const colors = ['#C8D7E6', '#E4EAF1', '#F5F9FC', '#FAFCFF']
 
-  const indent = item.indent % colors.length
+  const colorIndex = indent % colors.length
 
   const toggleActivity = () => {
     setActive((x) => !x)
@@ -17,29 +16,10 @@ const Collapsable = ({ item }) => {
     <>
       <div
         onClick={toggleActivity}
-        style={{ backgroundColor: colors[indent] }}
+        style={{ backgroundColor: colors[colorIndex] }}
         className="text-gray-900 p-3 rounded-lg space-y-3 grid py-4"
       >
-        <span className="flex-1">
-          {item.no} {item.name}
-        </span>
-        <span></span>
-        <span className="flex text-cyan-700 justify-start">{item.extras}</span>
-        {'proofList' in item && (
-          <Table>
-            <Table.Head>
-              <Table.Cell>Başlık</Table.Cell>
-              <Table.Cell>Dosya</Table.Cell>
-            </Table.Head>
-            <Table.Body>
-              {item.proofList?.map((proof, index) => (
-                <Table.Row key={index}>
-                  <Table.Cell>{proof.title}</Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        )}
+        <span className="flex-1">{item.title}</span>
       </div>
 
       {'children' in item && (
@@ -51,6 +31,7 @@ const Collapsable = ({ item }) => {
           {item?.children?.map((item, index) => (
             <Collapsable
               key={index}
+              indent={indent + 1}
               item={item}
             />
           ))}
