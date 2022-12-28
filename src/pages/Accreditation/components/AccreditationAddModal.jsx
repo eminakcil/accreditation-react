@@ -2,6 +2,7 @@ import { AccreditationService } from '@services/index'
 import { Button, Card, Modal } from 'flowbite-react'
 import { forwardRef, Fragment, useImperativeHandle, useState } from 'react'
 import { BsQuestionCircle } from 'react-icons/Bs'
+import AccreditationSelect from './AccreditationSelect'
 
 const AccreditationAddModal = forwardRef(({ onSuccess }, ref) => {
   const [visibility, setVisibility] = useState(false)
@@ -27,7 +28,7 @@ const AccreditationAddModal = forwardRef(({ onSuccess }, ref) => {
     >
       <Modal.Header />
       <Modal.Body>
-        <div className="text-center text-gray-500">
+        <div className="text-center text-gray-500 max-h-screen">
           <BsQuestionCircle
             className="inline mb-4"
             size={32}
@@ -38,16 +39,7 @@ const AccreditationAddModal = forwardRef(({ onSuccess }, ref) => {
           </span>
           <div className="flex justify-center gap-4 py-4">
             <div className="grid grid-cols-1 gap-6">
-              {accreditationList &&
-                accreditationList.map((accreditation) => (
-                  <Fragment key={accreditation._id}>
-                    <Card style={{ backgroundColor: '#F9FCFF' }}>
-                      <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                        {accreditation.heading}
-                      </h5>
-                    </Card>
-                  </Fragment>
-                ))}
+              {accreditationList && <AccreditationSelect accreditationList={accreditationList} />}
             </div>
           </div>
         </div>
