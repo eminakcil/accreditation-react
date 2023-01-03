@@ -26,13 +26,10 @@ const PlanListCard = ({ businessPlanList }) => {
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
-                        Faaliyet Adı : {businessPlanList?.activity?.title}
+                        Plan Adı : {businessPlanList.title}
                       </p>
                       <p className="truncate text-sm text-gray-500 dark:text-gray-400">
                         Sorumlu : {businessPlanList?.responsible?.fullName}
-                      </p>
-                      <p className="truncate text-sm text-gray-500 dark:text-gray-400">
-                        Eğitim Yeri: {businessPlanList.title}
                       </p>
                     </div>
                     <div className="inline-flex flex-col items-center text-base font-semibold text-gray-900 dark:text-white">
