@@ -23,7 +23,6 @@ const BusinessPlan = lazy(() => import('./pages/BusinessPlans/BusinessPlanCreate
 const BusinessPlanList = lazy(() => import('./pages/BusinessPlans/BusinessPlanList'))
 const BusinessPlanDetail = lazy(() => import('./pages/BusinessPlans/BusinessPlanDetail'))
 const ManuelPlanList = lazy(() => import('./pages/BusinessPlans/ManuelPlanList'))
-const ManuelPlanDetail = lazy(() => import('./pages/BusinessPlans/ManuelPlanDetail'))
 
 const Accreditation = lazy(() => import('./pages/Accreditation/Accreditation'))
 
@@ -84,13 +83,6 @@ const routes = [
             lazy: true,
             auth: true,
             element: <ManuelPlanList />,
-          },
-          {
-            path: 'manuelList/:id',
-            name: 'manuelDetail',
-            lazy: true,
-            auth: true,
-            element: <ManuelPlanDetail />,
           },
         ],
       },

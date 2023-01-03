@@ -3,7 +3,7 @@ import {
   StrategicActivityService,
   StrategicPeriodService,
 } from '@services/index'
-import { Card, Dropdown } from 'flowbite-react'
+import { Card, Dropdown, Table } from 'flowbite-react'
 import Loading from '../../components/Loading'
 import React, { Fragment, useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import Divider from '@components/Divider'
 import Button from '@components/Button'
 import PlanListCard from './components/PlanListCard'
+import Hideable from '@pages/StrategicPlans/components/Hideable'
 
 const BusinessPlanList = () => {
   const [loading, setLoading] = useState(true)
@@ -20,6 +21,8 @@ const BusinessPlanList = () => {
 
   const [strategicPeriodList, setStrategicPeriodList] = useState(false)
   const [strategicActivityList, setStrategicActivityList] = useState(false)
+
+  const [show, setShow] = useState(false)
 
   const [filter, setFilter] = useState({})
 
@@ -43,7 +46,6 @@ const BusinessPlanList = () => {
       .catch(() => setError(true))
       .finally(() => setLoading(false))
   }
-
   useEffect(() => {
     fetchData()
   }, [])
@@ -69,6 +71,26 @@ const BusinessPlanList = () => {
           <Divider />
         </div>
         <Card>
+          <div className="flex gap-2 items-center">
+            <Button onClick={() => setShow((show) => !show)}>
+              {show ? 'Tabloyu Gizle' : 'Tabloyu Görüntüle'}
+            </Button>
+          </div>
+          <Hideable show={show}>
+            <Table striped={true}>
+              <Table.Head>
+                <Table.HeadCell colSpan={9}>İş Planları</Table.HeadCell>
+              </Table.Head>
+              <Table.Head>
+                <Table.HeadCell>Faaliyet Adı</Table.HeadCell>
+                <Table.HeadCell>Plan Adı</Table.HeadCell>
+                <Table.HeadCell>Tarih</Table.HeadCell>
+                <Table.HeadCell>Saat</Table.HeadCell>
+                <Table.HeadCell>Plan Tipi</Table.HeadCell>
+                <Table.HeadCell>Sorumlu</Table.HeadCell>
+              </Table.Head>
+            </Table>
+          </Hideable>
           <div className="mb-4 flex items-center justify-between">
             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
               İş Planları
@@ -119,6 +141,7 @@ const BusinessPlanList = () => {
             </button>
           </div>
           <Divider />
+
           <div>
             {businessPlanList && businessPlanList?.length > 0 ? (
               <PlanListCard businessPlanList={businessPlanList} />

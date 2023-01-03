@@ -2,7 +2,7 @@ import { Button, Card, Checkbox, Label, TextInput } from 'flowbite-react'
 import { useFormik } from 'formik'
 import React, { useRef, useState } from 'react'
 import { ManuelPlanShema } from '@/validations/ManuelPlanSchema'
-import { ManuelPlanService, StrategicPeriodService } from '@services/index'
+import { BusinessPlanService, StrategicPeriodService } from '@services/index'
 import toast from 'react-hot-toast'
 import { errorInfo, getPath } from '@/utils'
 import { Link, useNavigate } from 'react-router-dom'
@@ -24,25 +24,26 @@ const ManuelPlanCard = () => {
       location: '',
       period: '',
       statu: false,
+      planType: 'manuel',
     },
     validationSchema: ManuelPlanShema,
     onSubmit: (values) => {
       setLoading(true)
 
-      ManuelPlanService.create({
+      BusinessPlanService.create({
         title: values.title,
         responsible: values.responsible,
         date: values.date,
         time: values.time,
-        location: values.location,
         period: values.period,
         statu: values.statu,
+        planType: values.planType,
       })
         .then(() => {
           formik.resetForm()
           toast.success('Ekleme Başarılıdır!')
 
-          navigate(getPath('businessPlan'))
+          navigate(getPath('businessPlan.create'))
         })
         .finally(() => setLoading(false))
     },
@@ -70,7 +71,7 @@ const ManuelPlanCard = () => {
       <Card>
         <hr />
         <Link
-          to={getPath('businessPlan.manuelList')}
+          to={getPath('businessPlan')}
           className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
         >
           Tümünü Görüntüle
@@ -121,15 +122,15 @@ const ManuelPlanCard = () => {
                   />
                   {errorInfo(formik, 'title')}
                 </div>
-                <div>
+                {/* <div>
                   <div className="mb-2 block">
                     <Label
                       htmlFor="location"
                       color="red"
                       value="Faaliyetin Gerçekleşeceği Yer"
                     />
-                  </div>
-                  <TextInput
+                  </div> */}
+                {/* <TextInput
                     name="location"
                     placeholder="Faaliyetin gerçekleşeceği yer"
                     value={formik.values.location}
@@ -138,7 +139,7 @@ const ManuelPlanCard = () => {
                     color="red"
                   />
                   {errorInfo(formik, 'location')}
-                </div>
+                </div> */}
                 <div>
                   <div className="mb-2 block">
                     <Label

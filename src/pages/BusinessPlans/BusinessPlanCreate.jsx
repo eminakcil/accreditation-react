@@ -33,6 +33,7 @@ const BusinessPlanCreate = () => {
       activity: strategicActivityId,
       period: '',
       statu: false,
+      planType: 'business',
     },
     validationSchema: BusinessPlanShema,
     onSubmit: (values) => {
@@ -46,12 +47,13 @@ const BusinessPlanCreate = () => {
         activity: values.activity,
         period: values.period,
         statu: values.statu,
+        planType: values.planType,
       })
         .then(() => {
           formik.resetForm()
           toast.success('Ekleme Başarılıdır!')
 
-          navigate(getPath('businessPlan'))
+          navigate(getPath('businessPlan.create'))
         })
         .finally(() => setLoading(false))
     },
