@@ -78,10 +78,7 @@ const BusinessPlanProofPreview = ({ proof, handleComplete, completed }) => {
         ref={modalRef}
         onSuccess={onSuccess}
       />
-      <AccreditationAddModal
-        ref={modal2Ref}
-        onSuccess={onSuccess}
-      />
+      <AccreditationAddModal ref={modal2Ref} />
     </>
   )
 }
