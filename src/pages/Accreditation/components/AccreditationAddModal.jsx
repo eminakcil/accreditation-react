@@ -3,28 +3,49 @@ import Modal from '@components/Modal'
 import { AccreditationService } from '@services/index'
 import { useRef } from 'react'
 import { forwardRef, useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { BsQuestionCircle } from 'react-icons/Bs'
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft, FaCheck } from 'react-icons/fa'
+import { useParams } from 'react-router-dom'
 import AccreditationSelect from './AccreditationSelect'
 
 const AccreditationAddModal = forwardRef((props, ref) => {
   const [accreditationList, setAccreditationList] = useState(false)
   const selectRef = useRef()
 
+  const { id } = useParams()
+
   useEffect(() => {
-    AccreditationService.getAll().then((response) => setAccreditationList(response))
+    AccreditationService.getAllNested().then((response) => setAccreditationList(response))
   }, [])
 
-  console.log(selectRef.current?.selectedItems)
+  const handleSubmit = () => {
+    AccreditationService.addBusinessPlan({
+      businessPlanId: id,
+      accreditationIdList: selectRef.current?.selectedItems,
+    }).then((response) => {
+      console.log(response)
+      toast.success('Değişiklikler Kaydedildi!')
+      ref.current.setVisibility(false)
+    })
+  }
 
   return (
     <Modal ref={ref}>
-      <Button
-        variant="dark-0"
-        onClick={() => selectRef.current?.back()}
-      >
-        <FaArrowLeft />
-      </Button>
+      <div className="flex justify-between">
+        <Button
+          variant="dark-0"
+          onClick={() => selectRef.current?.back()}
+        >
+          <FaArrowLeft />
+        </Button>
+        <Button
+          variant="green"
+          onClick={handleSubmit}
+        >
+          <FaCheck />
+        </Button>
+      </div>
       <div className="text-center text-gray-500 max-h-screen">
         <BsQuestionCircle
           className="inline mb-4"

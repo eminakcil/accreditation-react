@@ -17,7 +17,6 @@ const AccreditationSelect = forwardRef(({ accreditationList }, ref) => {
   }
 
   const handleClick = (item) => {
-    // console.log(hasInArray(item._id))
     if (item.children.length > 0) {
       setActiveList(item.children)
     } else {

@@ -13,15 +13,14 @@ const HomePage = () => {
   const [strategicSystemList, setStrategicSystemList] = useState(false)
   const [strategicPlanList, setStrategicPlanList] = useState(false)
 
-  StrategicSystemService.getAll().then((response) => setStrategicSystemList(response))
-  StrategicPlanService.getAll().then((response) => setStrategicPlanList(response))
-
   useEffect(() => {
     fetchData()
   }, [])
 
   const fetchData = () => {
     BusinessPlanService.getAll({ limit: 5, fromnow: true }).then(setBusinessPlanList)
+    StrategicSystemService.getAll().then((response) => setStrategicSystemList(response))
+    StrategicPlanService.getAll().then((response) => setStrategicPlanList(response))
   }
 
   return (
