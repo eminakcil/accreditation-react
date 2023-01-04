@@ -5,6 +5,7 @@ import store from '@store/index'
 import { setUser } from '@store/authSlice'
 import ErrorMessage from '@components/ErrorMessage'
 import { toast } from 'react-hot-toast'
+import constants from './constants'
 
 /**
  *
@@ -92,4 +93,11 @@ export const generateSearchQuery = (obj) => {
   const searchQuery = arr.map(([key, value]) => `${key}=${value}`).join('&')
 
   return searchQuery
+}
+
+export const openLinkOnNewTab = (href) => {
+  const linkElement = document.createElement('a')
+  linkElement.target = '_blank'
+  linkElement.href = constants.IMAGE_PREFIX + href
+  linkElement.click()
 }

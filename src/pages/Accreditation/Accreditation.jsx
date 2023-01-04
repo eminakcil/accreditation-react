@@ -8,7 +8,7 @@ const Accreditation = () => {
   const [accreditationList, setAccreditationList] = useState(false)
 
   useEffect(() => {
-    AccreditationService.getAll().then((response) => setAccreditationList(response))
+    AccreditationService.getAllNested().then((response) => setAccreditationList(response))
   }, [])
 
   return (

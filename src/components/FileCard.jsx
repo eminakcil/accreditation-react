@@ -1,9 +1,12 @@
 import { BsFileEarmark } from 'react-icons/Bs'
 import { SlClose } from 'react-icons/sl'
 
-const FileCard = ({ isRemovable = true, onRemove, children, icon }) => {
+const FileCard = ({ isRemovable = true, onRemove, children, icon, ...props }) => {
   return (
-    <div className="bg-gray-50 border border-solid border-gray-300 rounded-lg flex items-stretch overflow-hidden">
+    <div
+      className="bg-gray-50 border border-solid border-gray-300 rounded-lg flex items-stretch overflow-hidden cursor-pointer hover:bg-gray-300"
+      {...props}
+    >
       <div className="bg-green-400 text-white p-4 grid place-items-center">
         {icon || <BsFileEarmark />}
       </div>
