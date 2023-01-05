@@ -90,20 +90,21 @@ const BusinessPlanList = () => {
                 <Table.HeadCell>Sorumlu</Table.HeadCell>
               </Table.Head>
               <Table.Body className="divide-y">
-                {businessPlanList.map((businessPlanList) => (
-                  <Table.Row key={businessPlanList._id}>
-                    <Table.Cell>
-                      {businessPlanList?.activity?.title ? businessPlanList?.activity?.title : ''}
-                    </Table.Cell>
-                    <Table.Cell>{businessPlanList.title}</Table.Cell>
-                    <Table.Cell>{yearFormat(businessPlanList.date)}</Table.Cell>
-                    <Table.Cell>{businessPlanList.time}</Table.Cell>
-                    <Table.Cell>
-                      {businessPlanList.planType == 'business' ? 'İş Planı' : 'Manuel İş Planı'}
-                    </Table.Cell>
-                    <Table.Cell>{businessPlanList.responsible.fullName}</Table.Cell>
-                  </Table.Row>
-                ))}
+                {businessPlanList &&
+                  businessPlanList.map((businessPlanList) => (
+                    <Table.Row key={businessPlanList._id}>
+                      <Table.Cell>
+                        {businessPlanList?.activity?.title ? businessPlanList?.activity?.title : ''}
+                      </Table.Cell>
+                      <Table.Cell>{businessPlanList.title}</Table.Cell>
+                      <Table.Cell>{yearFormat(businessPlanList.date)}</Table.Cell>
+                      <Table.Cell>{businessPlanList.time}</Table.Cell>
+                      <Table.Cell>
+                        {businessPlanList.planType == 'business' ? 'İş Planı' : 'Manuel İş Planı'}
+                      </Table.Cell>
+                      <Table.Cell>{businessPlanList.responsible.fullName}</Table.Cell>
+                    </Table.Row>
+                  ))}
               </Table.Body>
             </Table>
           </Hideable>

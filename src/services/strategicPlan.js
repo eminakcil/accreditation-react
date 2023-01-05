@@ -4,4 +4,5 @@ const SERVICE_PATH = 'strategic-plans'
 
 export const getAll = () => get(SERVICE_PATH)
 export const getById = (id) => get(SERVICE_PATH.concat('/', id))
+export const exportFile = (id) => get(SERVICE_PATH.concat('/', id, '/export'))
 export const create = (data) => postJSON(SERVICE_PATH, data)

@@ -1,4 +1,4 @@
-import { getPath } from '@/utils'
+import { getPath, openLinkOnNewTab } from '@/utils'
 import { StrategicGoalShema } from '@/validations/StrategicPlanSchema'
 import Divider from '@components/Divider'
 import Input from '@components/Input'
@@ -17,6 +17,7 @@ import AddButton from './components/AddButton'
 import SubmitButton from './components/SubmitButton'
 import EditButton from './components/EditButton'
 import ErrorMessage from '../../components/ErrorMessage'
+import { FaFileExport } from 'react-icons/fa'
 const StrategicActivityList = lazy(() => import('./components/StrategicActivityList'))
 
 const StrategicPlanDetail = () => {
@@ -120,6 +121,12 @@ const StrategicPlanDetail = () => {
     }))
   }
 
+  const exportHandle = () => {
+    StrategicPlanService.exportFile(params.strategicPlanId).then((response) => {
+      openLinkOnNewTab(response.path)
+    })
+  }
+
   if (loading) return <Loading />
 
   if (error)
@@ -147,6 +154,9 @@ const StrategicPlanDetail = () => {
                 onClick={toggleEditMode}
                 canEdit={canEdit}
               />
+              <Button onClick={exportHandle}>
+                <FaFileExport />
+              </Button>
             </div>
             <Hideable show={show}>
               <Table striped={true}>
