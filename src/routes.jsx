@@ -31,6 +31,8 @@ const MemberCreate = lazy(() => import('./pages/MemberList/MemberCreate'))
 
 const Survey = lazy(() => import('./pages/Survey/Survey'))
 
+const ChangePassword = lazy(() => import('./pages/User/ChangePassword'))
+
 /** B@type {import('react-router-dom').RouteObject[]} */
 
 const routes = [
@@ -139,6 +141,18 @@ const routes = [
           {
             index: true,
             element: <RoomInformation />,
+            lazy: true,
+            auth: true,
+          },
+        ],
+      },
+      {
+        path: 'change-password',
+        name: 'changePassword',
+        children: [
+          {
+            index: true,
+            element: <ChangePassword />,
             lazy: true,
             auth: true,
           },
