@@ -63,6 +63,16 @@ const BusinessPlanCreate = () => {
     formik.setFieldValue('period', selectedPeriod?._id || '')
   }, [selectedPeriod])
 
+  console.log(selectedPeriod?.year)
+
+  const periodLimit = useMemo(() => {
+    if (selectedPeriod) {
+      const year = selectedPeriod.year
+      return [`${year}-01-01`, `${year}-12-31`]
+    }
+    return [false, false]
+  }, [selectedPeriod])
+
   const [strategicActivity, setStrategicActivity] = useState(false)
 
   const getActivity = async () => {
@@ -155,6 +165,8 @@ const BusinessPlanCreate = () => {
                           <TextInput
                             name="date"
                             type="date"
+                            min={periodLimit[0]}
+                            max={periodLimit[1]}
                             value={formik.values.date}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
