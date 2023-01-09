@@ -1,9 +1,34 @@
 import constants from '@/constants'
+import { errorInfo, signOut } from '@/utils'
 import Button from '@components/Button'
+import { UserService } from '@services/index'
+import { useAppSelector } from '@store/index'
 import { Card, Label, TextInput } from 'flowbite-react'
+import { useFormik } from 'formik'
 import React from 'react'
+import { toast } from 'react-hot-toast'
 
 const ChangePassword = () => {
+  const { user } = useAppSelector((state) => state.auth)
+
+  const formik = useFormik({
+    initialValues: {
+      password: '',
+      newPassword: '',
+    },
+    onSubmit: (values) => {
+      UserService.changePassword({
+        mail: user.mail,
+        password: values.password,
+        newPassword: values.newPassword,
+      }).then(() => {
+        toast.success('Şifreniz Değiştirildi!')
+
+        signOut()
+      })
+    },
+  })
+
   return (
     <>
       <Card>
@@ -18,28 +43,37 @@ const ChangePassword = () => {
           </h5>
           <div className="py-4 w-full max-w-xl">
             <Card>
-              <div>
-                <div className="mb-2 block">
-                  <Label value="Mevcut Şifre" />
+              <form onSubmit={formik.handleSubmit}>
+                <div>
+                  <div className="mb-2 block">
+                    <Label value="Mevcut Şifre" />
+                  </div>
+                  <TextInput
+                    type="password"
+                    placeholder="Mevcut Şifre"
+                    name="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {errorInfo(formik, 'password')}
                 </div>
-                <TextInput
-                  type="password"
-                  name="password"
-                  placeholder="Mevcut Şifre"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label value="Yeni Şifre" />
+                <div>
+                  <div className="mb-2 block">
+                    <Label value="Yeni Şifre" />
+                  </div>
+                  <TextInput
+                    type="password"
+                    placeholder="Yeni Şifre"
+                    name="newPassword"
+                    value={formik.values.newPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {errorInfo(formik, 'newPassword')}
                 </div>
-                <TextInput
-                  type="password"
-                  placeholder="Yeni Şifre"
-                  name="newPassword"
-                />
-              </div>
-              <div></div>
-              <Button type="submit">Şifre Değiştir</Button>
+                <Button type="submit">Şifre Değiştir</Button>
+              </form>
             </Card>
           </div>
         </div>
