@@ -13,7 +13,6 @@ import {
   FaEdit,
   FaRegListAlt,
 } from 'react-icons/fa'
-import Avatar from '@assets/img/avatar.jpg'
 import { useRef } from 'react'
 import ConfirmSignOutModal from '@components/ConfirmSignOutModal'
 import { Link } from 'react-router-dom'

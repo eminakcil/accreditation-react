@@ -98,6 +98,6 @@ export const generateSearchQuery = (obj) => {
 export const openLinkOnNewTab = (href) => {
   const linkElement = document.createElement('a')
   linkElement.target = '_blank'
-  linkElement.href = constants.IMAGE_PREFIX + href
+  linkElement.href = constants.IMAGE_PREFIX + '/' + href
   linkElement.click()
 }
