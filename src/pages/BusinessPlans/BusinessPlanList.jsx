@@ -3,7 +3,7 @@ import {
   StrategicActivityService,
   StrategicPeriodService,
 } from '@services/index'
-import { Card, Dropdown, Table } from 'flowbite-react'
+import { Card, Table } from 'flowbite-react'
 import Loading from '../../components/Loading'
 import React, { Fragment, useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
@@ -13,6 +13,7 @@ import Divider from '@components/Divider'
 import Button from '@components/Button'
 import PlanListCard from './components/PlanListCard'
 import Hideable from '@pages/StrategicPlans/components/Hideable'
+import Select from '@components/Select'
 
 const BusinessPlanList = () => {
   const [loading, setLoading] = useState(true)
@@ -53,6 +54,10 @@ const BusinessPlanList = () => {
   useEffect(() => {
     fetchBusinessPlanList()
   }, [filter])
+
+  const handleSelectChange = (value, key) => {
+    setFilter((x) => ({ ...x, [key]: value }))
+  }
 
   if (loading) return <Loading />
 
@@ -108,47 +113,43 @@ const BusinessPlanList = () => {
               </Table.Body>
             </Table>
           </Hideable>
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-4 flex items-center justify-between gap-3">
             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
               İş Planları
             </h5>
-            <Dropdown
-              label="Yıl Seç"
-              inline={true}
-            >
-              {strategicPeriodList?.map?.((period) => (
-                <Dropdown.Item
-                  key={period._id}
-                  onClick={() => setFilter((x) => ({ ...x, period: period._id }))}
-                >
-                  {period.year}
-                </Dropdown.Item>
-              ))}
-            </Dropdown>
-            <Dropdown
-              label="Faaliyet Seç"
-              inline={true}
-            >
-              {strategicActivityList?.map?.((activity) => (
-                <Dropdown.Item
-                  key={activity._id}
-                  onClick={() => setFilter((x) => ({ ...x, activity: activity._id }))}
-                >
-                  {activity.title}
-                </Dropdown.Item>
-              ))}
-            </Dropdown>
-            <Dropdown
-              label="Tamamlanma durumuna göre"
-              inline={true}
-            >
-              <Dropdown.Item onClick={() => setFilter((x) => ({ ...x, statu: true }))}>
-                Tamamlananlar
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setFilter((x) => ({ ...x, statu: false }))}>
-                Henüz tamamlanmayanlar
-              </Dropdown.Item>
-            </Dropdown>
+            <Select
+              title="Yıl Seç"
+              options={strategicPeriodList?.map?.((period) => ({
+                text: period.year,
+                value: period._id,
+              }))}
+              value={filter?.period}
+              onChange={(value) => handleSelectChange(value, 'period')}
+            />
+            <Select
+              title="Faaliyet Seç"
+              options={strategicActivityList?.map?.((activity) => ({
+                text: activity.title,
+                value: activity._id,
+              }))}
+              value={filter?.activity}
+              onChange={(value) => handleSelectChange(value, 'activity')}
+            />
+            <Select
+              title="Tamamlanma durumuna göre"
+              options={[
+                {
+                  text: 'Tamamlananlar',
+                  value: true,
+                },
+                {
+                  text: 'Henüz tamamlanmayanlar',
+                  value: false,
+                },
+              ]}
+              value={filter?.statu}
+              onChange={(value) => handleSelectChange(value, 'statu')}
+            />
             <button
               type="button"
               onClick={() => setFilter({})}
