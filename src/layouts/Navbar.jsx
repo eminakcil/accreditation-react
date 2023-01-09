@@ -95,7 +95,7 @@ const Navbar = () => {
                 </Link>
               </Dropdown.Header>
               <DropdownItem to="/">Ana Sayfa</DropdownItem>
-              <Dropdown.Item>Ayarlar</Dropdown.Item>
+              {/* <Dropdown.Item>Ayarlar</Dropdown.Item> */}
               <DropdownItem to={getPath('changePassword')}>Şifremi Değiştir</DropdownItem>
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleSignOut}>
