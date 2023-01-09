@@ -1,5 +1,6 @@
 import constants from '@/constants'
 import { errorInfo, signOut } from '@/utils'
+import { ChangePasswordSchema } from '@/validations/UserSchema'
 import Button from '@components/Button'
 import { UserService } from '@services/index'
 import { useAppSelector } from '@store/index'
@@ -16,15 +17,16 @@ const ChangePassword = () => {
       password: '',
       newPassword: '',
     },
+    validationSchema: ChangePasswordSchema,
     onSubmit: (values) => {
       UserService.changePassword({
         mail: user.mail,
         password: values.password,
         newPassword: values.newPassword,
       }).then(() => {
-        toast.success('Şifreniz Değiştirildi!')
-
         signOut()
+
+        toast.success('Şifreniz Değiştirildi!')
       })
     },
   })
