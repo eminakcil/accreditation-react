@@ -26,6 +26,9 @@ const ManuelPlanList = lazy(() => import('./pages/BusinessPlans/ManuelPlanList')
 
 const Accreditation = lazy(() => import('./pages/Accreditation/Accreditation'))
 
+const MemberList = lazy(() => import('./pages/MemberList/MemberList'))
+const MemberCreate = lazy(() => import('./pages/MemberList/MemberCreate'))
+
 const Survey = lazy(() => import('./pages/Survey/Survey'))
 
 /** B@type {import('react-router-dom').RouteObject[]} */
@@ -95,6 +98,25 @@ const routes = [
             element: <Accreditation />,
             lazy: true,
             auth: true,
+          },
+        ],
+      },
+      {
+        path: 'member-list',
+        name: 'memberList',
+        children: [
+          {
+            index: true,
+            element: <MemberList />,
+            lazy: true,
+            auth: true,
+          },
+          {
+            path: 'create',
+            name: 'create',
+            lazy: true,
+            auth: true,
+            element: <MemberCreate />,
           },
         ],
       },

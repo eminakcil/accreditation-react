@@ -120,6 +120,9 @@ const Navbar = () => {
               <div className="text-xl">
                 <NavbarLink to={getPath('survey')}>Anketler</NavbarLink>
               </div>
+              <div className="text-xl">
+                <NavbarLink to={getPath('memberList')}>Katılım Listeleri</NavbarLink>
+              </div>
             </NNavbar.Collapse>
           </div>
         </NNavbar>
