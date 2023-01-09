@@ -1,6 +1,7 @@
 import constants from '@/constants'
 import { getPath } from '@/utils'
 import ConfirmSignOutModal from '@components/ConfirmSignOutModal'
+import DropdownItem from '@components/DropdownItem'
 import NavbarLink from '@components/NavbarLink'
 import { useAppSelector } from '@store/index'
 import { Dropdown, Navbar as NNavbar } from 'flowbite-react'
@@ -93,9 +94,9 @@ const Navbar = () => {
                   <span className="block truncate text-sm font-medium">{user.mail}</span>
                 </Link>
               </Dropdown.Header>
-              <Dropdown.Item to="/">Ana Sayfa</Dropdown.Item>
+              <DropdownItem to="/">Ana Sayfa</DropdownItem>
               <Dropdown.Item>Ayarlar</Dropdown.Item>
-              <Dropdown.Item>Şifremi Değiştir </Dropdown.Item>
+              <DropdownItem to={getPath('changePassword')}>Şifremi Değiştir</DropdownItem>
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleSignOut}>
                 <span className="select-none">Çıkış Yap</span>
