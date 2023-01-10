@@ -117,24 +117,28 @@ const BusinessPlanList = () => {
             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
               İş Planları
             </h5>
-            <Select
-              title="Yıl Seç"
-              options={strategicPeriodList?.map?.((period) => ({
-                text: period.year,
-                value: period._id,
-              }))}
-              value={filter?.period}
-              onChange={(value) => handleSelectChange(value, 'period')}
-            />
-            <Select
-              title="Faaliyet Seç"
-              options={strategicActivityList?.map?.((activity) => ({
-                text: activity.title,
-                value: activity._id,
-              }))}
-              value={filter?.activity}
-              onChange={(value) => handleSelectChange(value, 'activity')}
-            />
+            {Array.isArray(strategicPeriodList) && (
+              <Select
+                title="Yıl Seç"
+                options={strategicPeriodList?.map?.((period) => ({
+                  text: period.year,
+                  value: period._id,
+                }))}
+                value={filter?.period}
+                onChange={(value) => handleSelectChange(value, 'period')}
+              />
+            )}
+            {Array.isArray(strategicActivityList) && (
+              <Select
+                title="Faaliyet Seç"
+                options={strategicActivityList?.map?.((activity) => ({
+                  text: activity.title,
+                  value: activity._id,
+                }))}
+                value={filter?.activity}
+                onChange={(value) => handleSelectChange(value, 'activity')}
+              />
+            )}
             <Select
               title="Tamamlanma durumuna göre"
               options={[
