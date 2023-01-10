@@ -1,6 +1,6 @@
 import Button from '@components/Button'
 import Modal from '@components/Modal'
-import { AccreditationService } from '@services/index'
+import { AccreditationService, BusinessPlanService } from '@services/index'
 import { useRef } from 'react'
 import { forwardRef, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
@@ -13,9 +13,14 @@ const AccreditationAddModal = forwardRef((props, ref) => {
   const [accreditationList, setAccreditationList] = useState(false)
   const selectRef = useRef()
 
+  const [existingSelectedItems, setExistingSelectedItems] = useState([])
+
   const { id } = useParams()
 
   useEffect(() => {
+    BusinessPlanService.getById(id).then((response) => {
+      setExistingSelectedItems(response.accreditationList.map((x) => x._id))
+    })
     AccreditationService.getAllNested().then((response) => setAccreditationList(response))
   }, [])
 
@@ -59,6 +64,7 @@ const AccreditationAddModal = forwardRef((props, ref) => {
               <AccreditationSelect
                 ref={selectRef}
                 accreditationList={accreditationList}
+                sselectedItems={existingSelectedItems}
               />
             )}
           </div>

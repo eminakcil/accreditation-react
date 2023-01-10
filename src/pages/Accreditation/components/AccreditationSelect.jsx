@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { useCallback } from 'react'
 import { forwardRef, useImperativeHandle, useState } from 'react'
 
-const AccreditationSelect = forwardRef(({ accreditationList }, ref) => {
+const AccreditationSelect = forwardRef(({ accreditationList, sselectedItems }, ref) => {
   const [activeList, setActiveList] = useState(accreditationList)
   const [selectedItems, setSelectedItems] = useState([])
 
@@ -25,7 +25,7 @@ const AccreditationSelect = forwardRef(({ accreditationList }, ref) => {
   }
 
   const hasInArray = useCallback(
-    (id) => selectedItems.indexOf(id) !== -1,
+    (id) => selectedItems.indexOf(id) !== -1 || sselectedItems.indexOf(id) !== -1,
     [selectedItems, accreditationList, activeList]
   )
 
