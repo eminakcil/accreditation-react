@@ -4,7 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import classNames from 'classnames'
 import { BsX } from 'react-icons/Bs'
 
-const Modal = forwardRef(({ duration = 300, children }, ref) => {
+const Modal = forwardRef(({ duration = 300, children, onClose }, ref) => {
   const [visibility, setVisibility] = useState(false)
   const [hidden, setHidden] = useState(true)
 
@@ -16,6 +16,8 @@ const Modal = forwardRef(({ duration = 300, children }, ref) => {
     if (visibility) {
       setHidden(false)
     } else {
+      onClose?.()
+
       setTimeout(() => {
         setHidden(true)
       }, duration)
