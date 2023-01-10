@@ -92,7 +92,6 @@ const Survey = () => {
       questions,
     })
       .then((response) => {
-        console.log(response)
         toast.success('Kaydedildi', {
           position: 'top-right',
           autoClose: 2000,
@@ -112,7 +111,6 @@ const Survey = () => {
   }
 
   const logoChangeHandle = (logo) => {
-    console.log(logo)
     setSelectedLogo(logo)
   }
 

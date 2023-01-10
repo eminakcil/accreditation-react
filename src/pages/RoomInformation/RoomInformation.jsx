@@ -39,7 +39,6 @@ const RoomInformation = () => {
   )
 
   const handleSubmit = (response) => {
-    console.log(response)
     fetchData()
   }
 

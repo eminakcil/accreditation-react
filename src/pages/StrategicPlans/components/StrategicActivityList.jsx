@@ -86,7 +86,6 @@ const StrategicActivityList = ({
                   }}
                   onClick={(e) => {
                     e.stopPropagation()
-                    console.log('damla')
                   }}
                   className="float-right inline-flex items-center gap-2"
                 >

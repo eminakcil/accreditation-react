@@ -12,7 +12,6 @@ const StrategicPlanCreate = ({ initalTabId = 1 }) => {
 
   const handleCreateSystem = (system) => {
     setActiveTabId(2)
-    console.log(system)
     setTimeout(() => {
       planRef.current.selectSystem(system._id)
     }, 300)

@@ -22,7 +22,6 @@ const Login = () => {
     },
     validationSchema: LoginShema,
     onSubmit: (values) => {
-      console.log(values)
       UserService.login(values)
         .then((response) => {
           dispatch(setUser(response))
@@ -41,11 +40,8 @@ const Login = () => {
             default:
               break
           }
-          console.log('catch', error)
         })
-        .finally(() => {
-          console.log('end')
-        })
+        .finally(() => {})
     },
   })
 

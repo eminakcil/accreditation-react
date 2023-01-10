@@ -24,7 +24,6 @@ const StrategicSystemForm = ({ handleCreateSystem = () => {} }) => {
         })
         .catch((error) => {
           toast.error('Eklenemedi! :(((')
-          console.log('Eklenemedi', error)
         })
         .finally(() => setLoading(false))
     },

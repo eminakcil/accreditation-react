@@ -30,7 +30,6 @@ const ImageModal = ({ show, onClose, onChange }) => {
     })
 
   const fileChangeHandle = (files) => {
-    console.log(files)
     if (files.length > 0) setSelectedFile(files[0])
   }
 

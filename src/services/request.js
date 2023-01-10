@@ -47,13 +47,11 @@ function request(url, data = false, method = 'GET', type = 'FORM_DATA') {
                   store.dispatch(setUser(false))
                   break
                 case 'jwt expired': {
-                  console.log('token yenile')
                   if (!inner) {
                     UserService.refreshToken({
                       refreshToken: user.tokens.refreshToken,
                     })
                       .then((response) => {
-                        console.log('cevap', response)
                         store.dispatch(setUser({ ...user, tokens: response, ne: 'tamam' }))
                         fetchData(true)
                       })

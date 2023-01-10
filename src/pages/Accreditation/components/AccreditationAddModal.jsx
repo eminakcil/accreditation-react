@@ -29,7 +29,6 @@ const AccreditationAddModal = forwardRef((props, ref) => {
       businessPlanId: id,
       accreditationIdList: selectRef.current?.selectedItems,
     }).then((response) => {
-      console.log(response)
       toast.success('Değişiklikler Kaydedildi!')
       ref.current.setVisibility(false)
     })

@@ -48,11 +48,9 @@ const StrategicPlanForm = forwardRef((props, ref) => {
               strategicPlanId: response._id,
             })
           )
-          console.log(response)
         })
         .catch((error) => {
           toast.error('Eklenemedi! :(((')
-          console.log('Eklenemedi', error)
         })
         .finally(() => setLoading(false))
     },
