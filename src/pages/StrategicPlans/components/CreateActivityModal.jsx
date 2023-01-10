@@ -20,6 +20,7 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
   }, [show])
 
   const [loading, setLoading] = useState(false)
+  const [selectedUser, setSelectedUser] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -42,6 +43,7 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
       })
         .then((response) => {
           formik.resetForm()
+          setSelectedUser(false)
           toast.success('Faaliyet ve Performans Göstergesi Olşturuldu!')
           onSubmit({ ...response, strategicGoalId: params.strategicGoalId })
           onClose()
@@ -52,8 +54,6 @@ const CreateActivityModal = ({ show, onClose, periodList, onSubmit = () => {} })
         .finally(() => setLoading(false))
     },
   })
-
-  const [selectedUser, setSelectedUser] = useState(false)
 
   const handleSelectMemberClick = () => {
     setActiveViewOrder(1)
