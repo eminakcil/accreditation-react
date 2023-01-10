@@ -1,10 +1,13 @@
-import { openLinkOnNewTab } from '@/utils'
+import { getPath, openLinkOnNewTab } from '@/utils'
 import Divider from '@components/Divider'
 import FileCard from '@components/FileCard'
 import classNames from 'classnames'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Collapsable = ({ item, indent = 0 }) => {
+  const navigate = useNavigate()
+
   const [active, setActive] = useState(false)
 
   const colors = ['#C8D7E6', '#E4EAF1', '#F5F9FC', '#FAFCFF']
@@ -30,7 +33,10 @@ const Collapsable = ({ item, indent = 0 }) => {
             {item.businessPlanList.map((businessPlan) => (
               <div
                 key={businessPlan._id}
-                className="block p-6 bg-white border border-solid border-gray-200 rounded-lg shadow-md hover:bg-gray-100 max-w-full overflow-hidden"
+                className="block p-6 bg-white border border-solid border-gray-200 rounded-lg shadow-md hover:bg-gray-100 max-w-full overflow-hidden cursor-pointer"
+                onClick={() => {
+                  navigate(getPath('businessPlan.detail', { id: businessPlan._id }))
+                }}
               >
                 <span>{businessPlan.title}</span>
                 <p className="text-ellipsis overflow-hidden font-thin text-sm">
@@ -40,7 +46,10 @@ const Collapsable = ({ item, indent = 0 }) => {
                   {businessPlan.proof.path.map((path, index) => (
                     <FileCard
                       key={index}
-                      onClick={() => openLinkOnNewTab(path)}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        openLinkOnNewTab(path)
+                      }}
                       isRemovable={false}
                     >
                       {path}
